@@ -1,5 +1,5 @@
 /* ═══ LOYAL STUDIOS — DATA ═══ */
-const WA_NUM = "59171234567";
+const WA_NUM = "59175613517";
 const TIENDA = "Loyal Studios™";
 
 const BRANDS = [

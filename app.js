@@ -86,11 +86,13 @@ function badge(b) {
 }
 
 function cardHTML(p) {
+  const uid = "#" + String(p.id).padStart(2, "0");
   return `
     <article class="card" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
+        <div class="card-uid">${uid}</div>
         <div class="card-cta">Ver producto →</div>
       </div>
       <div class="card-body">
@@ -149,6 +151,7 @@ function openDetail(id) {
   tag.className = "d-brand-tag" + (cur.marca_id === "deprimera" ? " dp" : "");
 
   document.getElementById("d-gen").textContent = cur.genero.toUpperCase();
+  document.getElementById("d-uid").textContent = "#" + String(cur.id).padStart(2, "0");
   document.getElementById("d-name").textContent = cur.nombre;
   document.getElementById("d-price").textContent = cur.precio;
   document.getElementById("d-desc").textContent = cur.desc;
@@ -234,15 +237,27 @@ function addToCart() {
     setTimeout(() => sz.style.animation = "", 400);
     return;
   }
+  const btn = document.getElementById("d-add-cart");
+  if (btn.disabled) return; // evita spam
+
   const existing = cart.find(it => it.id === cur.id && it.talla === curSize);
   if (existing) {
-    existing.qty = (existing.qty || 1) + 1;
-  } else {
-    cart.push({
-      id: cur.id, nombre: cur.nombre, precio: cur.precio,
-      talla: curSize, foto: cur.fotos[0], marca: cur.marca, qty: 1
-    });
+    // Ya está en el carrito — no agregar duplicado
+    btn.classList.add("added");
+    btn.querySelector("span").textContent = "✓ Ya está en el carrito";
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.classList.remove("added");
+      btn.querySelector("span").textContent = "Agregar al carrito";
+      btn.disabled = false;
+    }, 1800);
+    return;
   }
+
+  cart.push({
+    id: cur.id, nombre: cur.nombre, precio: cur.precio,
+    talla: curSize, foto: cur.fotos[0], marca: cur.marca, qty: 1
+  });
   localStorage.setItem("ls_cart", JSON.stringify(cart));
   updateCartUI();
 
@@ -257,12 +272,13 @@ function addToCart() {
     });
   }
 
-  const btn = document.getElementById("d-add-cart");
   btn.classList.add("added");
   btn.querySelector("span").textContent = "✓ Agregado";
+  btn.disabled = true;
   setTimeout(() => {
     btn.classList.remove("added");
     btn.querySelector("span").textContent = "Agregar al carrito";
+    btn.disabled = false;
   }, 1600);
 }
 
