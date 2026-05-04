@@ -3,3 +3,24 @@ Mobile Preview.html
 Hero Type Mobile.html
 Hero Type Options.html
 .claude/
+
+# Archivos pesados — no subir a GitHub
+ffmpeg.exe
+prendas_jpg/
+prendas_webp/
+procesar_nuevas_prendas/
+
+# Scripts de proceso
+*.ps1
+reporte.txt
+productos.csv
+productos.json
+$dest/
+
+# Previews temporales
+catalogo.html
+catalogo-*.html
+catalogo-*.json
+preview-*.html
+ver-catalogo.html
+revisar-*.html

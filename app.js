@@ -271,7 +271,11 @@ function cartTotalQty() {
   return cart.reduce((s, it) => s + (it.qty || 1), 0);
 }
 function cartTotalPrice() {
-  return cart.reduce((s, it) => s + (parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0) * (it.qty || 1), 0);
+  return cart.reduce((sum, it) => {
+    const price = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
+    const qty = Math.max(0, parseInt(it.qty || 1));
+    return sum + (price * qty);
+  }, 0);
 }
 
 function updateCartUI() {
@@ -300,34 +304,41 @@ function updateCartUI() {
   footerEl.style.display = "block";
 
   itemsEl.innerHTML = cart.map((it, i) => {
-    const qty    = it.qty || 1;
-    const price  = parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0;
-    const subtotal = (price * qty).toFixed(0);
+    const qty    = Math.max(1, parseInt(it.qty || 1));
+    const price  = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
+    const subtotal = Math.round(price * qty);
     return `
-    <div class="cart-item">
-      <img class="cart-item-img" src="${it.foto}" alt="">
+    <div class="cart-item" data-cart-idx="${i}">
+      <div class="cart-item-img-wrap">
+        <img class="cart-item-img" src="${it.foto}" alt="${it.nombre}" loading="lazy">
+      </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${it.nombre}</div>
-        <div class="cart-item-meta">${it.marca}${it.talla ? " · T " + it.talla : ""}</div>
+        <div class="cart-item-meta">${it.marca}${it.talla ? " · Talla " + it.talla : ""}</div>
         <div class="cart-item-bottom">
           <div class="qty-ctrl">
-            <button class="qty-btn" onclick="changeQty(${i},-1)" aria-label="Menos">−</button>
+            <button class="qty-btn qty-minus" onclick="changeQty(${i},-1)" aria-label="Disminuir cantidad" data-idx="${i}">−</button>
             <span class="qty-val">${qty}</span>
-            <button class="qty-btn" onclick="changeQty(${i},1)" aria-label="Más">+</button>
+            <button class="qty-btn qty-plus" onclick="changeQty(${i},1)" aria-label="Aumentar cantidad" data-idx="${i}">+</button>
           </div>
           <div class="cart-item-price">Bs. ${subtotal}</div>
         </div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar">×</button>
+      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar producto">×</button>
     </div>`;
   }).join("");
+
+  const totalPrice = Math.round(cartTotalPrice());
+  document.getElementById("cart-total").textContent = "Bs. " + totalPrice;
 
   document.getElementById("cart-total").textContent = "Bs. " + cartTotalPrice().toFixed(0);
 }
 
 function changeQty(i, delta) {
+  if (i < 0 || i >= cart.length) return;
   const qty = (cart[i].qty || 1) + delta;
   if (qty < 1) { removeFromCart(i); return; }
+  if (qty > 99) return; // Max 99 items
   cart[i].qty = qty;
   localStorage.setItem("ls_cart", JSON.stringify(cart));
   updateCartUI();
