@@ -155,12 +155,12 @@ const ITEMS = [
     nombre:"GUESS Active Crop Quarter-Zip — Burdeos",
     precio:"Bs. 389", tallas:["XS","L"],
     desc:"GUESS reescribió el crop. Quarter-zip activo en burdeos intenso, GUESS en letras grandes en el ribete — logo que marca territorio. Tela técnica premium, corte femenino ceñido que favorece. Del entrenamiento al café sin cambiar de ropa.",
-    fotos:["fotos_catalogo/Mujer/2/IMG_2018.jpg","fotos_catalogo/Mujer/2/IMG_2021.jpg","fotos_catalogo/Mujer/2/IMG_2022.jpg","fotos_catalogo/Mujer/2/IMG_2024.jpg","fotos_catalogo/Mujer/2/IMG_2027.jpg"]},
+    fotos:["fotos_catalogo/Mujer/2/IMG_2021.jpg","fotos_catalogo/Mujer/2/IMG_2018.jpg","fotos_catalogo/Mujer/2/IMG_2022.jpg","fotos_catalogo/Mujer/2/IMG_2024.jpg","fotos_catalogo/Mujer/2/IMG_2027.jpg"]},
 
   { id:24, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"last", stock:true,
     nombre:"GUESS Active Crop Quarter-Zip — Negro",
     precio:"Bs. 379", tallas:["S"],
     desc:"El negro que GUESS convirtió en declaración. Mismo quarter-zip icónico, mismo ribete con el logo que no pasa desapercibido — en negro total, más actitud. Combinalo con todo o dejalo hablar solo. Siempre funciona.",
-    fotos:["fotos_catalogo/Mujer/3/IMG_2005.jpg","fotos_catalogo/Mujer/3/IMG_2028.jpg","fotos_catalogo/Mujer/3/IMG_2030.jpg","fotos_catalogo/Mujer/3/IMG_2032.jpg","fotos_catalogo/Mujer/3/IMG_2033.jpg","fotos_catalogo/Mujer/3/IMG_2034.jpg"]}
+    fotos:["fotos_catalogo/Mujer/3/IMG_2028.jpg","fotos_catalogo/Mujer/3/IMG_2005.jpg","fotos_catalogo/Mujer/3/IMG_2030.jpg","fotos_catalogo/Mujer/3/IMG_2032.jpg","fotos_catalogo/Mujer/3/IMG_2033.jpg","fotos_catalogo/Mujer/3/IMG_2034.jpg"]}
 
 ];
