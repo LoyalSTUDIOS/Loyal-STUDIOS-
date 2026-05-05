@@ -692,10 +692,15 @@ footer{
   padding:3px 7px;border-radius:4px;
   border:1px solid rgba(255,255,255,.12);
 }
-/* FOMO en card */
+/* FOMO en card — chip sólido visible en fondo oscuro y crema */
 .card-fomo{
-  font-size:10px;font-weight:600;letter-spacing:.5px;
-  color:var(--accent);margin-top:6px;
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:#0a0a0a;
+  background:var(--accent);
+  padding:4px 8px;border-radius:4px;
+  margin-top:10px;
 }
 
 /* FOMO en detalle */

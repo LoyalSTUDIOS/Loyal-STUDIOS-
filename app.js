@@ -323,13 +323,19 @@ function addToCart() {
 
 // ═══ CART ═══
 function cartTotalQty() {
-  return cart.reduce((s, it) => s + (it.qty || 1), 0);
+  return cart.reduce((s, it) => s + (parseInt(it.qty) || 1), 0);
+}
+function priceOf(it) {
+  // Busca el precio actual del producto en ITEMS (más confiable que it.precio en localStorage)
+  const p = ITEMS.find(x => x.id === it.id);
+  const raw = (p && p.precio) || it.precio || "0";
+  const num = parseFloat(String(raw).replace(/[^0-9.]/g, ""));
+  return isNaN(num) ? 0 : Math.abs(num);
 }
 function cartTotalPrice() {
   return cart.reduce((sum, it) => {
-    const price = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
-    const qty = Math.max(0, parseInt(it.qty || 1));
-    return sum + (price * qty);
+    const qty = Math.max(1, parseInt(it.qty) || 1);
+    return sum + (priceOf(it) * qty);
   }, 0);
 }
 
@@ -360,8 +366,8 @@ function updateCartUI() {
 
   footerEl.style.display = "block";
   itemsEl.innerHTML = cart.map((it, i) => {
-    const qty      = Math.max(1, parseInt(it.qty || 1));
-    const price    = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
+    const qty      = Math.max(1, parseInt(it.qty) || 1);
+    const price    = priceOf(it);
     const subtotal = Math.round(price * qty);
     return `
     <div class="cart-item" data-cart-idx="${i}">
@@ -415,8 +421,8 @@ function closeCart() {
 function cartCheckoutWA() {
   if (!cart.length) return;
   const lines = cart.map(it => {
-    const qty = it.qty || 1;
-    const price = parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0;
+    const qty = parseInt(it.qty) || 1;
+    const price = priceOf(it);
     const sub = (price * qty).toFixed(0);
     return `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""}${qty > 1 ? " × " + qty : ""} — Bs. ${sub}`;
   }).join("\n");
