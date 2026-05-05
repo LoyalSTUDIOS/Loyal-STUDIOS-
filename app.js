@@ -151,7 +151,7 @@ function openDetail(id) {
   tag.className = "d-brand-tag" + (cur.marca_id === "deprimera" ? " dp" : "");
 
   document.getElementById("d-gen").textContent = cur.genero.toUpperCase();
-  document.getElementById("d-uid").textContent = "#" + String(cur.id).padStart(2, "0");
+  document.getElementById("d-uid").textContent = "NK-" + String(cur.id).padStart(2, "0");
   document.getElementById("d-name").textContent = cur.nombre;
   document.getElementById("d-price").textContent = cur.precio;
   document.getElementById("d-desc").textContent = cur.desc;
