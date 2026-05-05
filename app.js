@@ -146,7 +146,7 @@ function openDetail(id) {
 
   // Pixel
   if (typeof fbq === "function") {
-    const price = parseFloat(cur.precio.replace(/[^0-9.]/g, "")) || 0;
+    const price = parseInt(cur.precio.replace(/[^0-9]/g, ""), 10) || 0;
     fbq("track", "ViewContent", {
       content_name: cur.nombre,
       content_ids: [String(cur.id)],
@@ -252,7 +252,7 @@ function buyWA() {
     return;
   }
   if (typeof fbq === "function") {
-    const price = parseFloat(cur.precio.replace(/[^0-9.]/g, "")) || 0;
+    const price = parseInt(cur.precio.replace(/[^0-9]/g, ""), 10) || 0;
     fbq("track", "InitiateCheckout", {
       content_name: cur.nombre,
       content_ids: [String(cur.id)],
@@ -301,7 +301,7 @@ function addToCart() {
   updateCartUI();
 
   if (typeof fbq === "function") {
-    const price = parseFloat(cur.precio.replace(/[^0-9.]/g, "")) || 0;
+    const price = parseInt(cur.precio.replace(/[^0-9]/g, ""), 10) || 0;
     fbq("track", "AddToCart", {
       content_name: cur.nombre,
       content_ids: [String(cur.id)],
@@ -323,20 +323,16 @@ function addToCart() {
 
 // ═══ CART ═══
 function cartTotalQty() {
-  return cart.reduce((s, it) => s + (parseInt(it.qty) || 1), 0);
+  return cart.length;
 }
 function priceOf(it) {
-  // Busca el precio actual del producto en ITEMS (más confiable que it.precio en localStorage)
   const p = ITEMS.find(x => x.id === it.id);
   const raw = (p && p.precio) || it.precio || "0";
-  const num = parseFloat(String(raw).replace(/[^0-9.]/g, ""));
-  return isNaN(num) ? 0 : Math.abs(num);
+  const num = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
+  return isNaN(num) ? 0 : num;
 }
 function cartTotalPrice() {
-  return cart.reduce((sum, it) => {
-    const qty = Math.max(1, parseInt(it.qty) || 1);
-    return sum + (priceOf(it) * qty);
-  }, 0);
+  return cart.reduce((sum, it) => sum + priceOf(it), 0);
 }
 
 function updateCartUI() {
@@ -366,9 +362,7 @@ function updateCartUI() {
 
   footerEl.style.display = "block";
   itemsEl.innerHTML = cart.map((it, i) => {
-    const qty      = Math.max(1, parseInt(it.qty) || 1);
-    const price    = priceOf(it);
-    const subtotal = Math.round(price * qty);
+    const price = priceOf(it);
     return `
     <div class="cart-item" data-cart-idx="${i}">
       <div class="cart-item-img-wrap">
@@ -378,12 +372,7 @@ function updateCartUI() {
         <div class="cart-item-name">${it.nombre}</div>
         <div class="cart-item-meta">${it.marca}${it.talla ? " · Talla " + it.talla : ""}</div>
         <div class="cart-item-bottom">
-          <div class="qty-ctrl">
-            <button class="qty-btn qty-minus" onclick="changeQty(${i},-1)" aria-label="Disminuir cantidad">−</button>
-            <span class="qty-val">${qty}</span>
-            <button class="qty-btn qty-plus" onclick="changeQty(${i},1)" aria-label="Aumentar cantidad">+</button>
-          </div>
-          <div class="cart-item-price">Bs. ${subtotal}</div>
+          <div class="cart-item-price">Bs. ${price}</div>
         </div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar producto">×</button>
@@ -391,16 +380,6 @@ function updateCartUI() {
   }).join("");
 
   document.getElementById("cart-total").textContent = "Bs. " + cartTotalPrice().toFixed(0);
-}
-
-function changeQty(i, delta) {
-  if (i < 0 || i >= cart.length) return;
-  const qty = (cart[i].qty || 1) + delta;
-  if (qty < 1) { removeFromCart(i); return; }
-  if (qty > 99) return; // Max 99 items
-  cart[i].qty = qty;
-  localStorage.setItem("ls_cart", JSON.stringify(cart));
-  updateCartUI();
 }
 
 function removeFromCart(i) {
@@ -421,19 +400,17 @@ function closeCart() {
 function cartCheckoutWA() {
   if (!cart.length) return;
   const lines = cart.map(it => {
-    const qty = parseInt(it.qty) || 1;
     const price = priceOf(it);
-    const sub = (price * qty).toFixed(0);
-    return `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""}${qty > 1 ? " × " + qty : ""} — Bs. ${sub}`;
+    return `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""} — Bs. ${price}`;
   }).join("\n");
   const total = cartTotalPrice();
   const msg = encodeURIComponent(
-    `Hola ${TIENDA}, quiero pedir:\n\n${lines}\n\nTotal: Bs. ${total.toFixed(0)}`
+    `Hola ${TIENDA}, quiero pedir:\n\n${lines}\n\nTotal: Bs. ${total}`
   );
   if (typeof fbq === "function") {
     fbq("track", "InitiateCheckout", {
       value: total, currency: "BOB",
-      contents: cart.map(it => ({ id: String(it.id), quantity: it.qty || 1 })),
+      contents: cart.map(it => ({ id: String(it.id), quantity: 1 })),
       content_type: "product",
       num_items: cartTotalQty()
     });

@@ -696,11 +696,13 @@ footer{
 .card-fomo{
   display:inline-block;
   font-family:'JetBrains Mono',monospace;
-  font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  color:#0a0a0a;
+  font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+  color:#000 !important;
   background:var(--accent);
-  padding:4px 8px;border-radius:4px;
+  padding:5px 9px;border-radius:4px;
   margin-top:10px;
+  border:1.5px solid rgba(0,0,0,.15);
+  line-height:1.2;
 }
 
 /* FOMO en detalle */
@@ -1034,15 +1036,7 @@ footer{
 .cart-item-info{flex:1;min-width:0}
 .cart-item-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px;line-height:1.3;letter-spacing:-.005em}
 .cart-item-meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.4);margin-bottom:10px;text-transform:uppercase}
-.cart-item-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.qty-ctrl{display:inline-flex;align-items:center;gap:0;border:1px solid rgba(255,255,255,.14);border-radius:6px;overflow:hidden}
-.qty-btn{
-  background:rgba(255,255,255,.05);border:none;color:rgba(255,255,255,.7);
-  width:28px;height:26px;font-size:15px;line-height:1;cursor:pointer;
-  transition:background .15s,color .15s;display:flex;align-items:center;justify-content:center;
-}
-.qty-btn:hover{background:rgba(255,255,255,.14);color:#fff}
-.qty-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#fff;width:26px;text-align:center}
+.cart-item-bottom{display:flex;align-items:center;justify-content:flex-end;gap:10px}
 .cart-item-price{font-size:14px;font-weight:700;color:var(--accent)}
 .cart-item-remove{
   background:none;border:none;color:rgba(255,255,255,.3);
