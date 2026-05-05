@@ -26,6 +26,7 @@ const ITEMS = [
   { id:2, genero:"hombre", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Chasing Dreams Tee — Future Is Color",
     precio:"Bs. 249", tallas:["M"],
+    notas:["Corte boxy"],
     desc:"Remera de la marca independiente Chasing Dreams, Est. 2020. Gráfica oversize en el pecho, algodón pesado, corte boxy que cae solo. El streetwear de autor que vale más que cualquier logo — porque acá hay historia real detrás.",
     fotos:["fotos_catalogo/Hombre/2/IMG_1472.jpg","fotos_catalogo/Hombre/2/IMG_1475.jpg","fotos_catalogo/Hombre/2/IMG_1476.jpg","fotos_catalogo/Hombre/2/IMG_1477.jpg","fotos_catalogo/Hombre/2/IMG_1481.jpg","fotos_catalogo/Hombre/2/IMG_1482.jpg"]},
 
@@ -38,6 +39,7 @@ const ITEMS = [
   { id:4, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,
     nombre:"New Balance Classic Tee — Coral",
     precio:"Bs. 289", tallas:["L"],
+    notas:["Corte oversize"],
     desc:"NB tiene algo que pocas marcas logran: calidad callada. Esta tee en coral intenso lleva su logo Classic. bordado al pecho — sin gritarlo, sin apuros. Algodón pesado, corte oversize que cae solo. Ese color que se roba todas las miradas sin pedir permiso.",
     fotos:["fotos_catalogo/Hombre/4/IMG_1429.jpg","fotos_catalogo/Hombre/4/IMG_1430.jpg","fotos_catalogo/Hombre/4/IMG_1431.jpg","fotos_catalogo/Hombre/4/IMG_1435.jpg"]},
 
@@ -50,18 +52,21 @@ const ITEMS = [
   { id:6, genero:"hombre", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
     nombre:"GUESS Originals LA Crewneck — Beige",
     precio:"Bs. 489", tallas:["XL"],
+    notas:["Tela pesada premium"],
     desc:"GUESS LA desde 1981 — y este crewneck lo sabe. Bordado a tono sobre tela premium en beige arena, tela pesada de peso real, perfecta para el frío. El lujo tranquilo que no necesita colores estridentes para llamar la atención.",
     fotos:["fotos_catalogo/Hombre/6/IMG_1380.jpg","fotos_catalogo/Hombre/6/IMG_1382.jpg","fotos_catalogo/Hombre/6/IMG_1383.jpg","fotos_catalogo/Hombre/6/IMG_1384.jpg","fotos_catalogo/Hombre/6/IMG_1387.jpg"]},
 
   { id:7, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
     nombre:"Adidas Aeroready Training Tee",
     precio:"Bs. 229", tallas:["L"],
+    notas:["Tejido de compresión"],
     desc:"Tejido de compresión Aeroready de Adidas: lleva el sudor lejos de la piel y te mantiene seco en movimiento. Logo clásico en el pecho izquierdo, azul marino que combina con todo. Para entrenar en serio — o parecer que sí.",
     fotos:["fotos_catalogo/Hombre/7/IMG_1369.jpg","fotos_catalogo/Hombre/7/IMG_1372.jpg","fotos_catalogo/Hombre/7/IMG_1373.jpg","fotos_catalogo/Hombre/7/IMG_1375.jpg"]},
 
   { id:8, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
     nombre:"Tommy Jeans Gothic Logo Crewneck",
     precio:"Bs. 289", tallas:["L"],
+    notas:["Detalle bordado en espalda"],
     desc:"Tommy Jeans tomó su clásico preppy y lo pasó por el filtro del streetwear. Letras góticas en arco sobre fleece celeste pastel, banderita en el pecho — y un detalle exclusivo bordado en la espalda que lo hace único. Para quien siempre está un paso adelante.",
     fotos:["fotos_catalogo/Hombre/8/IMG_1351.jpg","fotos_catalogo/Hombre/8/IMG_1359.jpg","fotos_catalogo/Hombre/8/IMG_1360.jpg","fotos_catalogo/Hombre/8/IMG_1361.jpg","fotos_catalogo/Hombre/8/IMG_1363.jpg","fotos_catalogo/Hombre/8/IMG_1367.jpg"]},
 

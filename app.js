@@ -156,6 +156,16 @@ function openDetail(id) {
   document.getElementById("d-price").textContent = cur.precio;
   document.getElementById("d-desc").textContent = cur.desc;
 
+  // Notas destacadas
+  const notasEl = document.getElementById("d-notas");
+  if (cur.notas && cur.notas.length) {
+    notasEl.innerHTML = cur.notas.map(n => `<span class="d-nota-chip">✦ ${n}</span>`).join("");
+    notasEl.style.display = "flex";
+  } else {
+    notasEl.innerHTML = "";
+    notasEl.style.display = "none";
+  }
+
   // Notes
   document.getElementById("dp-note").classList.toggle("show", cur.badge === "dp");
   document.getElementById("new-note").classList.toggle("show", cur.badge === "new");
