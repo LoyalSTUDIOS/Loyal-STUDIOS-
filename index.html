@@ -34,7 +34,7 @@ fbq('track', 'PageView');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;700&family=Anton&family=Archivo+Black&family=Bowlby+One&family=Russo+One&family=Bungee&family=Saira+Condensed:wght@700;800;900&family=Marcellus&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&family=Archivo+Narrow:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 
@@ -274,6 +274,7 @@ fbq('track', 'PageView');
 
       <div id="d-notas" class="d-notas"></div>
       <p id="d-desc" class="d-desc"></p>
+      <div id="d-fomo" class="d-fomo" style="display:none"></div>
 
       <div class="d-section-divider"><span>Talla</span></div>
       <div id="d-sizes" class="d-sizes"></div>
@@ -387,12 +388,8 @@ fbq('track', 'PageView');
     <button class="cart-close" onclick="closeCart()">×</button>
   </div>
   <div class="cart-items" id="cart-items">
-    <div class="cart-empty" id="cart-empty">
-      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-      <p>Sin productos aún</p>
-    </div>
-  </div>
-  <div class="cart-footer-bar" id="cart-footer-bar" style="display:none">
+    <!-- estado vacío y productos se renderizan por JS via updateCartUI() -->
+  </div>  <div class="cart-footer-bar" id="cart-footer-bar" style="display:none">
     <div class="cart-total-row">
       <span class="cart-total-label">Total</span>
       <span class="cart-total-val" id="cart-total">Bs. 0</span>
@@ -406,7 +403,7 @@ fbq('track', 'PageView');
 
 </div><!-- /#site -->
 
-<script src="data.js?v=6"></script>
-<script src="app.js?v=8"></script>
+<script src="data.js?v=7"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

@@ -66,8 +66,8 @@ const ITEMS = [
   { id:8, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
     nombre:"Tommy Jeans Gothic Logo Crewneck",
     precio:"Bs. 289", tallas:["L"],
-    notas:["Detalle bordado en espalda"],
-    desc:"Tommy Jeans tomó su clásico preppy y lo pasó por el filtro del streetwear. Letras góticas en arco sobre fleece celeste pastel, banderita en el pecho — y un detalle exclusivo bordado en la espalda que lo hace único. Para quien siempre está un paso adelante.",
+    notas:["⚠️ Detalle de costura en espalda (fábrica)"],
+    desc:"Tommy Jeans Gothic Logo Crewneck — fleece celeste pastel, letras góticas en arco, banderita bordada al pecho. Prenda 100% original. Nota: tiene un pequeño detalle de costura en la espalda que viene así de fábrica — por eso el precio rebajado. A la vista es imperceptible, pero lo aclaramos porque en Loyal Studios la honestidad no es opcional.",
     fotos:["fotos_catalogo/Hombre/8/IMG_1351.jpg","fotos_catalogo/Hombre/8/IMG_1359.jpg","fotos_catalogo/Hombre/8/IMG_1360.jpg","fotos_catalogo/Hombre/8/IMG_1361.jpg","fotos_catalogo/Hombre/8/IMG_1363.jpg","fotos_catalogo/Hombre/8/IMG_1367.jpg"]},
 
   { id:9, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,

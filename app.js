@@ -3,6 +3,7 @@
 // State
 let fB = "all", fG = "all";
 let cur = null, curImg = 0, curSize = null;
+let savedScrollY = 0; // guarda posición al abrir detalle
 let cart = JSON.parse(localStorage.getItem("ls_cart") || "[]");
 // Migración: descarta items cuyo producto ya no exista y refresca datos
 cart = cart.filter(it => {
@@ -31,12 +32,12 @@ window.addEventListener("load", () => {
 function showPage(name) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById("page-" + name).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "instant" });
   document.querySelector(".nav-back").style.display = name === "detail" ? "flex" : "none";
 }
 
 function goHome() {
   showPage("home");
+  window.scrollTo({ top: savedScrollY, behavior: "instant" }); // vuelve donde estabas
 }
 
 function scrollCatalog() {
@@ -87,6 +88,15 @@ function badge(b) {
 
 function cardHTML(p) {
   const uid = "NK-" + String(p.id).padStart(2, "0");
+  // FOMO en card: talla única o 2 tallas sin badge especial
+  let fomoTag = "";
+  if (p.badge !== "last" && p.badge !== "out") {
+    if (p.tallas.length === 1) {
+      fomoTag = `<div class="card-fomo">⚡ Última talla · ${p.tallas[0]}</div>`;
+    } else if (p.tallas.length === 2) {
+      fomoTag = `<div class="card-fomo">🔥 Pocas tallas</div>`;
+    }
+  }
   return `
     <article class="card" onclick="openDetail(${p.id})">
       <div class="card-img">
@@ -102,6 +112,7 @@ function cardHTML(p) {
           <span class="card-price">${p.precio}</span>
           <span class="card-gen">${p.genero}</span>
         </div>
+        ${fomoTag}
       </div>
     </article>`;
 }
@@ -193,7 +204,25 @@ function openDetail(id) {
     buy.classList.remove("agotado");
   }
 
+  // FOMO en detalle
+  const fomoEl = document.getElementById("d-fomo");
+  if (cur.badge === "last") {
+    fomoEl.innerHTML = `<span class="d-fomo-msg d-fomo-urgent">⚠️ Últimas unidades — ¡Date prisa!</span>`;
+    fomoEl.style.display = "flex";
+  } else if (cur.tallas.length === 1) {
+    fomoEl.innerHTML = `<span class="d-fomo-msg">⚡ Solo queda talla ${cur.tallas[0]} — Última disponible</span>`;
+    fomoEl.style.display = "flex";
+  } else if (cur.tallas.length === 2) {
+    fomoEl.innerHTML = `<span class="d-fomo-msg">🔥 Pocas tallas — ${cur.tallas.join(" y ")}</span>`;
+    fomoEl.style.display = "flex";
+  } else {
+    fomoEl.innerHTML = "";
+    fomoEl.style.display = "none";
+  }
+
+  savedScrollY = window.scrollY; // guarda posición antes de abrir detalle
   showPage("detail");
+  window.scrollTo({ top: 0, behavior: "instant" });
 }
 
 function setImg(i) {
@@ -315,23 +344,24 @@ function updateCartUI() {
   badge.classList.toggle("show", totalQty > 0);
 
   const itemsEl  = document.getElementById("cart-items");
-  const emptyEl  = document.getElementById("cart-empty");
   const footerEl = document.getElementById("cart-footer-bar");
 
+  // ⚠️ Siempre usamos innerHTML — nunca movemos nodos del DOM
+  // (mover con appendChild + sobreescribir con innerHTML destruye referencias y rompe las actualizaciones)
   if (!cart.length) {
-    itemsEl.innerHTML = "";
-    itemsEl.appendChild(emptyEl);
-    emptyEl.style.display = "flex";
+    itemsEl.innerHTML = `
+    <div class="cart-empty">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      <p>Sin productos aún</p>
+    </div>`;
     footerEl.style.display = "none";
     return;
   }
 
-  emptyEl.style.display = "none";
   footerEl.style.display = "block";
-
   itemsEl.innerHTML = cart.map((it, i) => {
-    const qty    = Math.max(1, parseInt(it.qty || 1));
-    const price  = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
+    const qty      = Math.max(1, parseInt(it.qty || 1));
+    const price    = Math.abs(parseFloat(it.precio.replace(/[^0-9.]/g, "")) || 0);
     const subtotal = Math.round(price * qty);
     return `
     <div class="cart-item" data-cart-idx="${i}">
@@ -343,9 +373,9 @@ function updateCartUI() {
         <div class="cart-item-meta">${it.marca}${it.talla ? " · Talla " + it.talla : ""}</div>
         <div class="cart-item-bottom">
           <div class="qty-ctrl">
-            <button class="qty-btn qty-minus" onclick="changeQty(${i},-1)" aria-label="Disminuir cantidad" data-idx="${i}">−</button>
+            <button class="qty-btn qty-minus" onclick="changeQty(${i},-1)" aria-label="Disminuir cantidad">−</button>
             <span class="qty-val">${qty}</span>
-            <button class="qty-btn qty-plus" onclick="changeQty(${i},1)" aria-label="Aumentar cantidad" data-idx="${i}">+</button>
+            <button class="qty-btn qty-plus" onclick="changeQty(${i},1)" aria-label="Aumentar cantidad">+</button>
           </div>
           <div class="cart-item-price">Bs. ${subtotal}</div>
         </div>
@@ -353,9 +383,6 @@ function updateCartUI() {
       <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar producto">×</button>
     </div>`;
   }).join("");
-
-  const totalPrice = Math.round(cartTotalPrice());
-  document.getElementById("cart-total").textContent = "Bs. " + totalPrice;
 
   document.getElementById("cart-total").textContent = "Bs. " + cartTotalPrice().toFixed(0);
 }
