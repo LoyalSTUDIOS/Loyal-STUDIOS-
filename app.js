@@ -86,7 +86,7 @@ function badge(b) {
 }
 
 function cardHTML(p) {
-  const uid = "#" + String(p.id).padStart(2, "0");
+  const uid = "NK-" + String(p.id).padStart(2, "0");
   return `
     <article class="card" onclick="openDetail(${p.id})">
       <div class="card-img">

@@ -230,6 +230,100 @@ const ITEMS = [
       "fotos_catalogo/Mujer/1/IMG_1443.jpg",
       "fotos_catalogo/Mujer/1/IMG_1444.jpg",
       "fotos_catalogo/Mujer/1/IMG_1445.jpg"
+    ]},
+
+  { id:18, genero:"hombre", marca:"Calvin Klein", marca_id:"calvin", badge:"new", stock:true,
+    nombre:"Calvin Klein Jeans Crewneck — Blanco",
+    precio:"Consultar",
+    tallas:[],
+    desc:"CK lo hizo simple y lo hizo atemporal. Crewneck en blanco puro con el badge CK bordado en el pecho izquierdo — sutil, preciso, inconfundible. Tela premium French Terry, corte relaxed que cae perfecto. El minimalismo que no necesita explicación.",
+    fotos:[
+      "fotos_catalogo/Hombre/18/IMG_2164.jpg",
+      "fotos_catalogo/Hombre/18/IMG_2166.jpg",
+      "fotos_catalogo/Hombre/18/IMG_2167.jpg",
+      "fotos_catalogo/Hombre/18/IMG_2168.jpg",
+      "fotos_catalogo/Hombre/18/IMG_2169.jpg",
+      "fotos_catalogo/Hombre/18/IMG_2171.jpg"
+    ]},
+
+  { id:19, genero:"hombre", marca:"Calvin Klein", marca_id:"calvin", badge:"new", stock:true,
+    nombre:"Calvin Klein Jeans Est 1978 Crewneck — Arena",
+    precio:"Consultar",
+    tallas:[],
+    desc:"Calvin Klein Jeans est 1978 — cuatro décadas de herencia en relieve tono sobre tono. Crewneck arena lavado, corte ligeramente crop, texto en la espalda que nadie espera y todos voltean a ver. Vintage sin esfuerzo, moderno sin gritar.",
+    fotos:[
+      "fotos_catalogo/Hombre/19/IMG_2077.jpg",
+      "fotos_catalogo/Hombre/19/IMG_2082.jpg",
+      "fotos_catalogo/Hombre/19/IMG_2087.jpg",
+      "fotos_catalogo/Hombre/19/IMG_2090.jpg",
+      "fotos_catalogo/Hombre/19/IMG_2091.jpg"
+    ]},
+
+  { id:20, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
+    nombre:"Tommy Jeans Washed Hoodie — Gris Carbón",
+    precio:"Consultar",
+    tallas:[],
+    desc:"Tommy Jeans lo lavó, lo desgastó, lo perfeccionó. Hoodie en gris carbón washed con logo bordado en el pecho — parece que lo llevás años, pero es nuevo. Fleece grueso, fit oversized, esa energía de los 90s que no se va nunca.",
+    fotos:[
+      "fotos_catalogo/Hombre/20/IMG_2131.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2132.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2135.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2138.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2139.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2142.jpg",
+      "fotos_catalogo/Hombre/20/IMG_2144.jpg"
+    ]},
+
+  { id:21, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
+    nombre:"Tommy Jeans Badge Crewneck — Verde Oliva",
+    precio:"Consultar",
+    tallas:[],
+    desc:"Verde oliva como los mejores looks de los 90s. Crewneck Tommy Jeans con badge bordado tono sobre tono, fleece premium de peso real. No hace falta que lo veas gritando para saber que es calidad — lo sentís cuando te lo ponés.",
+    fotos:[
+      "fotos_catalogo/Hombre/21/IMG_2148.jpg",
+      "fotos_catalogo/Hombre/21/IMG_2151.jpg",
+      "fotos_catalogo/Hombre/21/IMG_2152.jpg",
+      "fotos_catalogo/Hombre/21/IMG_2157.jpg"
+    ]},
+
+  { id:22, genero:"hombre", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
+    nombre:"Nike Dri-FIT Mesh Shorts — Azul Royal",
+    precio:"Consultar",
+    tallas:[],
+    desc:"El azul royal que se roba la cancha. Shorts Nike de malla Dri-FIT, cintura elástica con cordón blanco, Swoosh bordado discreto. Tela que respira y aguanta. Para el gym, para la calle, para los que siempre están en movimiento.",
+    fotos:[
+      "fotos_catalogo/Hombre/22/IMG_2057.jpg",
+      "fotos_catalogo/Hombre/22/IMG_2059.jpg",
+      "fotos_catalogo/Hombre/22/IMG_2061.jpg",
+      "fotos_catalogo/Hombre/22/IMG_2063.jpg",
+      "fotos_catalogo/Hombre/22/IMG_2065.jpg"
+    ]},
+
+  { id:23, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
+    nombre:"GUESS Active Crop Quarter-Zip — Burdeos",
+    precio:"Consultar",
+    tallas:[],
+    desc:"GUESS reescribió el crop. Quarter-zip activo en burdeos intenso, GUESS en letras grandes en el ribete — logo que marca territorio. Tela técnica premium, corte femenino ceñido que favorece. Del entrenamiento al café sin cambiar de ropa.",
+    fotos:[
+      "fotos_catalogo/Mujer/2/IMG_2018.jpg",
+      "fotos_catalogo/Mujer/2/IMG_2021.jpg",
+      "fotos_catalogo/Mujer/2/IMG_2022.jpg",
+      "fotos_catalogo/Mujer/2/IMG_2024.jpg",
+      "fotos_catalogo/Mujer/2/IMG_2027.jpg"
+    ]},
+
+  { id:24, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
+    nombre:"GUESS Active Crop Quarter-Zip — Negro",
+    precio:"Consultar",
+    tallas:[],
+    desc:"El negro que GUESS convirtió en declaración. Mismo quarter-zip icónico, mismo ribete con el logo que no pasa desapercibido — en negro total, más actitud. Combinalo con todo o dejalo hablar solo. Siempre funciona.",
+    fotos:[
+      "fotos_catalogo/Mujer/3/IMG_2005.jpg",
+      "fotos_catalogo/Mujer/3/IMG_2028.jpg",
+      "fotos_catalogo/Mujer/3/IMG_2030.jpg",
+      "fotos_catalogo/Mujer/3/IMG_2032.jpg",
+      "fotos_catalogo/Mujer/3/IMG_2033.jpg",
+      "fotos_catalogo/Mujer/3/IMG_2034.jpg"
     ]}
 
 ];
