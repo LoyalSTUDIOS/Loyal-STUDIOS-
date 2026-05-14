@@ -24,8 +24,8 @@ window.addEventListener("load", () => {
     document.getElementById("intro").classList.add("gone");
     document.getElementById("site").classList.add("show");
     document.querySelector(".hero").classList.add("lit");
-    setTimeout(() => document.getElementById("intro").remove(), 400);
-  }, 2900);
+    setTimeout(() => document.getElementById("intro").remove(), 500);
+  }, 4700);
 });
 
 // ═══ ROUTING ═══
