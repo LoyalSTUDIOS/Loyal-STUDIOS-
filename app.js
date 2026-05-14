@@ -20,34 +20,7 @@ localStorage.setItem("ls_cart", JSON.stringify(cart));
 
 // ═══ INTRO ═══
 // ── INTRO REVEAL ──────────────────────────────────────────────────
-// Usa performance.now() para medir desde el inicio real de la página,
-// sin quedar bloqueado por la carga de imágenes pesadas.
-(function scheduleIntroReveal() {
-  const TARGET = 4700; // ms de intro
-
-  function revealSite() {
-    const intro = document.getElementById("intro");
-    if (!intro || intro.dataset.revealed) return; // evita doble ejecución
-    intro.dataset.revealed = "1";
-    intro.classList.add("gone");
-    const site = document.getElementById("site");
-    if (site) site.classList.add("show");
-    const hero = document.querySelector(".hero");
-    if (hero) hero.classList.add("lit");
-    setTimeout(() => { if (intro.parentNode) intro.remove(); }, 500);
-  }
-
-  // Timer absoluto desde el inicio del script (no espera window.load)
-  const elapsed = performance.now();
-  const wait = Math.max(300, TARGET - elapsed);
-  setTimeout(revealSite, wait);
-
-  // Fallback: si por alguna razón el timer falla, window.load lo dispara
-  window.addEventListener("load", () => {
-    const remaining = Math.max(300, TARGET - performance.now());
-    setTimeout(revealSite, remaining);
-  });
-})();
+// Manejado inline en index.html para ejecución inmediata sin esperar JS externos.
 
 // ═══ ROUTING ═══
 function showPage(name) {
