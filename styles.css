@@ -1113,10 +1113,12 @@ footer{
 }
 
 /* ═══════════════════════════════════════════════════════
-   PREMIUM EFFECTS
+   PREMIUM EFFECTS v2
+   Desktop: Cursor · Tilt · Magnetic
+   Mobile : Cascade · Tap · Swipe
 ═══════════════════════════════════════════════════════ */
 
-/* ─── CURSOR ─────────────────────────────────────────── */
+/* ─── CURSOR (desktop only) ──────────────────────────── */
 @media(hover:hover){
   *{cursor:none!important}
 }
@@ -1127,43 +1129,57 @@ footer{
   mix-blend-mode:difference;
   pointer-events:none;z-index:99998;
   will-change:transform;
-  transition:width .3s cubic-bezier(.22,1,.36,1),
-             height .3s cubic-bezier(.22,1,.36,1),
-             opacity .3s;
+  transition:width .3s cubic-bezier(.22,1,.36,1),height .3s cubic-bezier(.22,1,.36,1),opacity .3s;
 }
 .ls-cursor-ring.big{width:68px;height:68px}
 .ls-cursor-dot{
   position:fixed;left:0;top:0;
   width:4px;height:4px;border-radius:50%;
-  background:#fff;
-  pointer-events:none;z-index:99999;
-  will-change:transform;
-  transition:opacity .3s;
+  background:#fff;pointer-events:none;z-index:99999;
+  will-change:transform;transition:opacity .3s;
 }
 
-/* ─── CARD TILT ──────────────────────────────────────── */
+/* ─── CARD TILT SHINE (desktop) ──────────────────────── */
 .card{transform-style:preserve-3d}
 .card-shine{
-  position:absolute;inset:0;
-  pointer-events:none;z-index:8;
-  border-radius:inherit;
-  transition:background .12s;
+  position:absolute;inset:0;pointer-events:none;z-index:8;
+  border-radius:inherit;transition:background .12s;
 }
 
-/* ─── HERO PARALLAX ──────────────────────────────────── */
-.hero{overflow:hidden}
-.hero-bg{will-change:transform}
-.hero-inner{will-change:transform}
-.hero-grain{will-change:transform}
+/* ─── CARD CASCADE (mobile) ──────────────────────────── */
+.card-cascade{
+  animation:cardIn .55s cubic-bezier(.22,1,.36,1) both;
+  animation-delay:calc(var(--cas-i, 0) * 65ms);
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(28px) scale(.97)}
+  to  {opacity:1;transform:none}
+}
 
-/* ─── MAGNETIC: no transition override via CSS, JS lo maneja ─ */
+/* ─── CARD TAP FEEDBACK (mobile) ─────────────────────── */
+.card-pressed{
+  transform:scale(.96)!important;
+  transition:transform .08s ease!important;
+}
 
-/* ─── REVEAL 3D ──────────────────────────────────────── */
+/* ─── SWIPE HINT (mobile) ────────────────────────────── */
+.swipe-hint{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.62);backdrop-filter:blur(8px);
+  color:rgba(255,255,255,.85);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:7px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  pointer-events:none;z-index:20;
+  opacity:1;transition:opacity .45s;
+  white-space:nowrap;
+}
+.swipe-hint.hide{opacity:0}
+
+/* ─── REVEAL ─────────────────────────────────────────── */
 .reveal{
-  opacity:0;
-  transform:translateY(32px) rotateX(4deg);
-  transform-origin:top center;
-  transform-style:preserve-3d;
-  transition:opacity .75s ease, transform .75s cubic-bezier(.22,1,.36,1);
+  opacity:0;transform:translateY(30px);
+  transition:opacity .72s ease,transform .72s cubic-bezier(.22,1,.36,1);
 }
 .reveal.in{opacity:1;transform:none}
