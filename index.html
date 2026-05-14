@@ -49,7 +49,7 @@ src="https://www.facebook.com/tr?id=1506761844496918&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Solo fuentes que realmente se usan (quitadas: Bowlby One, Russo One, Bungee, Space Grotesk) -->
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;700&family=Anton&family=Archivo+Black&family=Saira+Condensed:wght@700;800;900&family=Marcellus&family=Instrument+Serif:ital@0;1&family=Archivo+Narrow:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 
@@ -85,16 +85,15 @@ src="https://www.facebook.com/tr?id=1506761844496918&ev=PageView&noscript=1"
     setTimeout(function(){ if (intro && intro.parentNode) intro.remove(); }, 500);
   }
 
-  var TARGET = 3000; // intro de 3 segundos
+  var TARGET = 4700; // duración original de la intro (no tocar)
   var elapsed = (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0;
   setTimeout(reveal, Math.max(200, TARGET - elapsed));
 
-  // Saltar tocando (después de 600ms, evita saltar accidentalmente)
-  setTimeout(function(){
-    var skip = function(){ reveal(); };
-    document.addEventListener('click', skip, { once: true, passive: true });
-    document.addEventListener('touchstart', skip, { once: true, passive: true });
-  }, 600);
+  // Fallback: si por alguna razón el timer falla, window.load dispara también
+  window.addEventListener('load', function(){
+    var remaining = Math.max(200, TARGET - ((performance && performance.now) ? performance.now() : 0));
+    setTimeout(reveal, remaining);
+  });
 })();
 </script>
 
