@@ -1111,3 +1111,59 @@ footer{
   20%,60%{transform:translateX(-6px)}
   40%,80%{transform:translateX(6px)}
 }
+
+/* ═══════════════════════════════════════════════════════
+   PREMIUM EFFECTS
+═══════════════════════════════════════════════════════ */
+
+/* ─── CURSOR ─────────────────────────────────────────── */
+@media(hover:hover){
+  *{cursor:none!important}
+}
+.ls-cursor-ring{
+  position:fixed;left:0;top:0;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--accent);
+  mix-blend-mode:difference;
+  pointer-events:none;z-index:99998;
+  will-change:transform;
+  transition:width .3s cubic-bezier(.22,1,.36,1),
+             height .3s cubic-bezier(.22,1,.36,1),
+             opacity .3s;
+}
+.ls-cursor-ring.big{width:68px;height:68px}
+.ls-cursor-dot{
+  position:fixed;left:0;top:0;
+  width:4px;height:4px;border-radius:50%;
+  background:#fff;
+  pointer-events:none;z-index:99999;
+  will-change:transform;
+  transition:opacity .3s;
+}
+
+/* ─── CARD TILT ──────────────────────────────────────── */
+.card{transform-style:preserve-3d}
+.card-shine{
+  position:absolute;inset:0;
+  pointer-events:none;z-index:8;
+  border-radius:inherit;
+  transition:background .12s;
+}
+
+/* ─── HERO PARALLAX ──────────────────────────────────── */
+.hero{overflow:hidden}
+.hero-bg{will-change:transform}
+.hero-inner{will-change:transform}
+.hero-grain{will-change:transform}
+
+/* ─── MAGNETIC: no transition override via CSS, JS lo maneja ─ */
+
+/* ─── REVEAL 3D ──────────────────────────────────────── */
+.reveal{
+  opacity:0;
+  transform:translateY(32px) rotateX(4deg);
+  transform-origin:top center;
+  transform-style:preserve-3d;
+  transition:opacity .75s ease, transform .75s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in{opacity:1;transform:none}
