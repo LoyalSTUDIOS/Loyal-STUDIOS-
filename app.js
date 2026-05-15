@@ -3,35 +3,69 @@
 // State
 let fB = "all", fG = "all";
 let cur = null, curImg = 0, curSize = null;
-let savedScrollY = 0; // guarda posición al abrir detalle
 let cart = JSON.parse(localStorage.getItem("ls_cart") || "[]");
-// Migración: descarta items cuyo producto ya no exista y refresca datos
+// Migration: drop cart items whose product no longer exists OR whose stored
+// foto URL does not match the current product's first photo (catalog updates)
 cart = cart.filter(it => {
-  const p = ITEMS.find(x => x.id === it.id);
+  const p = (typeof PRODS !== "undefined") && PRODS.find(x => x.id === it.id);
   if (!p) return false;
-  it.foto  = p.fotos[0];
+  it.foto = p.fotos[0]; // refresh image to current
   it.nombre = p.nombre;
   it.precio = p.precio;
-  it.marca  = p.marca;
-  it.qty    = it.qty || 1;
+  it.marca = p.marca;
   return true;
 });
 localStorage.setItem("ls_cart", JSON.stringify(cart));
 
 // ═══ INTRO ═══
-// ── INTRO REVEAL ──────────────────────────────────────────────────
-// Manejado inline en index.html para ejecución inmediata sin esperar JS externos.
+const INTRO_DURATION = 4700;
+let _introHTML = "";
+function _hideIntro(){
+  const intro = document.getElementById("intro");
+  if(!intro) return;
+  intro.classList.add("gone");
+  document.getElementById("site").classList.add("show");
+  const hero = document.querySelector(".hero");
+  if(hero) hero.classList.add("lit");
+  setTimeout(()=>{ intro.style.display="none"; }, 500);
+}
+function replayIntro(){
+  const intro = document.getElementById("intro");
+  if(!intro || !_introHTML) return;
+  // Reset content (restarts all CSS animations from 0)
+  intro.style.display = "";
+  intro.classList.remove("gone");
+  intro.innerHTML = _introHTML;
+  setTimeout(_hideIntro, INTRO_DURATION);
+}
+window.addEventListener("load", () => {
+  const intro = document.getElementById("intro");
+  if(intro) _introHTML = intro.innerHTML;
+  setTimeout(_hideIntro, INTRO_DURATION);
+});
 
 // ═══ ROUTING ═══
+let _homeScrollY = 0;
+
 function showPage(name) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById("page-" + name).classList.add("active");
+  if (name === "detail") {
+    _homeScrollY = window.scrollY;
+    window.scrollTo({ top: 0, behavior: "instant" });
+  } else if (name === "home") {
+    // Restore scroll position when returning home
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: _homeScrollY, behavior: "instant" });
+    });
+  } else {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
   document.querySelector(".nav-back").style.display = name === "detail" ? "flex" : "none";
 }
 
 function goHome() {
   showPage("home");
-  window.scrollTo({ top: savedScrollY, behavior: "instant" }); // vuelve donde estabas
 }
 
 function scrollCatalog() {
@@ -81,22 +115,11 @@ function badge(b) {
 }
 
 function cardHTML(p) {
-  const uid = "NK-" + String(p.id).padStart(2, "0");
-  // FOMO en card: talla única o 2 tallas sin badge especial
-  let fomoTag = "";
-  if (p.badge !== "last" && p.badge !== "out") {
-    if (p.tallas.length === 1) {
-      fomoTag = `<div class="card-fomo">⚡ Última talla · ${p.tallas[0]}</div>`;
-    } else if (p.tallas.length === 2) {
-      fomoTag = `<div class="card-fomo">🔥 Pocas tallas</div>`;
-    }
-  }
   return `
     <article class="card" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
-        <div class="card-uid">${uid}</div>
         <div class="card-cta">Ver producto →</div>
       </div>
       <div class="card-body">
@@ -106,7 +129,6 @@ function cardHTML(p) {
           <span class="card-price">${p.precio}</span>
           <span class="card-gen">${p.genero}</span>
         </div>
-        ${fomoTag}
       </div>
     </article>`;
 }
@@ -156,20 +178,9 @@ function openDetail(id) {
   tag.className = "d-brand-tag" + (cur.marca_id === "deprimera" ? " dp" : "");
 
   document.getElementById("d-gen").textContent = cur.genero.toUpperCase();
-  document.getElementById("d-uid").textContent = "NK-" + String(cur.id).padStart(2, "0");
   document.getElementById("d-name").textContent = cur.nombre;
   document.getElementById("d-price").textContent = cur.precio;
   document.getElementById("d-desc").textContent = cur.desc;
-
-  // Notas destacadas
-  const notasEl = document.getElementById("d-notas");
-  if (cur.notas && cur.notas.length) {
-    notasEl.innerHTML = cur.notas.map(n => `<span class="d-nota-chip">✦ ${n}</span>`).join("");
-    notasEl.style.display = "flex";
-  } else {
-    notasEl.innerHTML = "";
-    notasEl.style.display = "none";
-  }
 
   // Notes
   document.getElementById("dp-note").classList.toggle("show", cur.badge === "dp");
@@ -198,25 +209,7 @@ function openDetail(id) {
     buy.classList.remove("agotado");
   }
 
-  // FOMO en detalle
-  const fomoEl = document.getElementById("d-fomo");
-  if (cur.badge === "last") {
-    fomoEl.innerHTML = `<span class="d-fomo-msg d-fomo-urgent">⚠️ Últimas unidades — ¡Date prisa!</span>`;
-    fomoEl.style.display = "flex";
-  } else if (cur.tallas.length === 1) {
-    fomoEl.innerHTML = `<span class="d-fomo-msg">⚡ Solo queda talla ${cur.tallas[0]} — Última disponible</span>`;
-    fomoEl.style.display = "flex";
-  } else if (cur.tallas.length === 2) {
-    fomoEl.innerHTML = `<span class="d-fomo-msg">🔥 Pocas tallas — ${cur.tallas.join(" y ")}</span>`;
-    fomoEl.style.display = "flex";
-  } else {
-    fomoEl.innerHTML = "";
-    fomoEl.style.display = "none";
-  }
-
-  savedScrollY = window.scrollY; // guarda posición antes de abrir detalle
   showPage("detail");
-  window.scrollTo({ top: 0, behavior: "instant" });
 }
 
 function setImg(i) {
@@ -270,26 +263,9 @@ function addToCart() {
     setTimeout(() => sz.style.animation = "", 400);
     return;
   }
-  const btn = document.getElementById("d-add-cart");
-  if (btn.disabled) return; // evita spam
-
-  const existing = cart.find(it => it.id === cur.id && it.talla === curSize);
-  if (existing) {
-    // Ya está en el carrito — no agregar duplicado
-    btn.classList.add("added");
-    btn.querySelector("span").textContent = "✓ Ya está en el carrito";
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.classList.remove("added");
-      btn.querySelector("span").textContent = "Agregar al carrito";
-      btn.disabled = false;
-    }, 1800);
-    return;
-  }
-
   cart.push({
     id: cur.id, nombre: cur.nombre, precio: cur.precio,
-    talla: curSize, foto: cur.fotos[0], marca: cur.marca, qty: 1
+    talla: curSize, foto: cur.fotos[0], marca: cur.marca
   });
   localStorage.setItem("ls_cart", JSON.stringify(cart));
   updateCartUI();
@@ -305,75 +281,52 @@ function addToCart() {
     });
   }
 
+  const btn = document.getElementById("d-add-cart");
   btn.classList.add("added");
   btn.querySelector("span").textContent = "✓ Agregado";
-  btn.disabled = true;
   setTimeout(() => {
     btn.classList.remove("added");
     btn.querySelector("span").textContent = "Agregar al carrito";
-    btn.disabled = false;
   }, 1600);
 }
 
 // ═══ CART ═══
-function cartTotalQty() {
-  return cart.length;
-}
-function priceOf(it) {
-  const p = ITEMS.find(x => x.id === it.id);
-  const raw = (p && p.precio) || it.precio || "0";
-  const num = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
-  return isNaN(num) ? 0 : num;
-}
-function cartTotalPrice() {
-  return cart.reduce((sum, it) => sum + priceOf(it), 0);
-}
-
 function updateCartUI() {
-  const totalQty = cartTotalQty();
-
   const fab = document.querySelector(".cart-fab");
-  if (fab) fab.classList.toggle("has-items", totalQty > 0);
+  if (fab) fab.classList.toggle("has-items", cart.length > 0);
 
   const badge = document.getElementById("cart-badge");
-  badge.textContent = totalQty;
-  badge.classList.toggle("show", totalQty > 0);
+  badge.textContent = cart.length;
+  badge.classList.toggle("show", cart.length > 0);
 
-  const itemsEl  = document.getElementById("cart-items");
+  const itemsEl = document.getElementById("cart-items");
+  const emptyEl = document.getElementById("cart-empty");
   const footerEl = document.getElementById("cart-footer-bar");
 
-  // ⚠️ Siempre usamos innerHTML — nunca movemos nodos del DOM
-  // (mover con appendChild + sobreescribir con innerHTML destruye referencias y rompe las actualizaciones)
   if (!cart.length) {
-    itemsEl.innerHTML = `
-    <div class="cart-empty">
-      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-      <p>Sin productos aún</p>
-    </div>`;
+    itemsEl.innerHTML = "";
+    itemsEl.appendChild(emptyEl);
+    emptyEl.style.display = "flex";
     footerEl.style.display = "none";
     return;
   }
 
+  emptyEl.style.display = "none";
   footerEl.style.display = "block";
-  itemsEl.innerHTML = cart.map((it, i) => {
-    const price = priceOf(it);
-    return `
-    <div class="cart-item" data-cart-idx="${i}">
-      <div class="cart-item-img-wrap">
-        <img class="cart-item-img" src="${it.foto}" alt="${it.nombre}" loading="lazy">
-      </div>
+  itemsEl.innerHTML = cart.map((it, i) => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${it.foto}" alt="">
       <div class="cart-item-info">
         <div class="cart-item-name">${it.nombre}</div>
-        <div class="cart-item-meta">${it.marca}${it.talla ? " · Talla " + it.talla : ""}</div>
-        <div class="cart-item-bottom">
-          <div class="cart-item-price">Bs. ${price}</div>
-        </div>
+        <div class="cart-item-meta">${it.marca}${it.talla ? " · T " + it.talla : ""}</div>
+        <div class="cart-item-price">${it.precio}</div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar producto">×</button>
-    </div>`;
-  }).join("");
+      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar">×</button>
+    </div>
+  `).join("");
 
-  document.getElementById("cart-total").textContent = "Bs. " + cartTotalPrice().toFixed(0);
+  const total = cart.reduce((s, it) => s + (parseInt(it.precio.replace(/[^0-9]/g, ""), 10) || 0), 0);
+  document.getElementById("cart-total").textContent = "Bs. " + total;
 }
 
 function removeFromCart(i) {
@@ -393,20 +346,19 @@ function closeCart() {
 
 function cartCheckoutWA() {
   if (!cart.length) return;
-  const lines = cart.map(it => {
-    const price = priceOf(it);
-    return `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""} — Bs. ${price}`;
-  }).join("\n");
-  const total = cartTotalPrice();
+  const lines = cart.map(it =>
+    `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""} — ${it.precio}`
+  ).join("\n");
+  const total = cart.reduce((s, it) => s + (parseInt(it.precio.replace(/[^0-9]/g, ""), 10) || 0), 0);
   const msg = encodeURIComponent(
     `Hola ${TIENDA}, quiero pedir:\n\n${lines}\n\nTotal: Bs. ${total}`
   );
   if (typeof fbq === "function") {
     fbq("track", "InitiateCheckout", {
       value: total, currency: "BOB",
-      contents: cart.map(it => ({ id: String(it.id), quantity: 1 })),
+      contents: cart.map(i => ({ id: String(i.id), quantity: 1 })),
       content_type: "product",
-      num_items: cartTotalQty()
+      num_items: cart.length
     });
   }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
