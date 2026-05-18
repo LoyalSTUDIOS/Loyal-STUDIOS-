@@ -25,29 +25,70 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1506761844496918&ev=PageView&noscript=1" /></noscript>
 
+<link rel="preload" as="image" href="assets/logo-intro-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;700&family=Anton&family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=Marcellus&family=Instrument+Serif:ital@0;1&family=Archivo+Narrow:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 
 <!-- ═══ INTRO ═══ -->
 <div id="intro">
-  <div class="i-stage">
-    <div class="i-light i-l1"></div>
-    <div class="i-light i-l2"></div>
-    <div class="i-light i-l3"></div>
-    <div class="i-light i-l4"></div>
-    <div class="i-light i-l5"></div>
-    <div class="i-center-dark"></div>
-    <img class="i-logo" src="assets/logo-intro-transparent.png" alt="Loyal Studios" onerror="this.onerror=null;this.src='assets/logo-intro.png'">
-    <div class="i-tagline">
-      <span class="i-tag-word i-w1">STREETWEAR</span>
-      <span class="i-tag-word i-w2">Bolivia</span>
-    </div>
+  <div class="i-light i-l1"></div>
+  <div class="i-light i-l2"></div>
+  <div class="i-light i-l3"></div>
+  <div class="i-light i-l4"></div>
+  <div class="i-light i-l5"></div>
+  <div class="i-center-dark"></div>
+  <img class="i-logo" src="assets/logo-intro-transparent.png" alt="Loyal Studios" onerror="this.onerror=null;this.src='assets/logo-intro.png'">
+  <div class="i-tagline">
+    <span class="i-tag-word i-w1">STREETWEAR</span>
+    <span class="i-tag-word i-w2">Bolivia</span>
   </div>
 </div>
+
+<!-- INTRO REVEAL — inline para ejecutar inmediatamente, sin esperar JS externos -->
+<script>
+(function(){
+  var TARGET = 4700; // duración de la intro (alineada con animaciones CSS)
+  var revealed = false;
+  window.__LS_REVEALED = false;
+
+  // Guardamos el contenido de la intro para que el botón "repetir" funcione
+  var introEl = document.getElementById('intro');
+  if (introEl) window.__LS_INTRO_HTML = introEl.innerHTML;
+
+  function reveal(){
+    if (revealed) return;
+    revealed = true;
+    window.__LS_REVEALED = true;
+    var intro = document.getElementById('intro');
+    var site  = document.getElementById('site');
+    var hero  = document.querySelector('.hero');
+    if (intro) intro.classList.add('gone');
+    if (site)  site.classList.add('show');
+    if (hero)  hero.classList.add('lit');
+    setTimeout(function(){ if (intro) intro.style.display = 'none'; }, 500);
+    // La intro terminó: recién ahora se construye el catálogo (app.js).
+    if (typeof window.__LS_ON_REVEAL === 'function') {
+      try { window.__LS_ON_REVEAL(); } catch (e) {}
+    }
+  }
+  window.__LS_REVEAL = reveal;
+
+  // Reveal a tiempo fijo de reloj desde el inicio de carga,
+  // independiente de cuánto tarden los JS externos en el celular.
+  var elapsed = (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0;
+  setTimeout(reveal, Math.max(200, TARGET - elapsed));
+
+  // Fallback: si el timer fallara, window.load también dispara el reveal.
+  window.addEventListener('load', function(){
+    var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0;
+    setTimeout(reveal, Math.max(200, TARGET - now));
+  });
+})();
+</script>
 
 <!-- ═══ SITE ═══ -->
 <div id="site">
@@ -393,7 +434,7 @@ fbq('track', 'PageView');
 
 </div><!-- /#site -->
 
-<script src="data.js?v=7"></script>
-<script src="app.js?v=12"></script>
+<script src="data.js?v=7" defer></script>
+<script src="app.js?v=13" defer></script>
 </body>
 </html>

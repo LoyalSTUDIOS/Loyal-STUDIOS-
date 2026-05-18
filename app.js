@@ -18,31 +18,27 @@ cart = cart.filter(it => {
 localStorage.setItem("ls_cart", JSON.stringify(cart));
 
 // ═══ INTRO ═══
+// El PRIMER reveal lo maneja un <script> inline en index.html para que se
+// ejecute de inmediato (sin esperar a que descarguen/parseen estos JS en el
+// celular). Acá sólo vive la lógica de "repetir intro".
 const INTRO_DURATION = 4700;
-let _introHTML = "";
-function _hideIntro(){
-  const intro = document.getElementById("intro");
-  if(!intro) return;
-  intro.classList.add("gone");
-  document.getElementById("site").classList.add("show");
-  const hero = document.querySelector(".hero");
-  if(hero) hero.classList.add("lit");
-  setTimeout(()=>{ intro.style.display="none"; }, 500);
-}
 function replayIntro(){
   const intro = document.getElementById("intro");
-  if(!intro || !_introHTML) return;
+  const html = window.__LS_INTRO_HTML;
+  if(!intro || !html) return;
   // Reset content (restarts all CSS animations from 0)
+  window.__LS_REVEAL = null;            // permite que un nuevo reveal corra
   intro.style.display = "";
   intro.classList.remove("gone");
-  intro.innerHTML = _introHTML;
-  setTimeout(_hideIntro, INTRO_DURATION);
+  intro.innerHTML = html;
+  setTimeout(()=>{
+    const i = document.getElementById("intro");
+    if(!i) return;
+    i.classList.add("gone");
+    document.getElementById("site").classList.add("show");
+    setTimeout(()=>{ i.style.display="none"; }, 500);
+  }, INTRO_DURATION);
 }
-window.addEventListener("load", () => {
-  const intro = document.getElementById("intro");
-  if(intro) _introHTML = intro.innerHTML;
-  setTimeout(_hideIntro, INTRO_DURATION);
-});
 
 // ═══ ROUTING ═══
 let _homeScrollY = 0;
@@ -460,4 +456,23 @@ function init() {
   updateCartUI();
   onScroll();
 }
-document.addEventListener("DOMContentLoaded", init);
+
+// ═══ ARRANQUE DEL CATÁLOGO ═══
+// El catálogo NO se construye durante la intro: en el celular, armar las
+// tarjetas + decodificar imágenes mientras corre la animación pesada de la
+// intro ahoga al iPhone y la congela justo en el logo. Lo construimos recién
+// cuando la intro terminó (el hero se ve primero; el catálogo está más abajo).
+function _bootCatalog(){
+  if (window.__LS_BOOTED) return;
+  window.__LS_BOOTED = true;
+  init();
+}
+if (window.__LS_REVEALED) {
+  // La intro ya terminó antes de que cargaran estos JS → armar ya mismo.
+  _bootCatalog();
+} else {
+  // Esperar al reveal de la intro (lo dispara el <script> inline del HTML).
+  window.__LS_ON_REVEAL = _bootCatalog;
+}
+// Salvaguarda: si por alguna razón el reveal no lo disparó, armar en load.
+window.addEventListener("load", () => setTimeout(_bootCatalog, 50));
