@@ -110,9 +110,9 @@ function badge(b) {
   return "";
 }
 
-function cardHTML(p) {
+function cardHTML(p, i) {
   return `
-    <article class="card" onclick="openDetail(${p.id})">
+    <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
@@ -432,26 +432,97 @@ document.addEventListener("keydown", e => {
   }
 });
 
+// ═══ CARRUSEL 3D DE MARCAS ═══
+// Mobile-first: scroll horizontal nativo con snap (momentum del SO) + efecto
+// 3D continuo (rotateY/translateZ/scale/opacity) calculado en cada frame de
+// scroll. Solo transform/opacity → fluido en cualquier celular de Bolivia.
+let _bcCards = [], _bcActive = 0, _bcTick = false, _bcHintGone = false;
+
+function buildBrandsCarousel() {
+  const track = document.getElementById("brands-track");
+  const dots = document.getElementById("brands-dots");
+  if (!track) return;
+
+  track.innerHTML = BRANDS.map(b => `
+    <article class="bc-card" data-bid="${b.id}" onclick="filterBrand('${b.id}', document.querySelector('[data-b=\\'${b.id}\\']'))">
+      <div class="bc-img" style="background-image:url('${b.img}')"></div>
+      <div class="bc-overlay"></div>
+      <div class="bc-info">
+        <span class="bc-tag">Ver colección</span>
+        <div class="bc-wordmark wm-${b.id}">${b.wordmark}</div>
+        <div class="bc-count">${ITEMS.filter(i => i.marca_id === b.id).length} piezas</div>
+      </div>
+    </article>`).join("");
+
+  dots.innerHTML = BRANDS.map((b, i) =>
+    `<button class="bc-dot${i === 0 ? " on" : ""}" aria-label="Ir a ${b.name}" data-i="${i}"></button>`
+  ).join("");
+
+  const carousel = document.getElementById("brands-carousel");
+  _bcCards = Array.from(track.children);
+
+  dots.querySelectorAll(".bc-dot").forEach(d => {
+    d.addEventListener("click", () => bcScrollTo(parseInt(d.dataset.i, 10)));
+  });
+
+  carousel.addEventListener("scroll", () => {
+    if (!_bcHintGone) {
+      _bcHintGone = true;
+      const h = document.getElementById("bc-hint");
+      if (h) h.classList.add("gone");
+    }
+    if (_bcTick) return;
+    _bcTick = true;
+    requestAnimationFrame(() => { bcUpdate(); _bcTick = false; });
+  }, { passive: true });
+
+  window.addEventListener("resize", () => requestAnimationFrame(bcUpdate), { passive: true });
+  // Primer cálculo (varios reintentos: el layout/anchos pueden no estar listos)
+  bcUpdate();
+  [60, 200, 500].forEach(t => setTimeout(bcUpdate, t));
+}
+
+function bcUpdate() {
+  const carousel = document.getElementById("brands-carousel");
+  if (!carousel || !_bcCards.length) return;
+  const cRect = carousel.getBoundingClientRect();
+  const center = cRect.left + cRect.width / 2;
+  let best = 0, bestDist = Infinity;
+
+  _bcCards.forEach((card, i) => {
+    const r = card.getBoundingClientRect();
+    const cc = r.left + r.width / 2;
+    const d = (cc - center) / cRect.width;          // distancia normalizada
+    const cl = Math.max(-1.7, Math.min(1.7, d));
+    const ry = (-cl * 24).toFixed(2);                // rotación Y
+    const tz = (-Math.abs(cl) * 165).toFixed(1);     // alejar en Z
+    const sc = (1 - Math.min(Math.abs(cl) * 0.16, 0.34)).toFixed(3);
+    const op = (1 - Math.min(Math.abs(cl) * 0.6, 0.72)).toFixed(3);
+    card.style.transform = `rotateY(${ry}deg) translateZ(${tz}px) scale(${sc})`;
+    card.style.opacity = op;
+    const ad = Math.abs(d);
+    if (ad < bestDist) { bestDist = ad; best = i; }
+  });
+
+  _bcCards.forEach((c, i) => c.classList.toggle("is-active", i === best));
+  if (best !== _bcActive) {
+    _bcActive = best;
+    const dots = document.querySelectorAll("#brands-dots .bc-dot");
+    dots.forEach((d, i) => d.classList.toggle("on", i === best));
+  }
+}
+
+function bcScrollTo(i) {
+  const carousel = document.getElementById("brands-carousel");
+  const card = _bcCards[i];
+  if (!carousel || !card) return;
+  const left = card.offsetLeft - (carousel.clientWidth - card.clientWidth) / 2;
+  carousel.scrollTo({ left, behavior: "smooth" });
+}
+
 // ═══ INIT ═══
 function init() {
-  // Build brand monogram cards
-  const bg = document.getElementById("brands-grid");
-  bg.innerHTML = BRANDS.map(b => {
-    const isLogo = b.fit === "contain";
-    const style = isLogo
-      ? `background-image:url('${b.img}');background-size:contain;background-color:${b.bg || "#fff"};background-position:center;background-repeat:no-repeat;`
-      : `background-image:url('${b.img}')`;
-    return `
-    <div class="brand-card ${isLogo ? "is-logo" : ""} reveal" onclick="filterBrand('${b.id}', document.querySelector('[data-b=\\'${b.id}\\']'))">
-      <div class="brand-card-img" style="${style}"></div>
-      <div class="brand-card-overlay"></div>
-      <div class="brand-card-info">
-        ${isLogo ? "" : `<div class="brand-wordmark wm-${b.id}">${b.wordmark}</div>`}
-        <div class="brand-count">${ITEMS.filter(i => i.marca_id === b.id).length} piezas</div>
-      </div>
-    </div>`;
-  }).join("");
-
+  buildBrandsCarousel();
   render();
   updateCartUI();
   onScroll();

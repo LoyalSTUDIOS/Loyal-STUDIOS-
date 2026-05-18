@@ -148,18 +148,6 @@ nav{
 .nav-wa:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(226,255,63,.3)}
 .nav-wa svg{width:13px;height:13px;fill:currentColor}
 
-.nav-replay{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:34px;height:34px;border-radius:50%;
-  background:transparent;border:1px solid rgba(255,255,255,.18);
-  color:rgba(255,255,255,.7);cursor:pointer;
-  transition:color .18s, border-color .18s, transform .25s, background .18s;
-  padding:0;
-}
-.nav-replay svg{width:14px;height:14px}
-.nav-replay:hover{color:var(--accent);border-color:var(--accent);background:rgba(226,255,63,.08)}
-.nav-replay:active svg{transform:rotate(-180deg);transition:transform .4s}
-
 /* ═══ HERO ═══ */
 .hero{
   margin-top:var(--nav-h);
@@ -173,7 +161,7 @@ nav{
   background-image:
     linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.2) 55%,#0a0a0a 100%),
     url('assets/hero-bg.jpg');
-  background-size:cover;background-position:72% center;
+  background-size:cover;background-position:66% 47%;
   transform:scale(1.06);
   transition:transform 8s ease-out;
   filter:saturate(1.05) contrast(1.04);
@@ -379,83 +367,115 @@ nav{
   border-bottom:1px solid var(--line);
   position:relative;
 }
-.brands-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;max-width:1300px;margin-top:40px;
+/* ── Carrusel 3D swipeable (mobile-first, solo transform/opacity) ── */
+.bc-hint{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:30px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.45);
+  transition:opacity .4s;
 }
-.brand-card{
-  position:relative;overflow:hidden;
+.bc-hint i{font-style:normal;color:var(--accent);display:inline-block;animation:bcHint 1.5s ease-in-out infinite}
+.bc-hint.gone{opacity:0;pointer-events:none}
+@keyframes bcHint{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+
+.brands-carousel{
+  --bc-cw:min(76vw,330px);
+  width:100vw;margin-left:calc(50% - 50vw);
+  margin-top:18px;
+  overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  perspective:1400px;
+  padding:42px calc(50vw - var(--bc-cw)/2) 46px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.brands-carousel::-webkit-scrollbar{display:none}
+.bc-track{
+  display:flex;gap:20px;
+  transform-style:preserve-3d;
+  width:max-content;
+}
+.bc-card{
+  flex:0 0 var(--bc-cw);
   aspect-ratio:4/5;
-  border-radius:14px;
+  position:relative;overflow:hidden;
+  border-radius:20px;
   background:#141414;border:1px solid var(--line);
+  scroll-snap-align:center;
   cursor:pointer;
-  transition:transform .35s cubic-bezier(.22,1,.36,1), border-color .25s;
+  transform-origin:center center;
+  will-change:transform,opacity;
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.8);
 }
-.brand-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.25)}
-.brand-card-img{
+.bc-card.is-active{
+  border-color:rgba(226,255,63,.5);
+  box-shadow:0 26px 70px -20px rgba(226,255,63,.32),
+             0 0 0 1px rgba(226,255,63,.18) inset;
+}
+.bc-img{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  transition:transform .8s cubic-bezier(.22,1,.36,1), filter .4s;
-  filter:grayscale(.4) brightness(.7);
+  filter:grayscale(.45) brightness(.62);
+  transition:filter .55s ease, transform .9s cubic-bezier(.22,1,.36,1);
+  transform:scale(1.02);
 }
-.brand-card:hover .brand-card-img{transform:scale(1.06);filter:grayscale(0) brightness(.85)}
-.brand-card-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 60%,rgba(0,0,0,.92) 100%);
-  pointer-events:none;
+.bc-card.is-active .bc-img{filter:grayscale(0) brightness(.95);transform:scale(1.08)}
+.bc-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.93) 100%);
 }
-.brand-card-info{
+.bc-info{
   position:absolute;left:0;right:0;bottom:0;
-  padding:22px;
-  z-index:2;
-  color:#fff;
+  padding:24px;z-index:2;color:#fff;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
 }
-.brand-wordmark{
+.bc-card.is-active .bc-info{transform:translateY(-4px)}
+.bc-wordmark{
   font-family:'Bebas Neue',sans-serif;
   font-size:34px;letter-spacing:.5px;line-height:1;
-  margin-bottom:6px;color:#fff;
-  text-shadow:0 2px 18px rgba(0,0,0,.6);
+  margin-bottom:7px;color:#fff;
+  text-shadow:0 2px 18px rgba(0,0,0,.65);
 }
+.bc-tag{
+  display:inline-block;margin-bottom:9px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:#000;background:var(--accent);
+  padding:4px 9px;border-radius:999px;
+  opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s;
+}
+.bc-card.is-active .bc-tag{opacity:1;transform:translateY(0)}
+
+.bc-dots{
+  display:flex;justify-content:center;align-items:center;gap:8px;
+  margin-top:6px;
+}
+.bc-dot{
+  width:7px;height:7px;border-radius:999px;
+  background:rgba(255,255,255,.2);cursor:pointer;border:none;padding:0;
+  transition:background .3s,width .3s;
+}
+.bc-dot.on{background:var(--accent);width:24px}
 /* Brand-styled wordmarks — each font matches the real brand vibe */
 .wm-nike{font-family:'Anton',sans-serif;font-style:italic;font-weight:400;letter-spacing:-.02em;font-size:42px;text-transform:uppercase}
 .wm-jordan{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.04em;font-size:34px;text-transform:uppercase}
-.wm-adidas{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:-.005em;font-size:42px;text-transform:lowercase;font-style:italic}
+.wm-adidas{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:-.045em;font-size:38px;text-transform:lowercase;font-style:normal}
 .wm-newbalance{font-family:'Marcellus',serif;font-weight:400;letter-spacing:.01em;font-size:32px;text-transform:none;font-style:italic}
 .wm-champion{font-family:'Bowlby One',sans-serif;font-weight:400;letter-spacing:.005em;font-size:30px;text-transform:uppercase;font-style:italic}
 .wm-tommy{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.06em;font-size:26px;text-transform:uppercase}
 .wm-calvin{font-family:'Inter',sans-serif;font-weight:300;letter-spacing:.18em;font-size:24px;text-transform:uppercase}
 .wm-guess{font-family:'Archivo Black',sans-serif;font-weight:900;letter-spacing:.18em;font-size:32px;text-transform:uppercase}
 .wm-deprimera{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;font-size:34px;color:var(--accent)}
-.brand-count{
-  font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.5px;
+.bc-count{
+  font-size:11px;color:rgba(255,255,255,.62);letter-spacing:.5px;
   display:flex;align-items:center;gap:6px;
 }
-.brand-count::after{
+.bc-count::after{
   content:'→';font-family:'JetBrains Mono',monospace;
-  margin-left:4px;transition:transform .2s;
+  margin-left:4px;transition:transform .3s;
 }
-.brand-card:hover .brand-count::after{transform:translateX(4px)}
-
-/* Logo-style brand cards (Adidas, New Balance) — show logo full on white */
-.brand-card.is-logo .brand-card-img{
-  filter:none;
-  transform:none !important;
-  margin:14% 16%;        /* padding inside the card so logo doesn't touch edges */
-  inset:auto;            /* override the absolute inset:0 from default */
-  width:auto;height:auto;
-  position:absolute;top:0;left:0;right:0;bottom:38%;
-}
-.brand-card.is-logo:hover .brand-card-img{filter:none;transform:none}
-.brand-card.is-logo .brand-card-overlay{
-  background:linear-gradient(180deg,transparent 0%,transparent 55%,rgba(0,0,0,.85) 80%,rgba(0,0,0,.95) 100%);
-}
-.brand-card.is-logo{background:#fff}
-.brand-card.is-logo .brand-count{color:rgba(255,255,255,.85)}
-.brand-card.placeholder .brand-card-img{
-  background:repeating-linear-gradient(45deg,#1c1c1c 0 6px,#181818 6px 12px);
-  filter:none;
-}
+.bc-card.is-active .bc-count{color:rgba(255,255,255,.9)}
+.bc-card.is-active .bc-count::after{transform:translateX(5px);color:var(--accent)}
 
 /* ═══ FILTER BAR ═══ */
 .filter-bar{
@@ -542,7 +562,7 @@ nav{
 .ftab .wm{display:inline-block;line-height:1;vertical-align:middle}
 .ftab .wm.wm-nike{font-family:'Anton',sans-serif;font-style:italic;font-size:18px;text-transform:uppercase;letter-spacing:-.02em}
 .ftab .wm.wm-jordan{font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
-.ftab .wm.wm-adidas{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-style:italic;font-size:18px;text-transform:lowercase;letter-spacing:-.01em}
+.ftab .wm.wm-adidas{font-family:'Archivo',sans-serif;font-weight:900;font-size:16px;text-transform:lowercase;letter-spacing:-.04em}
 .ftab .wm.wm-newbalance{font-family:'Marcellus',serif;font-style:italic;font-size:14px;letter-spacing:.01em}
 .ftab .wm.wm-tommy{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
 .ftab .wm.wm-calvin{font-family:'Inter',sans-serif;font-weight:300;font-size:14px;letter-spacing:.32em;text-transform:uppercase}
@@ -1150,9 +1170,32 @@ footer{
 .cart-wa-btn:hover{background:var(--green-2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,214,107,.4)}
 .cart-wa-btn svg{width:16px;height:16px;fill:currentColor}
 
-/* ═══ REVEAL ON SCROLL ═══ */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* ═══ REVEAL ON SCROLL — con profundidad 3D (solo transform/opacity) ═══ */
+.reveal{
+  opacity:0;
+  transform:perspective(1000px) translateY(38px) translateZ(-60px) rotateX(7deg);
+  transition:opacity .75s ease, transform .85s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in{opacity:1;transform:perspective(1000px) translateY(0) translateZ(0) rotateX(0)}
+
+/* Entrada escalonada de las tarjetas de producto (3D sutil, GPU).
+   fill-mode backwards → no pisa el hover/active al terminar. */
+@keyframes cardIn{
+  0%{opacity:0;transform:translateY(30px) scale(.96)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.card{animation:cardIn .55s cubic-bezier(.22,1,.36,1) backwards;
+  animation-delay:calc(min(var(--i,0),11) * 45ms)}
+.card:active{transform:scale(.972)}
+.social-card:active{transform:scale(.985) translateY(-2px)}
+.hero-btn:active{transform:scale(.95)}
+.bc-card:active{filter:brightness(1.04)}
+
+/* Respeta a quien pide menos movimiento (accesibilidad) */
+@media (prefers-reduced-motion: reduce){
+  .reveal,.card{transition:opacity .3s ease;animation:none;transform:none;opacity:1}
+  .bc-card{transition:none}
+}
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:900px){
