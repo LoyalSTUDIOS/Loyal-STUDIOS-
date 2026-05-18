@@ -10,7 +10,9 @@ const BRANDS = [
   { id:"tommy",      name:"Tommy Hilfiger", wordmark:"TOMMY HILFIGER", img:"assets/brand-tommy.webp" },
   { id:"calvin",     name:"Calvin Klein",   wordmark:"Calvin Klein",   img:"assets/brand-calvin.jpg" },
   { id:"guess",      name:"GUESS",          wordmark:"GUESS",          img:"assets/brand-guess-v2.jpg" },
-  { id:"deprimera",  name:"De Primera",     wordmark:"De Primera ✦",   img:"assets/brand-deprimera.webp" }
+  { id:"deprimera",  name:"De Primera",     wordmark:"De Primera ✦",   img:"assets/brand-deprimera.webp" },
+  { id:"columbia",   name:"Columbia",       wordmark:"Columbia",       img:"assets/brand-columbia.jpg" },
+  { id:"northface",  name:"The North Face", wordmark:"THE NORTH FACE", img:"assets/brand-northface.jpg" }
 ];
 
 const ITEMS = [
@@ -112,7 +114,7 @@ const ITEMS = [
     desc:"El short que Nike tiene en su línea desde siempre — y por algo es. Fleece suave por dentro, cintura con cordón, logo NIKE grande en la pierna. Blanco limpio que va con todo. Para la calle, el gym, o quedarte en casa como si fuera intencional.",
     fotos:["fotos_catalogo/Hombre/15/IMG_1246.jpg","fotos_catalogo/Hombre/15/IMG_1251.jpg","fotos_catalogo/Hombre/15/IMG_1252.jpg","fotos_catalogo/Hombre/15/IMG_1256.jpg"]},
 
-  { id:16, genero:"hombre", marca:"Air Jordan", marca_id:"jordan", badge:"new", stock:true,
+  { id:16, genero:"hombre", marca:"Air Jordan", marca_id:"jordan", badge:"out", stock:false,
     nombre:"Jordan MJ 23 Vintage Graphic Hoodie",
     precio:"Bs. 469", tallas:["M","XL"],
     desc:"Michael Jordan. Número 23. Chicago Bulls. Todo eso en un hoodie negro de peso real. Gráfica vintage con collage de MJ en acción, letras de impacto, fleece grueso premium. Para los que crecieron mirando los highlights — y nunca olvidaron el legado.",
@@ -138,7 +140,7 @@ const ITEMS = [
     desc:"Calvin Klein Jeans est 1978 — cuatro décadas de herencia en relieve tono sobre tono. Crewneck arena lavado, corte ligeramente crop, texto en la espalda que nadie espera y todos voltean a ver. Vintage sin esfuerzo, moderno sin gritar.",
     fotos:["fotos_catalogo/Hombre/19/IMG_2077.jpg","fotos_catalogo/Hombre/19/IMG_2082.jpg","fotos_catalogo/Hombre/19/IMG_2087.jpg","fotos_catalogo/Hombre/19/IMG_2090.jpg","fotos_catalogo/Hombre/19/IMG_2091.jpg"]},
 
-  { id:20, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
+  { id:20, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"out", stock:false,
     nombre:"Tommy Jeans Washed Hoodie — Gris Carbón",
     precio:"Bs. 419", tallas:["XL"],
     desc:"Tommy Jeans lo lavó, lo desgastó, lo perfeccionó. Hoodie en gris carbón washed con logo bordado en el pecho — parece que lo llevás años, pero es nuevo. Fleece grueso, fit oversized, esa energía de los 90s que no se va nunca.",
