@@ -29,7 +29,7 @@ fbq('track', 'PageView');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;700&family=Anton&family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=Archivo:wght@700;800;900&family=Marcellus&family=Instrument+Serif:ital@0;1&family=Archivo+Narrow:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=22">
+<link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 
@@ -147,10 +147,10 @@ fbq('track', 'PageView');
         <h2 class="section-title">Las marcas <em>que</em><br>nos definen</h2>
       </div>
     </div>
-    <div class="bc-hint" id="bc-hint" aria-hidden="true"><span>DESLIZÁ</span><i>→</i></div>
-    <div class="brands-carousel" id="brands-carousel">
+    <div class="bc-stage" id="brands-carousel">
       <div class="bc-track" id="brands-track"></div>
     </div>
+    <div class="bc-hint" id="bc-hint" aria-hidden="true"><i>‹</i><span>DESLIZÁ PARA VER MÁS MARCAS</span><i>›</i></div>
     <div class="bc-dots" id="brands-dots"></div>
   </section>
 
@@ -222,6 +222,7 @@ fbq('track', 'PageView');
       <button class="ftab" data-b="calvin" onclick="setB('calvin',this)">Calvin Klein</button>
       <button class="ftab" data-b="guess" onclick="setB('guess',this)">GUESS</button>
       <button class="ftab" data-b="deprimera" onclick="setB('deprimera',this)">De Primera</button>
+      <button class="ftab ftab-sold" data-b="sold" onclick="setB('sold',this)">SOLD OUT 🔴</button>
     </div>
   </div>
 
@@ -287,6 +288,8 @@ fbq('track', 'PageView');
         <span id="d-brand" class="d-brand-tag"></span>
         <span class="d-dot"></span>
         <span id="d-gen" class="d-gen-tag"></span>
+        <span class="d-dot"></span>
+        <span id="d-uid" class="d-uid-tag"></span>
       </div>
       <h1 id="d-name" class="d-name"></h1>
       <div id="d-price" class="d-price"></div>
@@ -430,7 +433,7 @@ fbq('track', 'PageView');
 
 </div><!-- /#site -->
 
-<script src="data.js?v=7" defer></script>
-<script src="app.js?v=15" defer></script>
+<script src="data.js?v=8" defer></script>
+<script src="app.js?v=18" defer></script>
 </body>
 </html>

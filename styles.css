@@ -367,60 +367,50 @@ nav{
   border-bottom:1px solid var(--line);
   position:relative;
 }
-/* ── Carrusel 3D swipeable (mobile-first, solo transform/opacity) ── */
-.bc-hint{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:30px;
-  font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.45);
-  transition:opacity .4s;
-}
-.bc-hint i{font-style:normal;color:var(--accent);display:inline-block;animation:bcHint 1.5s ease-in-out infinite}
-.bc-hint.gone{opacity:0;pointer-events:none}
-@keyframes bcHint{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
-
-.brands-carousel{
-  --bc-cw:min(76vw,330px);
+/* ── Coverflow 3D (manejado por transforms, NO por scroll: anima siempre
+   en iOS/Android, auto-rota, swipe táctil. Solo transform/opacity). ── */
+.bc-stage{
+  --cw:min(70vw,300px);
+  --ch:calc(var(--cw) * 1.26);
+  position:relative;
   width:100vw;margin-left:calc(50% - 50vw);
-  margin-top:18px;
-  overflow-x:auto;overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  scroll-snap-type:x mandatory;
-  perspective:1400px;
-  padding:42px calc(50vw - var(--bc-cw)/2) 46px;
-  scrollbar-width:none;-ms-overflow-style:none;
+  height:calc(var(--ch) + 70px);
+  margin-top:30px;
+  perspective:1150px;
+  overflow:hidden;
+  touch-action:pan-y;            /* permite scroll vertical, swipe horiz lo maneja JS */
 }
-.brands-carousel::-webkit-scrollbar{display:none}
 .bc-track{
-  display:flex;gap:20px;
+  position:absolute;inset:0;
   transform-style:preserve-3d;
-  width:max-content;
 }
 .bc-card{
-  flex:0 0 var(--bc-cw);
-  aspect-ratio:4/5;
-  position:relative;overflow:hidden;
-  border-radius:20px;
+  position:absolute;top:35px;left:50%;
+  width:var(--cw);height:var(--ch);
+  margin-left:calc(var(--cw) / -2);
+  border-radius:20px;overflow:hidden;
   background:#141414;border:1px solid var(--line);
-  scroll-snap-align:center;
   cursor:pointer;
   transform-origin:center center;
   will-change:transform,opacity;
-  box-shadow:0 18px 40px -22px rgba(0,0,0,.8);
+  transition:transform .62s cubic-bezier(.34,1.2,.4,1),
+             opacity .55s ease, box-shadow .5s ease, border-color .4s ease;
+  box-shadow:0 22px 50px -26px rgba(0,0,0,.85);
+  -webkit-tap-highlight-color:transparent;
 }
 .bc-card.is-active{
-  border-color:rgba(226,255,63,.5);
-  box-shadow:0 26px 70px -20px rgba(226,255,63,.32),
-             0 0 0 1px rgba(226,255,63,.18) inset;
+  border-color:rgba(226,255,63,.55);
+  box-shadow:0 30px 80px -22px rgba(226,255,63,.4),
+             0 0 0 1px rgba(226,255,63,.2) inset;
 }
 .bc-img{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  filter:grayscale(.45) brightness(.62);
-  transition:filter .55s ease, transform .9s cubic-bezier(.22,1,.36,1);
-  transform:scale(1.02);
+  filter:grayscale(.5) brightness(.55);
+  transition:filter .6s ease, transform 1s cubic-bezier(.22,1,.36,1);
+  transform:scale(1.04);
 }
-.bc-card.is-active .bc-img{filter:grayscale(0) brightness(.95);transform:scale(1.08)}
+.bc-card.is-active .bc-img{filter:grayscale(0) brightness(.95);transform:scale(1.09)}
 .bc-overlay{
   position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.93) 100%);
@@ -428,7 +418,7 @@ nav{
 .bc-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:24px;z-index:2;color:#fff;
-  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  transition:transform .55s cubic-bezier(.22,1,.36,1);
 }
 .bc-card.is-active .bc-info{transform:translateY(-4px)}
 .bc-wordmark{
@@ -446,9 +436,24 @@ nav{
 }
 .bc-card.is-active .bc-tag{opacity:1;transform:translateY(0)}
 
+.bc-hint{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  margin-top:20px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);
+  transition:opacity .4s;
+}
+.bc-hint i{
+  font-style:normal;color:var(--accent);font-size:15px;
+  display:inline-block;animation:bcHint 1.4s ease-in-out infinite;
+}
+.bc-hint i:last-child{animation-delay:.7s}
+.bc-hint.gone{opacity:0;pointer-events:none}
+@keyframes bcHint{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(4px);opacity:1}}
+
 .bc-dots{
   display:flex;justify-content:center;align-items:center;gap:8px;
-  margin-top:6px;
+  margin-top:16px;
 }
 .bc-dot{
   width:7px;height:7px;border-radius:999px;
@@ -456,6 +461,8 @@ nav{
   transition:background .3s,width .3s;
 }
 .bc-dot.on{background:var(--accent);width:24px}
+
+/* ═══ SOLD OUT ═══ */
 /* Brand-styled wordmarks — each font matches the real brand vibe */
 .wm-nike{font-family:'Anton',sans-serif;font-style:italic;font-weight:400;letter-spacing:-.02em;font-size:42px;text-transform:uppercase}
 .wm-jordan{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.04em;font-size:34px;text-transform:uppercase}
@@ -570,6 +577,12 @@ nav{
 .ftab .wm.wm-deprimera{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.05em;text-transform:uppercase}
 
 .ftab[data-b="deprimera"].on{color:var(--orange);border-bottom-color:var(--orange)}
+.catalog-wrap.sold-view .card .card-img img{filter:grayscale(.7) brightness(.5)}
+.catalog-wrap.sold-view .card:hover .card-img img,.catalog-wrap.sold-view .card:active .card-img img{filter:grayscale(.35) brightness(.62)}
+.ftab-sold{color:rgba(220,50,50,.75)}
+.ftab-sold.on{color:#e03030;border-bottom-color:#e03030}
+.filter-bar.lit .ftab-sold{color:rgba(200,40,40,.6)}
+.filter-bar.lit .ftab-sold.on{color:#c02020;border-bottom-color:#c02020}
 
 .fsep{width:1px;height:22px;background:var(--line);margin:0 10px;flex-shrink:0;transition:background .6s}
 .filter-bar.lit .fsep{background:var(--paper-line)}
@@ -650,6 +663,22 @@ nav{
 .b-last{background:var(--red);color:#fff}
 .b-out{background:rgba(0,0,0,.7);color:#fff;border:1px solid rgba(255,255,255,.2)}
 .b-dp{background:var(--orange);color:#fff}
+
+/* Código interno de prenda (uso nuestro p/ identificar prendas) */
+.card-uid{
+  position:absolute;top:12px;right:12px;z-index:2;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:600;letter-spacing:1px;
+  color:rgba(255,255,255,.7);
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  padding:4px 7px;border-radius:4px;
+  border:1px solid rgba(255,255,255,.14);
+}
+.catalog-wrap.lit .card-uid{
+  color:rgba(10,10,10,.55);background:rgba(255,255,255,.7);
+  border-color:rgba(10,10,10,.12);
+}
 
 .card-cta{
   position:absolute;bottom:0;left:0;right:0;z-index:2;
@@ -839,6 +868,14 @@ footer{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:1.6px;text-transform:uppercase;
   color:rgba(255,255,255,.4);
+}
+.d-uid-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:1.2px;
+  color:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.08);
+  padding:3px 7px;border-radius:4px;
+  border:1px solid rgba(255,255,255,.12);
 }
 .d-name{
   font-family:'Bebas Neue',sans-serif;

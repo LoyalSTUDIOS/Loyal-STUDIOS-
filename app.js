@@ -110,12 +110,15 @@ function badge(b) {
   return "";
 }
 
+function uidOf(p) { return "NK-" + String(p.id).padStart(2, "0"); }
+
 function cardHTML(p, i) {
   return `
     <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
+        <div class="card-uid">${uidOf(p)}</div>
         <div class="card-cta">Ver producto →</div>
       </div>
       <div class="card-body">
@@ -130,14 +133,19 @@ function cardHTML(p, i) {
 }
 
 function render() {
-  const list = ITEMS.filter(p =>
-    (fG === "all" || p.genero === fG) &&
-    (fB === "all" || p.marca_id === fB)
-  );
+  const isSold = fB === "sold";
+  const list = isSold
+    ? ITEMS.filter(p => p.stock === false && (fG === "all" || p.genero === fG))
+    : ITEMS.filter(p =>
+        p.stock !== false &&
+        (fG === "all" || p.genero === fG) &&
+        (fB === "all" || p.marca_id === fB)
+      );
   const grid = document.getElementById("grid");
   document.getElementById("cat-count").textContent =
     `${list.length} ${list.length === 1 ? "pieza" : "piezas"}`;
   document.getElementById("dp-banner").classList.toggle("show", fB === "deprimera");
+  document.getElementById("catalog").classList.toggle("sold-view", isSold);
 
   if (!list.length) {
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
@@ -174,6 +182,8 @@ function openDetail(id) {
   tag.className = "d-brand-tag" + (cur.marca_id === "deprimera" ? " dp" : "");
 
   document.getElementById("d-gen").textContent = cur.genero.toUpperCase();
+  const dUid = document.getElementById("d-uid");
+  if (dUid) dUid.textContent = uidOf(cur);
   document.getElementById("d-name").textContent = cur.nombre;
   document.getElementById("d-price").textContent = cur.precio;
   document.getElementById("d-desc").textContent = cur.desc;
@@ -432,21 +442,52 @@ document.addEventListener("keydown", e => {
   }
 });
 
-// ═══ CARRUSEL 3D DE MARCAS ═══
-// Mobile-first: scroll horizontal nativo con snap (momentum del SO) + efecto
-// 3D continuo (rotateY/translateZ/scale/opacity) calculado en cada frame de
-// scroll. Solo transform/opacity → fluido en cualquier celular de Bolivia.
-let _bcCards = [], _bcActive = 0, _bcTick = false;
+// ═══ COVERFLOW 3D DE MARCAS ═══
+// Manejado por TRANSFORMS (no por scroll). Por eso anima siempre en iOS
+// Safari / Android gama baja, se auto-rota solo y responde al swipe.
+// Solo transform/opacity → fluido en cualquier celular de Bolivia.
+let _bcCards = [], _bcActive = 0;
 let _bcDir = 1, _bcAutoTimer = null, _bcIdleTimer = null, _bcVisible = false;
-const BC_INTERVAL = 2600;   // se desliza solo cada 2.6s
-const BC_RESUME = 5000;     // retoma 5s después de que sueltes
+const BC_INTERVAL = 2800;   // gira solo cada 2.8s
+const BC_RESUME   = 5500;   // retoma 5.5s después de que sueltes
+
+function bcLayout() {
+  if (!_bcCards.length) return;
+  const cw = _bcCards[0].offsetWidth || 280;
+  const n = _bcCards.length;
+  _bcCards.forEach((card, i) => {
+    let off = i - _bcActive;
+    const a = Math.abs(off);
+    const cl = Math.max(-3, Math.min(3, off));
+    const x  = cl * cw * 0.56;
+    const ry = -cl * 40;
+    const tz = -Math.min(a, 3) * 230;
+    const sc = Math.max(1 - a * 0.15, 0.6);
+    const op = a >= 3.2 ? 0 : Math.max(1 - a * 0.32, 0.18);
+    card.style.transform =
+      `translateX(${x.toFixed(1)}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc.toFixed(3)})`;
+    card.style.opacity = op.toFixed(3);
+    card.style.zIndex = String(60 - a);
+    card.style.pointerEvents = a >= 3.2 ? "none" : "auto";
+    card.classList.toggle("is-active", i === _bcActive);
+  });
+  const dots = document.querySelectorAll("#brands-dots .bc-dot");
+  dots.forEach((d, i) => d.classList.toggle("on", i === _bcActive));
+}
+
+function bcGo(i) {
+  const n = _bcCards.length;
+  if (!n) return;
+  _bcActive = Math.max(0, Math.min(n - 1, i));
+  bcLayout();
+}
 
 function bcAutoStep() {
-  if (!_bcCards.length) return;
+  if (_bcCards.length < 2) return;
   let next = _bcActive + _bcDir;
-  if (next >= _bcCards.length) { _bcDir = -1; next = _bcActive - 1; }
+  if (next > _bcCards.length - 1) { _bcDir = -1; next = _bcActive - 1; }
   else if (next < 0) { _bcDir = 1; next = _bcActive + 1; }
-  bcScrollTo(next);
+  bcGo(next);
 }
 function bcAutoStart() {
   if (_bcAutoTimer || !_bcVisible || _bcCards.length < 2) return;
@@ -455,7 +496,7 @@ function bcAutoStart() {
 function bcAutoStop() {
   if (_bcAutoTimer) { clearInterval(_bcAutoTimer); _bcAutoTimer = null; }
 }
-// El usuario tocó/deslizó → pausamos y retomamos solo tras inactividad
+// El usuario interactuó → pausa y retoma solo tras inactividad
 function bcUserTouch() {
   bcAutoStop();
   const h = document.getElementById("bc-hint");
@@ -467,16 +508,17 @@ function bcUserTouch() {
 function buildBrandsCarousel() {
   const track = document.getElementById("brands-track");
   const dots = document.getElementById("brands-dots");
-  if (!track) return;
+  const stage = document.getElementById("brands-carousel");
+  if (!track || !stage) return;
 
-  track.innerHTML = BRANDS.map(b => `
-    <article class="bc-card" data-bid="${b.id}" onclick="filterBrand('${b.id}', document.querySelector('[data-b=\\'${b.id}\\']'))">
+  track.innerHTML = BRANDS.map((b, i) => `
+    <article class="bc-card" data-bid="${b.id}" data-i="${i}">
       <div class="bc-img" style="background-image:url('${b.img}')"></div>
       <div class="bc-overlay"></div>
       <div class="bc-info">
-        <span class="bc-tag">Ver colección</span>
+        <span class="bc-tag">Ver colección →</span>
         <div class="bc-wordmark wm-${b.id}">${b.wordmark}</div>
-        <div class="bc-count">${ITEMS.filter(i => i.marca_id === b.id).length} piezas</div>
+        <div class="bc-count">${ITEMS.filter(it => it.marca_id === b.id).length} piezas</div>
       </div>
     </article>`).join("");
 
@@ -484,78 +526,74 @@ function buildBrandsCarousel() {
     `<button class="bc-dot${i === 0 ? " on" : ""}" aria-label="Ir a ${b.name}" data-i="${i}"></button>`
   ).join("");
 
-  const carousel = document.getElementById("brands-carousel");
   _bcCards = Array.from(track.children);
+  _bcActive = 0;
 
   dots.querySelectorAll(".bc-dot").forEach(d => {
-    d.addEventListener("click", () => { bcUserTouch(); bcScrollTo(parseInt(d.dataset.i, 10)); });
+    d.addEventListener("click", () => { bcUserTouch(); bcGo(parseInt(d.dataset.i, 10)); });
   });
 
-  // Interacción real del usuario → pausa autoplay (no la confundimos con el
-  // scroll programático del autoplay)
-  ["pointerdown", "touchstart", "wheel", "keydown"].forEach(ev =>
-    carousel.addEventListener(ev, bcUserTouch, { passive: true })
-  );
-
-  carousel.addEventListener("scroll", () => {
-    if (_bcTick) return;
-    _bcTick = true;
-    requestAnimationFrame(() => { bcUpdate(); _bcTick = false; });
+  // Tap en card: si es la activa → abre la colección; si no → la trae al centro
+  let _sx = 0, _sy = 0, _st = 0, _moved = false;
+  stage.addEventListener("touchstart", e => {
+    bcUserTouch();
+    const t = e.touches[0]; _sx = t.clientX; _sy = t.clientY; _st = Date.now(); _moved = false;
   }, { passive: true });
+  stage.addEventListener("touchmove", e => {
+    const t = e.touches[0];
+    if (Math.abs(t.clientX - _sx) > 8 || Math.abs(t.clientY - _sy) > 8) _moved = true;
+  }, { passive: true });
+  stage.addEventListener("touchend", e => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - _sx, dy = t.clientY - _sy;
+    if (Math.abs(dx) > 38 && Math.abs(dx) > Math.abs(dy)) {
+      bcGo(_bcActive + (dx < 0 ? 1 : -1));
+    } else if (!_moved) {
+      bcCardTap(e.target);
+    }
+  });
+  // Click (desktop / sin touch)
+  stage.addEventListener("click", e => {
+    if (_moved) return;
+    if (e.pointerType === "touch" || ("ontouchstart" in window)) return;
+    bcUserTouch(); bcCardTap(e.target);
+  });
 
-  window.addEventListener("resize", () => requestAnimationFrame(bcUpdate), { passive: true });
+  ["pointerdown", "wheel", "keydown"].forEach(ev =>
+    stage.addEventListener(ev, bcUserTouch, { passive: true })
+  );
+  document.addEventListener("keydown", e => {
+    if (!_bcVisible) return;
+    if (e.key === "ArrowRight") { bcUserTouch(); bcGo(_bcActive + 1); }
+    if (e.key === "ArrowLeft")  { bcUserTouch(); bcGo(_bcActive - 1); }
+  });
 
-  // Autoplay solo cuando la sección está en pantalla (ahorra batería/CPU)
+  window.addEventListener("resize", () => requestAnimationFrame(bcLayout), { passive: true });
+
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver((entries) => {
+    new IntersectionObserver(entries => {
       _bcVisible = entries[0].isIntersecting;
-      if (_bcVisible) bcAutoStart(); else bcAutoStop();
-    }, { threshold: 0.35 }).observe(carousel);
+      if (_bcVisible) { bcLayout(); bcAutoStart(); } else bcAutoStop();
+    }, { threshold: 0.3 }).observe(stage);
   } else {
     _bcVisible = true; bcAutoStart();
   }
 
-  // Primer cálculo (varios reintentos: el layout/anchos pueden no estar listos)
-  bcUpdate();
-  [60, 200, 500].forEach(t => setTimeout(bcUpdate, t));
+  bcLayout();
+  [60, 220, 600].forEach(t => setTimeout(bcLayout, t));
 }
 
-function bcUpdate() {
-  const carousel = document.getElementById("brands-carousel");
-  if (!carousel || !_bcCards.length) return;
-  const cRect = carousel.getBoundingClientRect();
-  const center = cRect.left + cRect.width / 2;
-  let best = 0, bestDist = Infinity;
-
-  _bcCards.forEach((card, i) => {
-    const r = card.getBoundingClientRect();
-    const cc = r.left + r.width / 2;
-    const d = (cc - center) / cRect.width;          // distancia normalizada
-    const cl = Math.max(-1.7, Math.min(1.7, d));
-    const ry = (-cl * 24).toFixed(2);                // rotación Y
-    const tz = (-Math.abs(cl) * 165).toFixed(1);     // alejar en Z
-    const sc = (1 - Math.min(Math.abs(cl) * 0.16, 0.34)).toFixed(3);
-    const op = (1 - Math.min(Math.abs(cl) * 0.6, 0.72)).toFixed(3);
-    card.style.transform = `rotateY(${ry}deg) translateZ(${tz}px) scale(${sc})`;
-    card.style.opacity = op;
-    const ad = Math.abs(d);
-    if (ad < bestDist) { bestDist = ad; best = i; }
-  });
-
-  _bcCards.forEach((c, i) => c.classList.toggle("is-active", i === best));
-  if (best !== _bcActive) {
-    _bcActive = best;
-    const dots = document.querySelectorAll("#brands-dots .bc-dot");
-    dots.forEach((d, i) => d.classList.toggle("on", i === best));
+function bcCardTap(targetEl) {
+  const card = targetEl.closest ? targetEl.closest(".bc-card") : null;
+  if (!card) return;
+  const idx = parseInt(card.dataset.i, 10);
+  if (idx === _bcActive) {
+    const bid = card.dataset.bid;
+    const tab = document.querySelector(`[data-b='${bid}']`);
+    filterBrand(bid, tab);
+  } else {
+    bcGo(idx);
   }
-}
-
-function bcScrollTo(i) {
-  const carousel = document.getElementById("brands-carousel");
-  const card = _bcCards[i];
-  if (!carousel || !card) return;
-  const left = card.offsetLeft - (carousel.clientWidth - card.clientWidth) / 2;
-  carousel.scrollTo({ left, behavior: "smooth" });
 }
 
 // ═══ INIT ═══
