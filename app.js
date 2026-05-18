@@ -448,8 +448,8 @@ document.addEventListener("keydown", e => {
 // Solo transform/opacity → fluido en cualquier celular de Bolivia.
 let _bcCards = [], _bcActive = 0;
 let _bcDir = 1, _bcAutoTimer = null, _bcIdleTimer = null, _bcVisible = false;
-const BC_INTERVAL = 2800;   // gira solo cada 2.8s
-const BC_RESUME   = 5500;   // retoma 5.5s después de que sueltes
+const BC_INTERVAL = 1700;   // gira solo cada 1.7s (más dinámico)
+const BC_RESUME   = 4000;   // retoma 4s después de que sueltes
 
 function bcLayout() {
   if (!_bcCards.length) return;
@@ -529,6 +529,14 @@ function buildBrandsCarousel() {
   _bcCards = Array.from(track.children);
   _bcActive = 0;
 
+  // Snap instantly to initial positions — disable CSS transition so cards
+  // don't slowly drift in from center on first render.
+  _bcCards.forEach(c => { c.style.transition = "none"; });
+  bcLayout();
+  // Force reflow so the browser commits the "no-transition" state, then restore.
+  if (_bcCards[0]) _bcCards[0].getBoundingClientRect();
+  requestAnimationFrame(() => _bcCards.forEach(c => { c.style.transition = ""; }));
+
   dots.querySelectorAll(".bc-dot").forEach(d => {
     d.addEventListener("click", () => { bcUserTouch(); bcGo(parseInt(d.dataset.i, 10)); });
   });
@@ -574,13 +582,13 @@ function buildBrandsCarousel() {
     new IntersectionObserver(entries => {
       _bcVisible = entries[0].isIntersecting;
       if (_bcVisible) { bcLayout(); bcAutoStart(); } else bcAutoStop();
-    }, { threshold: 0.3 }).observe(stage);
+    }, { threshold: 0.1 }).observe(stage);
   } else {
     _bcVisible = true; bcAutoStart();
   }
 
-  bcLayout();
-  [60, 220, 600].forEach(t => setTimeout(bcLayout, t));
+  // Extra layout passes at key paint moments to ensure correct card dimensions.
+  [80, 300, 700].forEach(t => setTimeout(bcLayout, t));
 }
 
 function bcCardTap(targetEl) {

@@ -393,8 +393,8 @@ nav{
   cursor:pointer;
   transform-origin:center center;
   will-change:transform,opacity;
-  transition:transform .62s cubic-bezier(.34,1.2,.4,1),
-             opacity .55s ease, box-shadow .5s ease, border-color .4s ease;
+  transition:transform .42s cubic-bezier(.34,1.2,.4,1),
+             opacity .38s ease, box-shadow .4s ease, border-color .35s ease;
   box-shadow:0 22px 50px -26px rgba(0,0,0,.85);
   -webkit-tap-highlight-color:transparent;
 }
@@ -473,6 +473,8 @@ nav{
 .wm-calvin{font-family:'Inter',sans-serif;font-weight:300;letter-spacing:.18em;font-size:24px;text-transform:uppercase}
 .wm-guess{font-family:'Archivo Black',sans-serif;font-weight:900;letter-spacing:.18em;font-size:32px;text-transform:uppercase}
 .wm-deprimera{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;font-size:34px;color:var(--accent)}
+.wm-columbia{font-family:'DM Serif Display',serif;font-size:34px;letter-spacing:.01em;font-style:normal}
+.wm-northface{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;letter-spacing:.04em;text-transform:uppercase}
 .bc-count{
   font-size:11px;color:rgba(255,255,255,.62);letter-spacing:.5px;
   display:flex;align-items:center;gap:6px;
