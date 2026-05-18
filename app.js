@@ -421,17 +421,11 @@ function onScroll() {
 }
 window.addEventListener("scroll", onScroll, { passive: true });
 
-// Lead pixel events
+// Engagement tracking (internal only — no Meta signal)
 let scrollTracked = false;
 window.addEventListener("scroll", () => {
-  if (!scrollTracked && window.scrollY > 500 && typeof fbq === "function") {
-    fbq("track", "Lead", { content_name: "Scroll 500px" });
-    scrollTracked = true;
-  }
+  if (!scrollTracked && window.scrollY > 500) scrollTracked = true;
 }, { passive: true });
-setTimeout(() => {
-  if (typeof fbq === "function") fbq("track", "Lead", { content_name: "15s en página" });
-}, 15000);
 
 // Keyboard
 document.addEventListener("keydown", e => {
