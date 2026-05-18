@@ -161,7 +161,7 @@ nav{
   background-image:
     linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.2) 55%,#0a0a0a 100%),
     url('assets/hero-bg.jpg');
-  background-size:cover;background-position:66% 47%;
+  background-size:cover;background-position:46% 44%;
   transform:scale(1.06);
   transition:transform 8s ease-out;
   filter:saturate(1.05) contrast(1.04);

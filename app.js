@@ -436,7 +436,33 @@ document.addEventListener("keydown", e => {
 // Mobile-first: scroll horizontal nativo con snap (momentum del SO) + efecto
 // 3D continuo (rotateY/translateZ/scale/opacity) calculado en cada frame de
 // scroll. Solo transform/opacity → fluido en cualquier celular de Bolivia.
-let _bcCards = [], _bcActive = 0, _bcTick = false, _bcHintGone = false;
+let _bcCards = [], _bcActive = 0, _bcTick = false;
+let _bcDir = 1, _bcAutoTimer = null, _bcIdleTimer = null, _bcVisible = false;
+const BC_INTERVAL = 2600;   // se desliza solo cada 2.6s
+const BC_RESUME = 5000;     // retoma 5s después de que sueltes
+
+function bcAutoStep() {
+  if (!_bcCards.length) return;
+  let next = _bcActive + _bcDir;
+  if (next >= _bcCards.length) { _bcDir = -1; next = _bcActive - 1; }
+  else if (next < 0) { _bcDir = 1; next = _bcActive + 1; }
+  bcScrollTo(next);
+}
+function bcAutoStart() {
+  if (_bcAutoTimer || !_bcVisible || _bcCards.length < 2) return;
+  _bcAutoTimer = setInterval(bcAutoStep, BC_INTERVAL);
+}
+function bcAutoStop() {
+  if (_bcAutoTimer) { clearInterval(_bcAutoTimer); _bcAutoTimer = null; }
+}
+// El usuario tocó/deslizó → pausamos y retomamos solo tras inactividad
+function bcUserTouch() {
+  bcAutoStop();
+  const h = document.getElementById("bc-hint");
+  if (h) h.classList.add("gone");
+  if (_bcIdleTimer) clearTimeout(_bcIdleTimer);
+  _bcIdleTimer = setTimeout(() => { if (_bcVisible) bcAutoStart(); }, BC_RESUME);
+}
 
 function buildBrandsCarousel() {
   const track = document.getElementById("brands-track");
@@ -462,21 +488,33 @@ function buildBrandsCarousel() {
   _bcCards = Array.from(track.children);
 
   dots.querySelectorAll(".bc-dot").forEach(d => {
-    d.addEventListener("click", () => bcScrollTo(parseInt(d.dataset.i, 10)));
+    d.addEventListener("click", () => { bcUserTouch(); bcScrollTo(parseInt(d.dataset.i, 10)); });
   });
 
+  // Interacción real del usuario → pausa autoplay (no la confundimos con el
+  // scroll programático del autoplay)
+  ["pointerdown", "touchstart", "wheel", "keydown"].forEach(ev =>
+    carousel.addEventListener(ev, bcUserTouch, { passive: true })
+  );
+
   carousel.addEventListener("scroll", () => {
-    if (!_bcHintGone) {
-      _bcHintGone = true;
-      const h = document.getElementById("bc-hint");
-      if (h) h.classList.add("gone");
-    }
     if (_bcTick) return;
     _bcTick = true;
     requestAnimationFrame(() => { bcUpdate(); _bcTick = false; });
   }, { passive: true });
 
   window.addEventListener("resize", () => requestAnimationFrame(bcUpdate), { passive: true });
+
+  // Autoplay solo cuando la sección está en pantalla (ahorra batería/CPU)
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      _bcVisible = entries[0].isIntersecting;
+      if (_bcVisible) bcAutoStart(); else bcAutoStop();
+    }, { threshold: 0.35 }).observe(carousel);
+  } else {
+    _bcVisible = true; bcAutoStart();
+  }
+
   // Primer cálculo (varios reintentos: el layout/anchos pueden no estar listos)
   bcUpdate();
   [60, 200, 500].forEach(t => setTimeout(bcUpdate, t));
