@@ -35,89 +35,76 @@ img{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer}
 a{color:inherit;text-decoration:none}
 
-/* ═══ INTRO — Sans Light + Italic Serif ═══ */
+/* ═══ INTRO — base "anterior" (fondo oscuro, liviana, phone-safe)
+   + logo nuevo nítido + tagline STREETWEAR/Bolivia + animación mejorada.
+   SIN filter:blur ni mix-blend-mode: solo opacity/transform → vuela en
+   cualquier celular promedio de Bolivia (Android gama baja / iPhone viejo). */
 #intro{
   position:fixed;inset:0;z-index:9999;background:#000;
-  overflow:hidden;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:26px;overflow:hidden;pointer-events:none;
 }
-#intro.gone{opacity:0;transition:opacity .4s ease;pointer-events:none}
+#intro.gone{opacity:0;transition:opacity .45s ease;pointer-events:none}
 
-/* Glow de colores — UN solo elemento con degradados radiales en vez de
-   5 divs con filter:blur(80px)+mix-blend-mode. Se ve idéntico (círculos
-   difusos de color) pero NO usa filtros: lo corre a 60fps cualquier
-   celular barato de Bolivia. Solo anima opacity/transform (lo único que
-   las GPU débiles componen sin trabarse). */
-.i-glow{
-  position:absolute;inset:0;opacity:0;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255,184,0,.55) 0%, rgba(255,184,0,0) 42%),
-    radial-gradient(circle at 15% 25%, rgba(255,46,108,.52) 0%, rgba(255,46,108,0) 40%),
-    radial-gradient(circle at 90% 20%, rgba(255,87,34,.52) 0%, rgba(255,87,34,0) 42%),
-    radial-gradient(circle at 8% 82%, rgba(181,46,201,.50) 0%, rgba(181,46,201,0) 42%),
-    radial-gradient(circle at 88% 78%, rgba(0,212,255,.48) 0%, rgba(0,212,255,0) 40%);
-  animation: iGlowIn 2.5s ease-out .2s forwards, iGlowBreathe 5s ease-in-out 2.9s infinite;
-}
-@keyframes iGlowIn{
-  0%{opacity:0;transform:scale(1.1)}
-  55%{opacity:1}
-  100%{opacity:1;transform:scale(1)}
-}
-@keyframes iGlowBreathe{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.04)}
-}
-
-/* Halo oscuro para legibilidad del logo (degradado ya difuso, sin blur) */
-.i-center-dark{
+/* Aura cálida MUY sutil detrás del logo — UN degradado, sin filtro.
+   Mantiene el fondo prácticamente negro, solo da profundidad al logo. */
+.i-aura{
   position:absolute;left:50%;top:48%;
-  width:80%;height:50%;transform:translate(-50%,-50%);
-  background:radial-gradient(ellipse at center,rgba(0,0,0,.55) 0%,rgba(0,0,0,.28) 38%,transparent 78%);
+  width:min(680px,125vw);height:min(680px,125vw);
+  transform:translate(-50%,-50%) scale(.55);
+  background:radial-gradient(circle,
+    rgba(255,150,40,.16) 0%,
+    rgba(255,90,40,.07) 34%,
+    transparent 66%);
   opacity:0;
-  animation: iFade 1s ease-out 2.4s forwards;
+  animation: iAuraIn 1.7s ease-out .2s forwards;
+}
+@keyframes iAuraIn{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
 
-/* Logo — solo fade + escala (sin blur animado, drop-shadow estático) */
+/* Logo nuevo (nítido) — entrada premium: solo opacity + transform */
 .i-logo{
-  position:absolute;left:50%;top:46%;
-  width:min(420px,72vw);
-  transform:translate(-50%,-50%) scale(.84);
-  opacity:0;
-  filter:drop-shadow(0 4px 18px rgba(0,0,0,.85));
-  animation: iLogoResolve 1.7s cubic-bezier(.2,.8,.3,1) 2.6s forwards, iBreathe 5s ease-in-out 4.4s infinite;
+  position:relative;
+  width:min(400px,72vw);
+  opacity:0;transform:scale(.86) translateY(16px);
+  filter:drop-shadow(0 6px 22px rgba(0,0,0,.7));
+  animation: iLogoIn 1.1s cubic-bezier(.2,.85,.25,1) .25s forwards,
+             iBreathe 5.5s ease-in-out 1.9s infinite;
 }
-@keyframes iLogoResolve {
-  0%{transform:translate(-50%,-50%) scale(.84);opacity:0}
+@keyframes iLogoIn{
+  0%{opacity:0;transform:scale(.86) translateY(16px)}
   60%{opacity:1}
-  100%{transform:translate(-50%,-50%) scale(1);opacity:1}
+  100%{opacity:1;transform:scale(1) translateY(0)}
 }
-@keyframes iBreathe {
-  0%,100%{transform:translate(-50%,-50%) scale(1)}
-  50%{transform:translate(-50%,-50%) scale(1.025)}
+@keyframes iBreathe{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.03)}
 }
 
-/* Tagline — Inter Light caps + Instrument Serif italic */
+/* Tagline — STREETWEAR (Inter light) + Bolivia (Instrument Serif italic dorado) */
 .i-tagline{
-  position:absolute;left:50%;bottom:18%;transform:translateX(-50%);
-  white-space:nowrap;
+  position:relative;white-space:nowrap;
   display:flex;align-items:baseline;justify-content:center;gap:11px;
 }
 .i-tag-word{
-  opacity:0;transform:translateY(8px);
+  opacity:0;transform:translateY(10px);
 }
 .i-w1{
   font-family:'Inter',sans-serif;font-weight:300;
-  font-size:clamp(13px,3.4vw,16px);letter-spacing:4px;
+  font-size:clamp(13px,3.4vw,16px);letter-spacing:5px;
   color:rgba(255,255,255,.88);text-transform:uppercase;
-  animation: iTagIn .8s cubic-bezier(.3,1,.4,1) 3.4s forwards;
+  animation: iTagIn .75s cubic-bezier(.3,1,.4,1) 1.15s forwards;
 }
 .i-w2{
   font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
   font-size:clamp(20px,5vw,24px);letter-spacing:.3px;
   color:#FFB800;
-  animation: iTagIn .8s cubic-bezier(.3,1,.4,1) 3.65s forwards;
+  animation: iTagIn .75s cubic-bezier(.3,1,.4,1) 1.4s forwards;
 }
 @keyframes iTagIn {
-  0%{opacity:0;transform:translateY(8px)}
+  0%{opacity:0;transform:translateY(10px)}
   100%{opacity:1;transform:translateY(0)}
 }
 
