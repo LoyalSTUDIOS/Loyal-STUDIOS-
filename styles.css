@@ -335,8 +335,26 @@ nav{
 .sc-card-ig .sc-icon{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);border-color:transparent}
 .sc-card-fb .sc-icon{background:#1877f2;border-color:transparent}
 .sc-text{flex:1;min-width:0}
-.sc-label{font-size:14px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:3px;letter-spacing:-.005em}
+.sc-label{font-size:14px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:3px;letter-spacing:-.005em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .sc-hint{font-size:11px;color:rgba(255,255,255,.5);font-weight:400;letter-spacing:.3px}
+.sc-live-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.6px;text-transform:uppercase;
+  color:#00d66b;background:rgba(0,214,107,.10);
+  padding:3px 7px 3px 6px;border-radius:999px;
+  border:1px solid rgba(0,214,107,.25);font-weight:500;
+}
+.sc-live-badge strong{font-weight:700;color:#fff;font-size:10px;letter-spacing:0}
+.sc-live-dot{
+  width:6px;height:6px;border-radius:50%;background:#00d66b;
+  box-shadow:0 0 0 0 rgba(0,214,107,.7);
+  animation:scLivePulse 1.6s ease-out infinite;
+}
+@keyframes scLivePulse{
+  0%{box-shadow:0 0 0 0 rgba(0,214,107,.7)}
+  70%{box-shadow:0 0 0 7px rgba(0,214,107,0)}
+  100%{box-shadow:0 0 0 0 rgba(0,214,107,0)}
+}
 .sc-arrow{
   font-size:14px;color:rgba(255,255,255,.4);
   transition:transform .2s, color .2s;flex-shrink:0;
@@ -487,6 +505,106 @@ nav{
 .bc-card.is-active .bc-count::after{transform:translateX(5px);color:var(--accent)}
 
 /* ═══ FILTER BAR ═══ */
+/* ═══ DROP SECTION (Columbia + The North Face) ═══
+   Minimalista: foto/video grande, info chica abajo. Sin gritar "PREMIUM". */
+.drop-section{
+  background:#0a0a0a;
+  padding:60px 32px 30px;
+  position:relative;
+  border-top:1px solid rgba(255,255,255,.04);
+}
+.drop-head{margin-bottom:34px;max-width:600px}
+.drop-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;
+  color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:14px;
+}
+.drop-pulse{
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 0 rgba(226,255,63,.55);
+  animation:dropPulse 1.7s ease-out infinite;
+}
+@keyframes dropPulse{
+  0%{box-shadow:0 0 0 0 rgba(226,255,63,.6)}
+  70%{box-shadow:0 0 0 9px rgba(226,255,63,0)}
+  100%{box-shadow:0 0 0 0 rgba(226,255,63,0)}
+}
+.drop-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(34px,7vw,52px);line-height:.95;letter-spacing:-.005em;
+  color:#fff;margin:0;
+}
+.drop-title em{
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
+  color:var(--accent);letter-spacing:-.01em;
+}
+.drop-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.drop-card{
+  position:relative;display:block;
+  border-radius:16px;overflow:hidden;
+  cursor:pointer;text-decoration:none;
+  background:#111;
+  aspect-ratio:4/5;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  -webkit-tap-highlight-color:transparent;
+}
+.drop-card:hover,.drop-card:active{transform:translateY(-3px) scale(1.005)}
+.drop-media{position:absolute;inset:0;overflow:hidden}
+.drop-poster,.drop-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  transition:opacity .5s ease, transform 8s ease-out;
+}
+.drop-poster{z-index:1;animation:dropKenBurns 14s ease-in-out infinite alternate}
+.drop-video{z-index:2;opacity:0;pointer-events:none}
+.drop-media.video-playing .drop-video{opacity:1}
+.drop-media.video-playing .drop-poster{opacity:0}
+@keyframes dropKenBurns{
+  from{transform:scale(1.02)}
+  to{transform:scale(1.12)}
+}
+.drop-overlay{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,.05) 0%,
+    rgba(0,0,0,.0) 35%,
+    rgba(0,0,0,.55) 78%,
+    rgba(0,0,0,.92) 100%
+  );
+}
+.drop-info{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;
+  padding:18px 18px 20px;color:#fff;
+}
+.drop-tech{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.4px;
+  text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px;
+}
+.drop-brand{color:#fff;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.drop-card[data-brand="columbia"] .drop-brand{font-size:30px}
+.drop-card[data-brand="northface"] .drop-brand{font-size:22px}
+
+/* Tablet+: cards más grandes */
+@media (min-width:760px){
+  .drop-section{padding:80px 48px 50px}
+  .drop-card{aspect-ratio:3/4}
+  .drop-info{padding:24px 28px 28px}
+  .drop-tech{font-size:10px;margin-bottom:10px}
+  .drop-card[data-brand="columbia"] .drop-brand{font-size:46px}
+  .drop-card[data-brand="northface"] .drop-brand{font-size:32px}
+  .drop-grid{gap:22px}
+}
+
+/* Móvil chico: stack vertical para que cada tarjeta se vea bien */
+@media (max-width:480px){
+  .drop-section{padding:50px 18px 22px}
+  .drop-grid{grid-template-columns:1fr;gap:12px}
+  .drop-card{aspect-ratio:16/11}
+}
+
 .filter-bar{
   position:sticky;top:var(--nav-h);z-index:400;
   background:#0a0a0a;

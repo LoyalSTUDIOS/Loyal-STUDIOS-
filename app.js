@@ -82,7 +82,8 @@ function filterGender(g) {
 function filterBrand(b, btn) {
   fB = b;
   document.querySelectorAll("[data-b]").forEach(el => el.classList.remove("on"));
-  btn.classList.add("on");
+  const tab = btn || document.querySelector(`[data-b="${b}"]`);
+  if (tab) tab.classList.add("on");
   render();
   setTimeout(() => document.getElementById("catalog").scrollIntoView({ behavior: "smooth" }), 80);
 }
@@ -442,8 +443,8 @@ document.addEventListener("keydown", e => {
 // Solo transform/opacity → fluido en cualquier celular de Bolivia.
 let _bcCards = [], _bcActive = 0;
 let _bcDir = 1, _bcAutoTimer = null, _bcIdleTimer = null, _bcVisible = false;
-const BC_INTERVAL = 1700;   // gira solo cada 1.7s (más dinámico)
-const BC_RESUME   = 4000;   // retoma 4s después de que sueltes
+const BC_INTERVAL = 2200;   // gira cada 2.2s (legible pero dinámico)
+const BC_RESUME   = 3500;   // retoma 3.5s después de que sueltes
 
 function bcLayout() {
   if (!_bcCards.length) return;
@@ -453,11 +454,11 @@ function bcLayout() {
     let off = i - _bcActive;
     const a = Math.abs(off);
     const cl = Math.max(-3, Math.min(3, off));
-    const x  = cl * cw * 0.56;
-    const ry = -cl * 40;
-    const tz = -Math.min(a, 3) * 230;
-    const sc = Math.max(1 - a * 0.15, 0.6);
-    const op = a >= 3.2 ? 0 : Math.max(1 - a * 0.32, 0.18);
+    const x  = cl * cw * 0.68;
+    const ry = -cl * 32;
+    const tz = -Math.min(a, 3) * 200;
+    const sc = Math.max(1 - a * 0.13, 0.65);
+    const op = a >= 3.2 ? 0 : Math.max(1 - a * 0.28, 0.30);
     card.style.transform =
       `translateX(${x.toFixed(1)}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc.toFixed(3)})`;
     card.style.opacity = op.toFixed(3);
@@ -572,17 +573,28 @@ function buildBrandsCarousel() {
 
   window.addEventListener("resize", () => requestAnimationFrame(bcLayout), { passive: true });
 
+  // Arranca el autoplay YA — el usuario quiere movimiento desde el primer
+  // segundo, no esperar a que IO dispare. IO solo lo pausa cuando estás muy
+  // lejos del carrusel (ahorro de batería).
+  _bcVisible = true;
+  bcAutoStart();
+
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(entries => {
-      _bcVisible = entries[0].isIntersecting;
+      const e = entries[0];
+      _bcVisible = e.isIntersecting;
       if (_bcVisible) { bcLayout(); bcAutoStart(); } else bcAutoStop();
-    }, { threshold: 0.1 }).observe(stage);
-  } else {
-    _bcVisible = true; bcAutoStart();
+    }, { rootMargin: "200% 0px 200% 0px", threshold: 0 }).observe(stage);
   }
 
-  // Extra layout passes at key paint moments to ensure correct card dimensions.
-  [80, 300, 700].forEach(t => setTimeout(bcLayout, t));
+  // Layout pass al ratito por si la fuente o las imágenes cambian tamaños.
+  [80, 300, 700, 1500].forEach(t => setTimeout(bcLayout, t));
+
+  // "Teaser" en el primer segundo para que se note que se puede deslizar:
+  // avanza una, vuelve, avanza otra. Suficiente para que el usuario vea el
+  // movimiento aunque todavía no haya scrolleado.
+  setTimeout(() => { if (_bcCards.length > 1) bcGo(1); }, 900);
+  setTimeout(() => { if (_bcCards.length > 1) bcGo(0); }, 2100);
 }
 
 function bcCardTap(targetEl) {
@@ -599,11 +611,58 @@ function bcCardTap(targetEl) {
 }
 
 // ═══ INIT ═══
-function init() {
+// El carrusel de marcas se construye lo antes posible (no espera a la intro)
+// para que la animación ya esté corriendo cuando el usuario llegue a esa
+// sección. El catálogo principal sí espera al intro reveal por performance.
+function _bootCarouselEarly() {
+  if (window.__LS_CAROUSEL_BUILT) return;
+  if (typeof BRANDS === "undefined") return;
+  if (!document.getElementById("brands-track")) return;
+  window.__LS_CAROUSEL_BUILT = true;
   buildBrandsCarousel();
+}
+
+function init() {
+  if (!window.__LS_CAROUSEL_BUILT) buildBrandsCarousel();
   render();
   updateCartUI();
+  initDropVideos();
   onScroll();
+}
+
+// ═══ DROP SECTION VIDEOS (Columbia + TNF) ═══
+// Carga los videos solo cuando se acercan al viewport. Respeta Save-Data:
+// si el usuario lo tiene activo, se queda con la foto y no descarga el mp4.
+function initDropVideos() {
+  const videos = document.querySelectorAll(".drop-video[data-src]");
+  if (!videos.length) return;
+
+  // Save-Data: usuario en plan de datos limitado → no descargar videos
+  const conn = navigator.connection || navigator.webkitConnection;
+  if (conn && (conn.saveData || conn.effectiveType === "slow-2g" || conn.effectiveType === "2g")) {
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        if (!v.src && v.dataset.src) {
+          v.src = v.dataset.src;
+          v.load();
+        }
+        const playPromise = v.play();
+        if (playPromise && playPromise.catch) playPromise.catch(() => {});
+        v.parentElement.classList.add("video-playing");
+      } else {
+        v.pause();
+      }
+    });
+  }, { rootMargin: "150px 0px 150px 0px", threshold: 0.1 });
+
+  videos.forEach(v => io.observe(v));
 }
 
 // ═══ ARRANQUE DEL CATÁLOGO ═══
@@ -615,6 +674,15 @@ function _bootCatalog(){
   if (window.__LS_BOOTED) return;
   window.__LS_BOOTED = true;
   init();
+}
+
+// Arranque temprano del carrusel: en cuanto el DOM esté listo, no esperamos
+// la intro. La sección está debajo del fold y no compite con la animación
+// inicial — solo asegura que cuando el usuario scrollee, ya está moviéndose.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", _bootCarouselEarly);
+} else {
+  _bootCarouselEarly();
 }
 if (window.__LS_REVEALED) {
   // La intro ya terminó antes de que cargaran estos JS → armar ya mismo.
