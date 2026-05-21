@@ -513,7 +513,23 @@ nav{
   position:relative;
   border-top:1px solid rgba(255,255,255,.04);
 }
-.drop-head{margin-bottom:34px;max-width:600px}
+.drop-head{margin-bottom:34px;max-width:640px}
+.drop-fact{
+  margin-top:18px;padding:14px 16px 14px 18px;
+  background:rgba(255,255,255,.025);
+  border-left:2px solid rgba(226,255,63,.4);
+  border-radius:4px;
+  max-width:540px;
+}
+.drop-fact-label{
+  display:block;font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.drop-fact p{
+  margin:0;font-size:12.5px;line-height:1.55;
+  color:rgba(255,255,255,.65);font-weight:400;letter-spacing:.1px;
+}
 .drop-eyebrow{
   display:inline-flex;align-items:center;gap:9px;
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;
@@ -558,6 +574,9 @@ nav{
   transition:opacity .5s ease, transform 8s ease-out;
 }
 .drop-poster{z-index:1;animation:dropKenBurns 14s ease-in-out infinite alternate}
+/* Columbia: la mujer está en el lado derecho del original; corremos el encuadre
+   a la derecha para que el logo de Columbia (en su chaqueta) sea el protagonista */
+.drop-card[data-brand="columbia"] .drop-poster{object-position:78% center}
 .drop-video{z-index:2;opacity:0;pointer-events:none}
 .drop-media.video-playing .drop-video{opacity:1}
 .drop-media.video-playing .drop-poster{opacity:0}
