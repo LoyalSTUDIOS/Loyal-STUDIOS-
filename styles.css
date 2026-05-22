@@ -429,6 +429,9 @@ nav{
   transform:scale(1.04);
 }
 .bc-card.is-active .bc-img{filter:grayscale(0) brightness(.95);transform:scale(1.09)}
+/* Columbia: la modelo aparece corrida a la derecha en el original; centramos
+   el encuadre para que quede bien centrada en la tarjeta del carrusel */
+.bc-card[data-bid="columbia"] .bc-img{background-position:68% center}
 .bc-overlay{
   position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.93) 100%);
@@ -577,9 +580,10 @@ nav{
 /* Columbia: la mujer está en el lado derecho del original; corremos el encuadre
    a la derecha para que el logo de Columbia (en su chaqueta) sea el protagonista */
 .drop-card[data-brand="columbia"] .drop-poster{object-position:78% center}
+/* El video va ENCIMA de la foto. La foto NUNCA se esconde: si el autoplay
+   falla (iOS Bajo Consumo), se ve la foto, jamás el fondo gris. */
 .drop-video{z-index:2;opacity:0;pointer-events:none}
 .drop-media.video-playing .drop-video{opacity:1}
-.drop-media.video-playing .drop-poster{opacity:0}
 @keyframes dropKenBurns{
   from{transform:scale(1.02)}
   to{transform:scale(1.12)}

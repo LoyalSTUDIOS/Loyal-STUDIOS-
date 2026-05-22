@@ -645,17 +645,34 @@ function initDropVideos() {
 
   if (!("IntersectionObserver" in window)) return;
 
+  // La clase "video-playing" (que muestra el video encima de la foto) SOLO se
+  // añade cuando el video realmente está reproduciéndose. Si el autoplay falla
+  // (iOS en Modo Bajo Consumo bloquea autoplay aunque esté muted), la foto-
+  // poster se queda visible y NUNCA se ve el fondo gris.
+  videos.forEach(v => {
+    v.addEventListener("playing", () => v.parentElement.classList.add("video-playing"));
+    // Si el video se pausa, vacía o falla, volvemos a mostrar la foto.
+    ["pause", "emptied", "error", "stalled", "waiting"].forEach(ev =>
+      v.addEventListener(ev, () => {
+        if (v.paused || v.readyState < 3) v.parentElement.classList.remove("video-playing");
+      })
+    );
+  });
+
+  function tryPlay(v) {
+    if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.load(); }
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {
+      // Autoplay bloqueado → la foto queda visible (sin gris).
+      v.parentElement.classList.remove("video-playing");
+    });
+  }
+
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const v = entry.target;
       if (entry.isIntersecting) {
-        if (!v.src && v.dataset.src) {
-          v.src = v.dataset.src;
-          v.load();
-        }
-        const playPromise = v.play();
-        if (playPromise && playPromise.catch) playPromise.catch(() => {});
-        v.parentElement.classList.add("video-playing");
+        tryPlay(v);
       } else {
         v.pause();
       }
@@ -663,6 +680,21 @@ function initDropVideos() {
   }, { rootMargin: "150px 0px 150px 0px", threshold: 0.1 });
 
   videos.forEach(v => io.observe(v));
+
+  // Reintento global: si el usuario toca/scrollea la página (gesto que iOS
+  // acepta para desbloquear media), reintentamos reproducir los visibles.
+  let retried = false;
+  function retryVisible() {
+    if (retried) return;
+    retried = true;
+    videos.forEach(v => {
+      const r = v.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) tryPlay(v);
+    });
+  }
+  ["touchstart", "click", "scroll"].forEach(ev =>
+    window.addEventListener(ev, () => { retried = false; retryVisible(); }, { passive: true })
+  );
 }
 
 // ═══ ARRANQUE DEL CATÁLOGO ═══
