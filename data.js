@@ -297,6 +297,24 @@ const ITEMS = [
     nombre:"Adidas Climalite® Top — Magenta",
     precio:"Bs. 59", tallas:["M"],
     desc:"Top Adidas Climalite® en magenta intenso — el tono que no pasa desapercibido en ningún gym. Tecnología de secado rápido, talla M. De Primera ✦. Los tres rayas en el color más llamativo.",
-    fotos:["fotos_catalogo/Mujer/22/IMG_19.jpg"]}
+    fotos:["fotos_catalogo/Mujer/22/IMG_19.jpg"]},
+
+  { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+    nombre:"Shorts Compresión — Marble Print Negro",
+    precio:"Bs. 0", tallas:["M"],
+    desc:"Shorts de compresión en negro con efecto marble/stone-wash — tela técnica que se mueve con vos. Forro interior en lila, logo minimalista. De Primera ✦. Estilo que no necesita explicación.",
+    fotos:["fotos_catalogo/Mujer/5/IMG_2.jpg"]},
+
+  { id:31, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+    nombre:"Under Armour Sports Bra — Gris",
+    precio:"Bs. 0", tallas:["M"],
+    desc:"Sports bra Under Armour en gris jaspeado. Tela HeatGear® de compresión ligera, soporte medio, ajuste preciso. De Primera ✦. Para entrenar con la tecnología que los atletas reales eligen.",
+    fotos:["fotos_catalogo/Mujer/6/IMG_3.jpg"]},
+
+  { id:33, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
+    nombre:"Nike Sports Bra — Navy Marble · Nueva",
+    precio:"Bs. 0", tallas:["M"],
+    desc:"Sports bra Nike en azul navy con banda inferior en degradé marble azul/blanco. Cross-back straps, soporte medio, tela Dri-FIT. Nueva con etiqueta original. El diseño que Nike lanzó y se agotó — ahora acá.",
+    fotos:["fotos_catalogo/Mujer/8/IMG_5.jpg"]}
 
 ];
