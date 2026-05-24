@@ -21,7 +21,7 @@ const ITEMS = [
 
   { id:1, genero:"hombre", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Underdog Mentality Mesh Shorts",
-    precio:"Bs. 319", tallas:["L"],
+    precio:"Bs. 219", precio_antes:"Bs. 319", tallas:["L"],
     desc:"Cortos de malla negra con estampado all-over de tigres y el mensaje Underdog Mentality. Para los que nunca necesitaron que les dieran el lugar — se lo ganan solos. Tela liviana, perfecta para el calor. Únicas en Bolivia.",
     fotos:["fotos_catalogo/Hombre/1/IMG_1484.jpg","fotos_catalogo/Hombre/1/IMG_1486.jpg","fotos_catalogo/Hombre/1/IMG_1487.jpg","fotos_catalogo/Hombre/1/IMG_1488.jpg","fotos_catalogo/Hombre/1/IMG_1492.jpg","fotos_catalogo/Hombre/1/IMG_1497.jpg"]},
 
@@ -40,7 +40,7 @@ const ITEMS = [
 
   { id:4, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,
     nombre:"New Balance Classic Tee — Coral",
-    precio:"Bs. 289", tallas:["L"],
+    precio:"Bs. 229", precio_antes:"Bs. 289", tallas:["L"],
     notas:["Corte oversize"],
     desc:"NB tiene algo que pocas marcas logran: calidad callada. Esta tee en coral intenso lleva su logo Classic. bordado al pecho — sin gritarlo, sin apuros. Algodón pesado, corte oversize que cae solo. Ese color que se roba todas las miradas sin pedir permiso.",
     fotos:["fotos_catalogo/Hombre/4/IMG_1429.jpg","fotos_catalogo/Hombre/4/IMG_1430.jpg","fotos_catalogo/Hombre/4/IMG_1431.jpg","fotos_catalogo/Hombre/4/IMG_1435.jpg"]},
@@ -53,7 +53,7 @@ const ITEMS = [
 
   { id:6, genero:"hombre", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
     nombre:"GUESS Originals LA Crewneck — Beige",
-    precio:"Bs. 489", tallas:["XL"],
+    precio:"Bs. 389", precio_antes:"Bs. 489", tallas:["XL"],
     notas:["Tela pesada premium"],
     desc:"GUESS LA desde 1981 — y este crewneck lo sabe. Bordado a tono sobre tela premium en beige arena, tela pesada de peso real, perfecta para el frío. El lujo tranquilo que no necesita colores estridentes para llamar la atención.",
     fotos:["fotos_catalogo/Hombre/6/IMG_1380.jpg","fotos_catalogo/Hombre/6/IMG_1382.jpg","fotos_catalogo/Hombre/6/IMG_1383.jpg","fotos_catalogo/Hombre/6/IMG_1384.jpg","fotos_catalogo/Hombre/6/IMG_1387.jpg"]},
@@ -74,13 +74,13 @@ const ITEMS = [
 
   { id:9, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,
     nombre:"New Balance Athletics Slim Jogger",
-    precio:"Bs. 379", tallas:["L"],
+    precio:"Bs. 319", precio_antes:"Bs. 379", tallas:["L"],
     desc:"El jogger que NB diseñó para quien toma en serio el movimiento — y el estilo. Tela French Terry premium en gris lavanda, logo a tono bordado, corte tapered que queda bien con cualquier zapatilla. Comodidad que no es excusa.",
     fotos:["fotos_catalogo/Hombre/9/IMG_1339.jpg","fotos_catalogo/Hombre/9/IMG_1343.jpg","fotos_catalogo/Hombre/9/IMG_1344.jpg","fotos_catalogo/Hombre/9/IMG_1346.jpg","fotos_catalogo/Hombre/9/IMG_1347.jpg"]},
 
   { id:10, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,
     nombre:"New Balance Essential Logo Tee",
-    precio:"Bs. 249", tallas:["S","M","L","XL"],
+    precio:"Bs. 229", precio_antes:"Bs. 249", tallas:["S","M","L","XL"],
     desc:"Lo básico hecho con criterio. Remera azul marino de NB con logo bordado pequeño al pecho — sin estridencias, puro algodón pesado. La pieza que combinás con cualquier cosa y siempre quedás bien. Calidad que habla sola.",
     fotos:["fotos_catalogo/Hombre/10/IMG_1327.jpg","fotos_catalogo/Hombre/10/IMG_1334.jpg","fotos_catalogo/Hombre/10/IMG_1335.jpg"]},
 
@@ -92,7 +92,7 @@ const ITEMS = [
 
   { id:12, genero:"hombre", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Future Is Color Long Sleeve — Chasing Dreams",
-    precio:"Bs. 319", tallas:["XL"],
+    precio:"Bs. 279", precio_antes:"Bs. 319", tallas:["XL"],
     desc:"Manga larga de la marca Chasing Dreams con Future Is Color en rojo impacto. Cuerpo blanco, mangas negras, estampado técnico a doble cara. Streetwear de autor que mezcla energía deportiva con actitud artística. Única en Bolivia.",
     fotos:["fotos_catalogo/Hombre/12/IMG_1198.jpg","fotos_catalogo/Hombre/12/IMG_1200.jpg","fotos_catalogo/Hombre/12/IMG_1209.jpg"]},
 
@@ -104,13 +104,13 @@ const ITEMS = [
 
   { id:14, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
     nombre:"Adidas Originals Cargo Pant — Negro",
-    precio:"Bs. 579", tallas:["L"],
+    precio:"Bs. 519", precio_antes:"Bs. 579", tallas:["L"],
     desc:"Adidas Originals construyó el cargo definitivo. Tela liviana de secado rápido, bolsillos laterales funcionales, cintura con cordón, elástico en tobillo. El trébol al muslo lo firma. Entre lo técnico y el streetwear — exactamente donde querés estar.",
     fotos:["fotos_catalogo/Hombre/14/IMG_1219.jpg","fotos_catalogo/Hombre/14/IMG_1222.jpg","fotos_catalogo/Hombre/14/IMG_1224.jpg","fotos_catalogo/Hombre/14/IMG_1226.jpg"]},
 
   { id:15, genero:"hombre", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
     nombre:"Nike Sportswear Club Fleece Shorts",
-    precio:"Bs. 379", tallas:["XXL"],
+    precio:"Bs. 319", precio_antes:"Bs. 379", tallas:["XXL"],
     desc:"El short que Nike tiene en su línea desde siempre — y por algo es. Fleece suave por dentro, cintura con cordón, logo NIKE grande en la pierna. Blanco limpio que va con todo. Para la calle, el gym, o quedarte en casa como si fuera intencional.",
     fotos:["fotos_catalogo/Hombre/15/IMG_1246.jpg","fotos_catalogo/Hombre/15/IMG_1251.jpg","fotos_catalogo/Hombre/15/IMG_1252.jpg","fotos_catalogo/Hombre/15/IMG_1256.jpg"]},
 
@@ -124,19 +124,19 @@ const ITEMS = [
 
   { id:17, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
     nombre:"GUESS Triangle Logo Crewneck — Taupe",
-    precio:"Bs. 349", tallas:["XL"],
+    precio:"Bs. 249", precio_antes:"Bs. 349", tallas:["XL"],
     desc:"GUESS lo hace simple y lo hace con clase. Crewneck en taupe oscuro con el triángulo icónico en bordado tono sobre tono — elegancia sin esfuerzo. Tela gruesa premium, corte femenino relaxed. Del brunch al after: una sola pieza, mil ocasiones.",
     fotos:["fotos_catalogo/Mujer/1/IMG_1440.jpg","fotos_catalogo/Mujer/1/IMG_1442.jpg","fotos_catalogo/Mujer/1/IMG_1443.jpg","fotos_catalogo/Mujer/1/IMG_1444.jpg","fotos_catalogo/Mujer/1/IMG_1445.jpg"]},
 
   { id:18, genero:"hombre", marca:"Calvin Klein", marca_id:"calvin", badge:"new", stock:true,
     nombre:"Calvin Klein Jeans Crewneck — Blanco",
-    precio:"Bs. 419", tallas:["XL"],
+    precio:"Bs. 339", precio_antes:"Bs. 419", tallas:["XL"],
     desc:"CK lo hizo simple y lo hizo atemporal. Crewneck en blanco puro con el badge CK bordado en el pecho izquierdo — sutil, preciso, inconfundible. Tela premium French Terry, corte relaxed que cae perfecto. El minimalismo que no necesita explicación.",
     fotos:["fotos_catalogo/Hombre/18/IMG_2164.jpg","fotos_catalogo/Hombre/18/IMG_2166.jpg","fotos_catalogo/Hombre/18/IMG_2167.jpg","fotos_catalogo/Hombre/18/IMG_2168.jpg","fotos_catalogo/Hombre/18/IMG_2169.jpg","fotos_catalogo/Hombre/18/IMG_2171.jpg"]},
 
   { id:19, genero:"hombre", marca:"Calvin Klein", marca_id:"calvin", badge:"new", stock:true,
     nombre:"Calvin Klein Jeans Est 1978 Crewneck — Arena",
-    precio:"Bs. 399", tallas:["S","M"],
+    precio:"Bs. 359", precio_antes:"Bs. 399", tallas:["S","M"],
     desc:"Calvin Klein Jeans est 1978 — cuatro décadas de herencia en relieve tono sobre tono. Crewneck arena lavado, corte ligeramente crop, texto en la espalda que nadie espera y todos voltean a ver. Vintage sin esfuerzo, moderno sin gritar.",
     fotos:["fotos_catalogo/Hombre/19/IMG_2077.jpg","fotos_catalogo/Hombre/19/IMG_2082.jpg","fotos_catalogo/Hombre/19/IMG_2087.jpg","fotos_catalogo/Hombre/19/IMG_2090.jpg","fotos_catalogo/Hombre/19/IMG_2091.jpg"]},
 
@@ -148,25 +148,25 @@ const ITEMS = [
 
   { id:21, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
     nombre:"Tommy Jeans Badge Crewneck — Verde Oliva",
-    precio:"Bs. 389", tallas:["M"],
+    precio:"Bs. 289", precio_antes:"Bs. 389", tallas:["M"],
     desc:"Verde oliva como los mejores looks de los 90s. Crewneck Tommy Jeans con badge bordado tono sobre tono, fleece premium de peso real. No hace falta que lo veas gritando para saber que es calidad — lo sentís cuando te lo ponés.",
     fotos:["fotos_catalogo/Hombre/21/IMG_2148.jpg","fotos_catalogo/Hombre/21/IMG_2151.jpg","fotos_catalogo/Hombre/21/IMG_2152.jpg","fotos_catalogo/Hombre/21/IMG_2157.jpg"]},
 
   { id:22, genero:"hombre", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
     nombre:"Nike Dri-FIT Mesh Shorts — Azul Royal",
-    precio:"Bs. 389", tallas:["L"],
+    precio:"Bs. 319", precio_antes:"Bs. 389", tallas:["L"],
     desc:"El azul royal que se roba la cancha. Shorts Nike de malla Dri-FIT, cintura elástica con cordón blanco, Swoosh bordado discreto. Tela que respira y aguanta. Para el gym, para la calle, para los que siempre están en movimiento.",
     fotos:["fotos_catalogo/Hombre/22/IMG_2057.jpg","fotos_catalogo/Hombre/22/IMG_2059.jpg","fotos_catalogo/Hombre/22/IMG_2061.jpg","fotos_catalogo/Hombre/22/IMG_2063.jpg","fotos_catalogo/Hombre/22/IMG_2065.jpg"]},
 
   { id:23, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
     nombre:"GUESS Active Crop Quarter-Zip — Burdeos",
-    precio:"Bs. 389", tallas:["XS","L"],
+    precio:"Bs. 299", precio_antes:"Bs. 389", tallas:["XS","L"],
     desc:"GUESS reescribió el crop. Quarter-zip activo en burdeos intenso, GUESS en letras grandes en el ribete — logo que marca territorio. Tela técnica premium, corte femenino ceñido que favorece. Del entrenamiento al café sin cambiar de ropa.",
     fotos:["fotos_catalogo/Mujer/2/IMG_2021.jpg","fotos_catalogo/Mujer/2/IMG_2018.jpg","fotos_catalogo/Mujer/2/IMG_2022.jpg","fotos_catalogo/Mujer/2/IMG_2024.jpg","fotos_catalogo/Mujer/2/IMG_2027.jpg"]},
 
   { id:24, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"last", stock:true,
     nombre:"GUESS Active Crop Quarter-Zip — Negro",
-    precio:"Bs. 379", tallas:["S"],
+    precio:"Bs. 289", precio_antes:"Bs. 379", tallas:["S"],
     desc:"El negro que GUESS convirtió en declaración. Mismo quarter-zip icónico, mismo ribete con el logo que no pasa desapercibido — en negro total, más actitud. Combinalo con todo o dejalo hablar solo. Siempre funciona.",
     fotos:["fotos_catalogo/Mujer/3/IMG_2028.jpg","fotos_catalogo/Mujer/3/IMG_2005.jpg","fotos_catalogo/Mujer/3/IMG_2030.jpg","fotos_catalogo/Mujer/3/IMG_2032.jpg","fotos_catalogo/Mujer/3/IMG_2033.jpg","fotos_catalogo/Mujer/3/IMG_2034.jpg"]},
 
@@ -177,21 +177,21 @@ const ITEMS = [
     precio:"Bs. 889", tallas:["L"],
     notas:["Unisex"],
     desc:"Calor sin compromiso. Relleno de plumas premium con tecnología Omni-Heat™ que refleja tu propio calor de vuelta. Superficie plateada que no necesita presentación. Corte unisex talla L, nueva con etiqueta. Columbia pasó décadas en la montaña para hacer esto — y se nota.",
-    fotos:["fotos_catalogo/Hombre/23/IMG_3043.jpg","fotos_catalogo/Hombre/23/IMG_3030.jpg","fotos_catalogo/Hombre/23/IMG_3024.jpg","fotos_catalogo/Hombre/23/IMG_3041.jpg","fotos_catalogo/Hombre/23/IMG_3046.jpg","fotos_catalogo/Hombre/23/IMG_3051.jpg","fotos_catalogo/Hombre/23/IMG_3052.jpg","fotos_catalogo/Hombre/23/IMG_3039.jpg","fotos_catalogo/Hombre/23/IMG_3048.jpg","fotos_catalogo/Hombre/23/IMG_3053.jpg"]},
+    fotos:["fotos_catalogo/Hombre/23/IMG_3024.jpg","fotos_catalogo/Hombre/23/IMG_3043.jpg","fotos_catalogo/Hombre/23/IMG_3030.jpg","fotos_catalogo/Hombre/23/IMG_3041.jpg","fotos_catalogo/Hombre/23/IMG_3046.jpg","fotos_catalogo/Hombre/23/IMG_3051.jpg","fotos_catalogo/Hombre/23/IMG_3052.jpg","fotos_catalogo/Hombre/23/IMG_3039.jpg","fotos_catalogo/Hombre/23/IMG_3048.jpg","fotos_catalogo/Hombre/23/IMG_3053.jpg"]},
 
   { id:26, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
     nombre:"Columbia Down Jacket — Negro y Crema",
     precio:"Bs. 899", tallas:["XXL"],
     notas:["Unisex"],
     desc:"Cuerpo negro, brazos en crema — el contraste que convierte una chaqueta técnica en pieza de estilo. Relleno de plumas certificado, construcción premium, nueva con etiqueta. Unisex talla XXL. El abrigo que funciona igual para él o ella.",
-    fotos:["fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
+    fotos:["fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
 
   { id:27, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Crema",
     precio:"Bs. 1079", tallas:["M"],
     notas:["Unisex", "Capucha desmontable"],
     desc:"El colorway crema que la gente busca y no encuentra. Relleno de plumas certificado, capucha desmontable para cambiar el look cuando quieras. Nueva con etiqueta, unisex talla M. Una The North Face no es una compra — es una inversión.",
-    fotos:["fotos_catalogo/Hombre/25/IMG_2911.jpg","fotos_catalogo/Hombre/25/IMG_2915.jpg","fotos_catalogo/Hombre/25/IMG_2923.jpg","fotos_catalogo/Hombre/25/IMG_2910.jpg","fotos_catalogo/Hombre/25/IMG_2895.jpg","fotos_catalogo/Hombre/25/IMG_2894.jpg","fotos_catalogo/Hombre/25/IMG_2897.jpg","fotos_catalogo/Hombre/25/IMG_2926.jpg","fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
+    fotos:["fotos_catalogo/Hombre/25/IMG_2894.jpg","fotos_catalogo/Hombre/25/IMG_2911.jpg","fotos_catalogo/Hombre/25/IMG_2915.jpg","fotos_catalogo/Hombre/25/IMG_2923.jpg","fotos_catalogo/Hombre/25/IMG_2910.jpg","fotos_catalogo/Hombre/25/IMG_2895.jpg","fotos_catalogo/Hombre/25/IMG_2897.jpg","fotos_catalogo/Hombre/25/IMG_2926.jpg","fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
 
   { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Verde Oliva",
@@ -202,17 +202,17 @@ const ITEMS = [
 
   // ─── MUJER NUEVAS ─────────────────────────────────────────────────────────
 
-  { id:29, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
-    nombre:"Reebok Athletic Top — Azul Cobalto",
+  { id:29, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"dp", stock:true,
+    nombre:"Nike Running Dri-FIT Tee — Azul Cobalto",
     precio:"Bs. 99", tallas:["S"],
-    desc:"Top atlético Reebok en azul cobalto. Tela técnica de compresión ligera, corte femenino que favorece en movimiento. De Primera ✦: excelente condición. Para el gym, el run, o donde te lleve el día.",
-    fotos:["fotos_catalogo/Mujer/4/IMG_2584.jpg","fotos_catalogo/Mujer/4/IMG_2581.jpg","fotos_catalogo/Mujer/4/IMG_2582.jpg","fotos_catalogo/Mujer/4/IMG_2583.jpg","fotos_catalogo/Mujer/4/IMG_2585.jpg"]},
+    desc:"Remera Nike Running Dri-FIT en azul cobalto, con el gráfico NIKE RUNNING al frente. Tela técnica que lleva el sudor lejos de la piel — liviana, transpirable, hecha para moverse. De Primera ✦: excelente condición. Del run de la mañana a la calle sin cambiarte.",
+    fotos:["fotos_catalogo/Mujer/4/IMG_2581.jpg","fotos_catalogo/Mujer/4/IMG_2584.jpg","fotos_catalogo/Mujer/4/IMG_2582.jpg","fotos_catalogo/Mujer/4/IMG_2583.jpg","fotos_catalogo/Mujer/4/IMG_2585.jpg"]},
 
   { id:32, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
     nombre:"Adidas x Stella McCartney Skort — Negro",
     precio:"Bs. 119", tallas:["M"],
     desc:"La colección que Adidas y Stella McCartney crearon para las que se niegan a elegir entre performance y diseño. Skort negro con paneles perforados, corte premium, talla M. De Primera ✦: excelente condición. Coleccionable.",
-    fotos:["fotos_catalogo/Mujer/7/IMG_2612.jpg","fotos_catalogo/Mujer/7/IMG_2606.jpg","fotos_catalogo/Mujer/7/IMG_2613.jpg","fotos_catalogo/Mujer/7/IMG_2611.jpg","fotos_catalogo/Mujer/7/IMG_2610.jpg","fotos_catalogo/Mujer/7/IMG_2609.jpg"]},
+    fotos:["fotos_catalogo/Mujer/7/IMG_2606.jpg","fotos_catalogo/Mujer/7/IMG_2612.jpg","fotos_catalogo/Mujer/7/IMG_2613.jpg","fotos_catalogo/Mujer/7/IMG_2611.jpg","fotos_catalogo/Mujer/7/IMG_2610.jpg","fotos_catalogo/Mujer/7/IMG_2609.jpg"]},
 
   { id:34, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Short de Compresión — Graffiti Print",
@@ -242,13 +242,13 @@ const ITEMS = [
     nombre:"Short Deportivo — Verde Sage",
     precio:"Bs. 35", tallas:["XL"],
     desc:"Short en verde sage — ese tono suave que hace que el wellness parezca tu estilo de vida. Talla XL, De Primera ✦. Comodidad que no se esfuerza para verse bien.",
-    fotos:["fotos_catalogo/Mujer/13/IMG_2710.jpg","fotos_catalogo/Mujer/13/IMG_2705.jpg","fotos_catalogo/Mujer/13/IMG_2711.jpg","fotos_catalogo/Mujer/13/IMG_2709.jpg"]},
+    fotos:["fotos_catalogo/Mujer/13/IMG_2705.jpg","fotos_catalogo/Mujer/13/IMG_2710.jpg","fotos_catalogo/Mujer/13/IMG_2711.jpg","fotos_catalogo/Mujer/13/IMG_2709.jpg"]},
 
   { id:39, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Athletic Works Set Ribbed — Verde Sage",
     precio:"Bs. 39", tallas:["M"],
     desc:"Set ribbed seamless Athletic Works en verde sage coordinado. Tela suave y elástica, talla M. De Primera ✦. Cada entrenamiento empieza mejor cuando el outfit combina.",
-    fotos:["fotos_catalogo/Mujer/14/IMG_2719.jpg","fotos_catalogo/Mujer/14/IMG_2717.jpg","fotos_catalogo/Mujer/14/IMG_2722.jpg","fotos_catalogo/Mujer/14/IMG_2718.jpg","fotos_catalogo/Mujer/14/IMG_2721.jpg","fotos_catalogo/Mujer/14/IMG_2720.jpg"]},
+    fotos:["fotos_catalogo/Mujer/14/IMG_2717.jpg","fotos_catalogo/Mujer/14/IMG_2719.jpg","fotos_catalogo/Mujer/14/IMG_2722.jpg","fotos_catalogo/Mujer/14/IMG_2718.jpg","fotos_catalogo/Mujer/14/IMG_2721.jpg","fotos_catalogo/Mujer/14/IMG_2720.jpg"]},
 
   { id:40, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"AVIA Leggings Camo — Negro/Gris",
@@ -273,7 +273,7 @@ const ITEMS = [
     nombre:"Nike Dri-FIT Sports Bra — Gris",
     precio:"Bs. 99", tallas:["L"],
     desc:"Sports bra Nike Dri-FIT en gris jaspeado. Tecnología que lleva el sudor lejos de la piel, soporte medio, talla L. De Primera ✦. Nike lleva décadas entendiendo el rendimiento femenino — en esta bra se nota.",
-    fotos:["fotos_catalogo/Mujer/18/IMG_2760.jpg","fotos_catalogo/Mujer/18/IMG_2758.jpg","fotos_catalogo/Mujer/18/IMG_2761.jpg","fotos_catalogo/Mujer/18/IMG_2759.jpg"]},
+    fotos:["fotos_catalogo/Mujer/18/IMG_2758.jpg","fotos_catalogo/Mujer/18/IMG_2760.jpg","fotos_catalogo/Mujer/18/IMG_2761.jpg","fotos_catalogo/Mujer/18/IMG_2759.jpg"]},
 
   { id:44, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Gymshark Sports Bra — Naranja Coral",
@@ -291,30 +291,30 @@ const ITEMS = [
     nombre:"Nike Leggings Camo — Negro/Blanco/Gris",
     precio:"Bs. 139", tallas:["S"],
     desc:"Leggings Nike en camo negro, blanco y gris — disrupción visual que funciona igual en el gym que en la calle. Tela elástica de 4 vías, talla S. De Primera ✦. El Swoosh lo dice todo.",
-    fotos:["fotos_catalogo/Mujer/21/IMG_2798.jpg","fotos_catalogo/Mujer/21/IMG_2794.jpg","fotos_catalogo/Mujer/21/IMG_2792.jpg","fotos_catalogo/Mujer/21/IMG_2797.jpg","fotos_catalogo/Mujer/21/IMG_2795.jpg","fotos_catalogo/Mujer/21/IMG_2796.jpg","fotos_catalogo/Mujer/21/IMG_2793.jpg"]},
+    fotos:["fotos_catalogo/Mujer/21/IMG_2792.jpg","fotos_catalogo/Mujer/21/IMG_2798.jpg","fotos_catalogo/Mujer/21/IMG_2794.jpg","fotos_catalogo/Mujer/21/IMG_2797.jpg","fotos_catalogo/Mujer/21/IMG_2795.jpg","fotos_catalogo/Mujer/21/IMG_2796.jpg","fotos_catalogo/Mujer/21/IMG_2793.jpg"]},
 
   { id:47, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
     nombre:"Adidas Climalite® Top — Magenta",
     precio:"Bs. 59", tallas:["M"],
     desc:"Top Adidas Climalite® en magenta intenso — el tono que no pasa desapercibido en ningún gym. Tecnología de secado rápido, talla M. De Primera ✦. Los tres rayas en el color más llamativo.",
-    fotos:["fotos_catalogo/Mujer/22/IMG_2891.jpg","fotos_catalogo/Mujer/22/IMG_2892.jpg","fotos_catalogo/Mujer/22/IMG_2888.jpg","fotos_catalogo/Mujer/22/IMG_2889.jpg","fotos_catalogo/Mujer/22/IMG_2890.jpg"]},
+    fotos:["fotos_catalogo/Mujer/22/IMG_2888.jpg","fotos_catalogo/Mujer/22/IMG_2891.jpg","fotos_catalogo/Mujer/22/IMG_2892.jpg","fotos_catalogo/Mujer/22/IMG_2889.jpg","fotos_catalogo/Mujer/22/IMG_2890.jpg"]},
 
   { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Calza Deportiva — Marble Print Negro",
     precio:"Bs. 79", tallas:["M"],
     desc:"Calza de compresión en negro con efecto marble/stone-wash — tela técnica que se adapta y respira. Forro interior en lila, logo minimalista. De Primera ✦. Para el gym o para la calle, siempre a punto.",
-    fotos:["fotos_catalogo/Mujer/5/IMG_2595.jpg","fotos_catalogo/Mujer/5/IMG_2593.jpg","fotos_catalogo/Mujer/5/IMG_2590.jpg","fotos_catalogo/Mujer/5/IMG_2586.jpg","fotos_catalogo/Mujer/5/IMG_2587.jpg","fotos_catalogo/Mujer/5/IMG_2591.jpg","fotos_catalogo/Mujer/5/IMG_2596.jpg"]},
+    fotos:["fotos_catalogo/Mujer/5/IMG_2586.jpg","fotos_catalogo/Mujer/5/IMG_2595.jpg","fotos_catalogo/Mujer/5/IMG_2593.jpg","fotos_catalogo/Mujer/5/IMG_2590.jpg","fotos_catalogo/Mujer/5/IMG_2587.jpg","fotos_catalogo/Mujer/5/IMG_2591.jpg","fotos_catalogo/Mujer/5/IMG_2596.jpg"]},
 
   { id:31, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Calza Corta Under Armour — Gris",
     precio:"Bs. 89", tallas:["M"],
     desc:"Calza corta Under Armour en gris jaspeado. Compresión HeatGear® que se siente como segunda piel — tecnología que lleva el calor lejos del cuerpo. De Primera ✦. Para entrenar en serio sin pensar en lo que llevás puesto.",
-    fotos:["fotos_catalogo/Mujer/6/IMG_2603.jpg","fotos_catalogo/Mujer/6/IMG_2598.jpg","fotos_catalogo/Mujer/6/IMG_2600.jpg","fotos_catalogo/Mujer/6/IMG_2601.jpg"]},
+    fotos:["fotos_catalogo/Mujer/6/IMG_2598.jpg","fotos_catalogo/Mujer/6/IMG_2603.jpg","fotos_catalogo/Mujer/6/IMG_2600.jpg","fotos_catalogo/Mujer/6/IMG_2601.jpg"]},
 
   { id:33, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"new", stock:true,
     nombre:"Reebok Sports Bra — Navy Marble · Nueva",
     precio:"Bs. 85", tallas:["L"],
     desc:"Sports bra Reebok en azul navy con banda inferior en degradé marble azul/blanco. Cross-back straps, soporte medio, tela técnica transpirable. Nueva con etiqueta original. Para el gym que se toma en serio.",
-    fotos:["fotos_catalogo/Mujer/8/IMG_2618.jpg","fotos_catalogo/Mujer/8/IMG_2615.jpg","fotos_catalogo/Mujer/8/IMG_2616.jpg","fotos_catalogo/Mujer/8/IMG_2617.jpg"]}
+    fotos:["fotos_catalogo/Mujer/8/IMG_2615.jpg","fotos_catalogo/Mujer/8/IMG_2618.jpg","fotos_catalogo/Mujer/8/IMG_2616.jpg","fotos_catalogo/Mujer/8/IMG_2617.jpg"]}
 
 ];

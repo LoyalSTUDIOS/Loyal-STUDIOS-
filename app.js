@@ -48,17 +48,22 @@ function showPage(name) {
   document.getElementById("page-" + name).classList.add("active");
   if (name === "detail") {
     _homeScrollY = window.scrollY;
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo(0, 0);
   } else if (name === "home") {
-    // Restore scroll position when returning home — double-RAF ensures layout is reflowed
+    // Restaurar la posición de scroll al volver. Usamos scrollTo(x,y) POSICIONAL
+    // a propósito: la forma scrollTo({behavior:"instant"}) la ignora iOS Safari,
+    // y por eso antes el botón "Volver" saltaba hasta arriba de la foto hero.
+    // Re-asertamos en sync + doble RAF + timeout porque Safari móvil difiere el
+    // layout al pasar de display:none a display:block.
     const _sy = _homeScrollY;
+    window.scrollTo(0, _sy);
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: _sy, behavior: "instant" });
-      });
+      window.scrollTo(0, _sy);
+      requestAnimationFrame(() => window.scrollTo(0, _sy));
     });
+    setTimeout(() => window.scrollTo(0, _sy), 80);
   } else {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo(0, 0);
   }
   document.querySelector(".nav-back").style.display = name === "detail" ? "flex" : "none";
 }
@@ -129,7 +134,7 @@ function cardHTML(p, i) {
         <div class="card-brand">${p.marca}</div>
         <div class="card-name">${p.nombre}</div>
         <div class="card-foot">
-          <span class="card-price">${p.precio}</span>
+          <span class="card-price">${p.precio}${p.precio_antes ? `<span class="price-was">${p.precio_antes}</span>` : ""}</span>
           <span class="card-gen">${p.genero}</span>
         </div>
       </div>
@@ -189,7 +194,7 @@ function openDetail(id) {
   const dUid = document.getElementById("d-uid");
   if (dUid) dUid.textContent = uidOf(cur);
   document.getElementById("d-name").textContent = cur.nombre;
-  document.getElementById("d-price").textContent = cur.precio;
+  document.getElementById("d-price").innerHTML = cur.precio + (cur.precio_antes ? `<span class="d-price-was">${cur.precio_antes}</span>` : "");
   document.getElementById("d-desc").textContent = cur.desc;
 
   // Notes

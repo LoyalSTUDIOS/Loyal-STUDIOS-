@@ -853,6 +853,8 @@ nav{
 .card-foot{display:flex;align-items:center;justify-content:space-between}
 .card-price{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#fff;transition:color .8s}
 .catalog-wrap.lit .card-price{color:#0a0a0a}
+/* Precio anterior tachado — descuento minimalista (hereda el color del precio) */
+.price-was{margin-left:7px;font-size:.8em;font-weight:400;text-decoration:line-through;text-decoration-thickness:1px;opacity:.45}
 .card-gen{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:1.4px;text-transform:uppercase;
@@ -1026,6 +1028,7 @@ footer{
   margin-bottom:22px;color:#fff;
 }
 .d-price{font-size:30px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px;color:#fff}
+.d-price-was{margin-left:11px;font-size:.5em;font-weight:500;text-decoration:line-through;text-decoration-thickness:1.5px;color:rgba(255,255,255,.4);vertical-align:middle}
 .d-price-note{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:1.3px;text-transform:uppercase;
