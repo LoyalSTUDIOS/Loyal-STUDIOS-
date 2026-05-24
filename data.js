@@ -1,4 +1,4 @@
-/* ═══ LOYAL STUDIOS — DATA ═══ */
+﻿/* ═══ LOYAL STUDIOS — DATA ═══ */
 const WA_NUM = "59175613517";
 const TIENDA = "Loyal Studios™";
 
@@ -177,28 +177,28 @@ const ITEMS = [
     precio:"Bs. 889", tallas:["L"],
     notas:["Unisex"],
     desc:"Calor sin compromiso. Relleno de plumas premium con tecnología Omni-Heat™ que refleja tu propio calor de vuelta. Superficie plateada que no necesita presentación. Corte unisex talla L, nueva con etiqueta. Columbia pasó décadas en la montaña para hacer esto — y se nota.",
-    fotos:["fotos_catalogo/Hombre/23/IMG_3053.jpg"]},
+    fotos:["fotos_catalogo/Hombre/23/IMG_3043.jpg","fotos_catalogo/Hombre/23/IMG_3030.jpg","fotos_catalogo/Hombre/23/IMG_3024.jpg","fotos_catalogo/Hombre/23/IMG_3041.jpg","fotos_catalogo/Hombre/23/IMG_3046.jpg","fotos_catalogo/Hombre/23/IMG_3051.jpg","fotos_catalogo/Hombre/23/IMG_3052.jpg","fotos_catalogo/Hombre/23/IMG_3039.jpg","fotos_catalogo/Hombre/23/IMG_3048.jpg","fotos_catalogo/Hombre/23/IMG_3053.jpg"]},
 
   { id:26, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
     nombre:"Columbia Down Jacket — Negro y Crema",
     precio:"Bs. 899", tallas:["XXL"],
     notas:["Unisex"],
     desc:"Cuerpo negro, brazos en crema — el contraste que convierte una chaqueta técnica en pieza de estilo. Relleno de plumas certificado, construcción premium, nueva con etiqueta. Unisex talla XXL. El abrigo que funciona igual para él o ella.",
-    fotos:["fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
+    fotos:["fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
 
   { id:27, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Crema",
     precio:"Bs. 1079", tallas:["M"],
     notas:["Unisex", "Capucha desmontable"],
     desc:"El colorway crema que la gente busca y no encuentra. Relleno de plumas certificado, capucha desmontable para cambiar el look cuando quieras. Nueva con etiqueta, unisex talla M. Una The North Face no es una compra — es una inversión.",
-    fotos:["fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
+    fotos:["fotos_catalogo/Hombre/25/IMG_2911.jpg","fotos_catalogo/Hombre/25/IMG_2915.jpg","fotos_catalogo/Hombre/25/IMG_2923.jpg","fotos_catalogo/Hombre/25/IMG_2910.jpg","fotos_catalogo/Hombre/25/IMG_2895.jpg","fotos_catalogo/Hombre/25/IMG_2894.jpg","fotos_catalogo/Hombre/25/IMG_2897.jpg","fotos_catalogo/Hombre/25/IMG_2926.jpg","fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
 
   { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Verde Oliva",
     precio:"Bs. 1069", tallas:["XXL"],
     notas:["Unisex", "Capucha desmontable", "Ajustadores de precisión en capucha y cintura"],
     desc:"Verde oliva con todos los detalles que definen a TNF: capucha removible, ajustadores en capucha y cintura, relleno de plumas premium. Unisex talla XXL, nueva con etiqueta. La chaqueta que los que saben reconocen de lejos.",
-    fotos:["fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
+    fotos:["fotos_catalogo/Hombre/26/IMG_2969.jpg","fotos_catalogo/Hombre/26/IMG_2936.jpg","fotos_catalogo/Hombre/26/IMG_2966.jpg","fotos_catalogo/Hombre/26/IMG_2932.jpg","fotos_catalogo/Hombre/26/IMG_2952.jpg","fotos_catalogo/Hombre/26/IMG_2971.jpg","fotos_catalogo/Hombre/26/IMG_2940.jpg","fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
 
   // ─── MUJER NUEVAS ─────────────────────────────────────────────────────────
 
@@ -206,115 +206,115 @@ const ITEMS = [
     nombre:"Reebok Athletic Top — Azul Cobalto",
     precio:"Bs. 99", tallas:["S"],
     desc:"Top atlético Reebok en azul cobalto. Tela técnica de compresión ligera, corte femenino que favorece en movimiento. De Primera ✦: excelente condición. Para el gym, el run, o donde te lleve el día.",
-    fotos:["fotos_catalogo/Mujer/4/IMG_1.jpg"]},
+    fotos:["fotos_catalogo/Mujer/4/IMG_2584.jpg","fotos_catalogo/Mujer/4/IMG_2581.jpg","fotos_catalogo/Mujer/4/IMG_2582.jpg","fotos_catalogo/Mujer/4/IMG_2583.jpg","fotos_catalogo/Mujer/4/IMG_2585.jpg"]},
 
   { id:32, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
     nombre:"Adidas x Stella McCartney Skort — Negro",
     precio:"Bs. 119", tallas:["M"],
     desc:"La colección que Adidas y Stella McCartney crearon para las que se niegan a elegir entre performance y diseño. Skort negro con paneles perforados, corte premium, talla M. De Primera ✦: excelente condición. Coleccionable.",
-    fotos:["fotos_catalogo/Mujer/7/IMG_4.jpg"]},
+    fotos:["fotos_catalogo/Mujer/7/IMG_2612.jpg","fotos_catalogo/Mujer/7/IMG_2606.jpg","fotos_catalogo/Mujer/7/IMG_2613.jpg","fotos_catalogo/Mujer/7/IMG_2611.jpg","fotos_catalogo/Mujer/7/IMG_2610.jpg","fotos_catalogo/Mujer/7/IMG_2609.jpg"]},
 
   { id:34, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Short de Compresión — Graffiti Print",
     precio:"Bs. 29", tallas:["M"],
     desc:"Short de compresión con estampado graffiti en negro, rosa y cyan — arte en tela técnica. Talla M (10/12). De Primera ✦. El gym también puede ser una declaración.",
-    fotos:["fotos_catalogo/Mujer/9/IMG_6.jpg"]},
+    fotos:["fotos_catalogo/Mujer/9/IMG_2685.jpg","fotos_catalogo/Mujer/9/IMG_2687.jpg","fotos_catalogo/Mujer/9/IMG_2686.jpg","fotos_catalogo/Mujer/9/IMG_2688.jpg"]},
 
   { id:35, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"new", stock:true,
     nombre:"YOGO Leggings — Gris",
     precio:"Bs. 29", tallas:["M"],
     desc:"Leggings YOGO de alta compresión en gris neutro — se amoldan sin restringir, respiran sin perder forma. Talla M, nueva con etiqueta. Para el yoga, el gym o simplemente moverse con intención.",
-    fotos:["fotos_catalogo/Mujer/10/IMG_7.jpg"]},
+    fotos:["fotos_catalogo/Mujer/10/IMG_2689.jpg","fotos_catalogo/Mujer/10/IMG_2694.jpg","fotos_catalogo/Mujer/10/IMG_2691.jpg","fotos_catalogo/Mujer/10/IMG_2692.jpg","fotos_catalogo/Mujer/10/IMG_2693.jpg"]},
 
   { id:36, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"H&M Sport Calza Deportiva — Animal Print",
     precio:"Bs. 49", tallas:["M"],
     desc:"Calza deportiva H&M Sport en print animal marrón y negro — esa textura salvaje que te va a hacer mirar dos veces. Tela técnica transpirable, compresión media, talla M. De Primera ✦. Para entrenar con actitud.",
-    fotos:["fotos_catalogo/Mujer/11/IMG_8.jpg"]},
+    fotos:["fotos_catalogo/Mujer/11/IMG_2698.jpg","fotos_catalogo/Mujer/11/IMG_2695.jpg","fotos_catalogo/Mujer/11/IMG_2697.jpg"]},
 
   { id:37, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Set Deportivo — Leggings Malla + Top Floral",
     precio:"Bs. 29", tallas:["L"],
     desc:"Set completo: leggings negros con paneles de malla en las rodillas más top floral multicolor. Dos prendas, un solo precio. De Primera ✦, talla L. El outfit que hace que quieras ir al gym aunque no tengas ganas.",
-    fotos:["fotos_catalogo/Mujer/12/IMG_9.jpg"]},
+    fotos:["fotos_catalogo/Mujer/12/IMG_2702.jpg","fotos_catalogo/Mujer/12/IMG_2704.jpg","fotos_catalogo/Mujer/12/IMG_2699.jpg","fotos_catalogo/Mujer/12/IMG_2701.jpg","fotos_catalogo/Mujer/12/IMG_2703.jpg"]},
 
   { id:38, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Short Deportivo — Verde Sage",
     precio:"Bs. 35", tallas:["XL"],
     desc:"Short en verde sage — ese tono suave que hace que el wellness parezca tu estilo de vida. Talla XL, De Primera ✦. Comodidad que no se esfuerza para verse bien.",
-    fotos:["fotos_catalogo/Mujer/13/IMG_10.jpg"]},
+    fotos:["fotos_catalogo/Mujer/13/IMG_2710.jpg","fotos_catalogo/Mujer/13/IMG_2705.jpg","fotos_catalogo/Mujer/13/IMG_2711.jpg","fotos_catalogo/Mujer/13/IMG_2709.jpg"]},
 
   { id:39, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Athletic Works Set Ribbed — Verde Sage",
     precio:"Bs. 39", tallas:["M"],
     desc:"Set ribbed seamless Athletic Works en verde sage coordinado. Tela suave y elástica, talla M. De Primera ✦. Cada entrenamiento empieza mejor cuando el outfit combina.",
-    fotos:["fotos_catalogo/Mujer/14/IMG_11.jpg"]},
+    fotos:["fotos_catalogo/Mujer/14/IMG_2719.jpg","fotos_catalogo/Mujer/14/IMG_2717.jpg","fotos_catalogo/Mujer/14/IMG_2722.jpg","fotos_catalogo/Mujer/14/IMG_2718.jpg","fotos_catalogo/Mujer/14/IMG_2721.jpg","fotos_catalogo/Mujer/14/IMG_2720.jpg"]},
 
   { id:40, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"AVIA Leggings Camo — Negro/Gris",
     precio:"Bs. 49", tallas:["M"],
     desc:"Leggings camo AVIA en negro y gris — el camuflaje que no pasa desapercibido en el gym. Compresión media, talla M. De Primera ✦. Para las que prefieren moverse en modo stealth.",
-    fotos:["fotos_catalogo/Mujer/15/IMG_12.jpg"]},
+    fotos:["fotos_catalogo/Mujer/15/IMG_2726.jpg","fotos_catalogo/Mujer/15/IMG_2723.jpg","fotos_catalogo/Mujer/15/IMG_2725.jpg","fotos_catalogo/Mujer/15/IMG_2724.jpg"]},
 
   { id:41, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"DryMore Tech Leggings — Gris",
     precio:"Bs. 35", tallas:["S"],
     desc:"Leggings DryMore Tech en gris neutro. Tela de secado rápido, corte ajustado, talla S. De Primera ✦. Simple, técnico, sin pretensiones — exactamente lo que necesitás para entrenar de verdad.",
-    fotos:["fotos_catalogo/Mujer/16/IMG_13.jpg"]},
+    fotos:["fotos_catalogo/Mujer/16/IMG_2732.jpg","fotos_catalogo/Mujer/16/IMG_2727.jpg","fotos_catalogo/Mujer/16/IMG_2730.jpg","fotos_catalogo/Mujer/16/IMG_2729.jpg"]},
 
   { id:42, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Under Armour Compression Shorts — Gris",
     precio:"Bs. 75", tallas:["M"],
     notas:["⚠️ Logo levemente craqueado"],
     desc:"Shorts de compresión Under Armour HeatGear® en gris. Tecnología que mueve el calor lejos de la piel, talla M. De Primera ✦: nota — logo con detalle de craqueado, por eso el precio. El rendimiento Under Armour intacto.",
-    fotos:["fotos_catalogo/Mujer/17/IMG_14.jpg"]},
+    fotos:["fotos_catalogo/Mujer/17/IMG_2753.jpg","fotos_catalogo/Mujer/17/IMG_2756.jpg","fotos_catalogo/Mujer/17/IMG_2757.jpg","fotos_catalogo/Mujer/17/IMG_2755.jpg"]},
 
   { id:43, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"dp", stock:true,
     nombre:"Nike Dri-FIT Sports Bra — Gris",
     precio:"Bs. 99", tallas:["L"],
     desc:"Sports bra Nike Dri-FIT en gris jaspeado. Tecnología que lleva el sudor lejos de la piel, soporte medio, talla L. De Primera ✦. Nike lleva décadas entendiendo el rendimiento femenino — en esta bra se nota.",
-    fotos:["fotos_catalogo/Mujer/18/IMG_15.jpg"]},
+    fotos:["fotos_catalogo/Mujer/18/IMG_2760.jpg","fotos_catalogo/Mujer/18/IMG_2758.jpg","fotos_catalogo/Mujer/18/IMG_2761.jpg","fotos_catalogo/Mujer/18/IMG_2759.jpg"]},
 
   { id:44, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Gymshark Sports Bra — Naranja Coral",
     precio:"Bs. 129", tallas:["M"],
     desc:"Sports bra Gymshark en naranja coral — ese tono que te energiza solo de mirarlo. Tela sin costuras, soporte firme, talla M. De Primera ✦. Gymshark tiene comunidad porque entrega — esta bra lo demuestra.",
-    fotos:["fotos_catalogo/Mujer/19/IMG_16.jpg"]},
+    fotos:["fotos_catalogo/Mujer/19/IMG_2762.jpg","fotos_catalogo/Mujer/19/IMG_2764.jpg","fotos_catalogo/Mujer/19/IMG_2768.jpg","fotos_catalogo/Mujer/19/IMG_2767.jpg","fotos_catalogo/Mujer/19/IMG_2763.jpg"]},
 
   { id:45, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
     nombre:"Adidas Climalite® Shorts — Rosa Coral Polka Dot",
     precio:"Bs. 49", tallas:["S"],
     desc:"Shorts Adidas Climalite® en rosa coral con micro print de lunares — deporte con personalidad. Tela transpirable de secado rápido, talla S. De Primera ✦. Los tres rayas en su versión más juguetona.",
-    fotos:["fotos_catalogo/Mujer/20/IMG_17.jpg"]},
+    fotos:["fotos_catalogo/Mujer/20/IMG_2783.jpg","fotos_catalogo/Mujer/20/IMG_2779.jpg","fotos_catalogo/Mujer/20/IMG_2780.jpg","fotos_catalogo/Mujer/20/IMG_2784.jpg","fotos_catalogo/Mujer/20/IMG_2782.jpg"]},
 
   { id:46, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"dp", stock:true,
     nombre:"Nike Leggings Camo — Negro/Blanco/Gris",
     precio:"Bs. 139", tallas:["S"],
     desc:"Leggings Nike en camo negro, blanco y gris — disrupción visual que funciona igual en el gym que en la calle. Tela elástica de 4 vías, talla S. De Primera ✦. El Swoosh lo dice todo.",
-    fotos:["fotos_catalogo/Mujer/21/IMG_18.jpg"]},
+    fotos:["fotos_catalogo/Mujer/21/IMG_2798.jpg","fotos_catalogo/Mujer/21/IMG_2794.jpg","fotos_catalogo/Mujer/21/IMG_2792.jpg","fotos_catalogo/Mujer/21/IMG_2797.jpg","fotos_catalogo/Mujer/21/IMG_2795.jpg","fotos_catalogo/Mujer/21/IMG_2796.jpg","fotos_catalogo/Mujer/21/IMG_2793.jpg"]},
 
   { id:47, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
     nombre:"Adidas Climalite® Top — Magenta",
     precio:"Bs. 59", tallas:["M"],
     desc:"Top Adidas Climalite® en magenta intenso — el tono que no pasa desapercibido en ningún gym. Tecnología de secado rápido, talla M. De Primera ✦. Los tres rayas en el color más llamativo.",
-    fotos:["fotos_catalogo/Mujer/22/IMG_19.jpg"]},
+    fotos:["fotos_catalogo/Mujer/22/IMG_2891.jpg","fotos_catalogo/Mujer/22/IMG_2892.jpg","fotos_catalogo/Mujer/22/IMG_2888.jpg","fotos_catalogo/Mujer/22/IMG_2889.jpg","fotos_catalogo/Mujer/22/IMG_2890.jpg"]},
 
   { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Calza Deportiva — Marble Print Negro",
     precio:"Bs. 79", tallas:["M"],
     desc:"Calza de compresión en negro con efecto marble/stone-wash — tela técnica que se adapta y respira. Forro interior en lila, logo minimalista. De Primera ✦. Para el gym o para la calle, siempre a punto.",
-    fotos:["fotos_catalogo/Mujer/5/IMG_2.jpg"]},
+    fotos:["fotos_catalogo/Mujer/5/IMG_2595.jpg","fotos_catalogo/Mujer/5/IMG_2593.jpg","fotos_catalogo/Mujer/5/IMG_2590.jpg","fotos_catalogo/Mujer/5/IMG_2586.jpg","fotos_catalogo/Mujer/5/IMG_2587.jpg","fotos_catalogo/Mujer/5/IMG_2591.jpg","fotos_catalogo/Mujer/5/IMG_2596.jpg"]},
 
   { id:31, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Calza Corta Under Armour — Gris",
     precio:"Bs. 89", tallas:["M"],
     desc:"Calza corta Under Armour en gris jaspeado. Compresión HeatGear® que se siente como segunda piel — tecnología que lleva el calor lejos del cuerpo. De Primera ✦. Para entrenar en serio sin pensar en lo que llevás puesto.",
-    fotos:["fotos_catalogo/Mujer/6/IMG_3.jpg"]},
+    fotos:["fotos_catalogo/Mujer/6/IMG_2603.jpg","fotos_catalogo/Mujer/6/IMG_2598.jpg","fotos_catalogo/Mujer/6/IMG_2600.jpg","fotos_catalogo/Mujer/6/IMG_2601.jpg"]},
 
   { id:33, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"new", stock:true,
     nombre:"Reebok Sports Bra — Navy Marble · Nueva",
     precio:"Bs. 85", tallas:["L"],
     desc:"Sports bra Reebok en azul navy con banda inferior en degradé marble azul/blanco. Cross-back straps, soporte medio, tela técnica transpirable. Nueva con etiqueta original. Para el gym que se toma en serio.",
-    fotos:["fotos_catalogo/Mujer/8/IMG_5.jpg"]}
+    fotos:["fotos_catalogo/Mujer/8/IMG_2618.jpg","fotos_catalogo/Mujer/8/IMG_2615.jpg","fotos_catalogo/Mujer/8/IMG_2616.jpg","fotos_catalogo/Mujer/8/IMG_2617.jpg"]}
 
 ];
