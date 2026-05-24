@@ -50,9 +50,12 @@ function showPage(name) {
     _homeScrollY = window.scrollY;
     window.scrollTo({ top: 0, behavior: "instant" });
   } else if (name === "home") {
-    // Restore scroll position when returning home
+    // Restore scroll position when returning home — double-RAF ensures layout is reflowed
+    const _sy = _homeScrollY;
     requestAnimationFrame(() => {
-      window.scrollTo({ top: _homeScrollY, behavior: "instant" });
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: _sy, behavior: "instant" });
+      });
     });
   } else {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -192,6 +195,21 @@ function openDetail(id) {
   // Notes
   document.getElementById("dp-note").classList.toggle("show", cur.badge === "dp");
   document.getElementById("new-note").classList.toggle("show", cur.badge === "new");
+
+  // Notas de producto (detalles técnicos)
+  const dNotas = document.getElementById("d-notas");
+  if (dNotas) {
+    const ns = (cur.notas || []).filter(n => n && !n.startsWith("⚠️"));
+    const warn = (cur.notas || []).filter(n => n && n.startsWith("⚠️"));
+    const allNotas = [...ns, ...warn];
+    if (allNotas.length) {
+      dNotas.innerHTML = allNotas.map(n => `<span class="nota-line">✦ ${n}</span>`).join("");
+      dNotas.classList.add("show");
+    } else {
+      dNotas.classList.remove("show");
+      dNotas.innerHTML = "";
+    }
+  }
 
   // Gallery
   document.getElementById("d-main").src = cur.fotos[0];

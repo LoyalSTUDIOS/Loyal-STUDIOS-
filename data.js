@@ -187,16 +187,16 @@ const ITEMS = [
     fotos:["fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
 
   { id:27, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
-    nombre:"The North Face Down Jacket — Crema · Capucha Removible",
+    nombre:"The North Face Puffer — Crema",
     precio:"Bs. 1079", tallas:["M"],
-    notas:["Unisex", "Capucha removible"],
+    notas:["Unisex", "Capucha desmontable"],
     desc:"El colorway crema que la gente busca y no encuentra. Relleno de plumas certificado, capucha desmontable para cambiar el look cuando quieras. Nueva con etiqueta, unisex talla M. Una The North Face no es una compra — es una inversión.",
     fotos:["fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
 
   { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
-    nombre:"The North Face Down Jacket — Verde Oliva · Capucha Removible",
+    nombre:"The North Face Puffer — Verde Oliva",
     precio:"Bs. 1069", tallas:["XXL"],
-    notas:["Unisex", "Capucha removible", "Ajustadores en capucha y cintura"],
+    notas:["Unisex", "Capucha desmontable", "Ajustadores de precisión en capucha y cintura"],
     desc:"Verde oliva con todos los detalles que definen a TNF: capucha removible, ajustadores en capucha y cintura, relleno de plumas premium. Unisex talla XXL, nueva con etiqueta. La chaqueta que los que saben reconocen de lejos.",
     fotos:["fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
 
@@ -204,7 +204,7 @@ const ITEMS = [
 
   { id:29, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Reebok Athletic Top — Azul Cobalto",
-    precio:"Bs. 85", tallas:["L"],
+    precio:"Bs. 99", tallas:["S"],
     desc:"Top atlético Reebok en azul cobalto. Tela técnica de compresión ligera, corte femenino que favorece en movimiento. De Primera ✦: excelente condición. Para el gym, el run, o donde te lleve el día.",
     fotos:["fotos_catalogo/Mujer/4/IMG_1.jpg"]},
 
@@ -227,9 +227,9 @@ const ITEMS = [
     fotos:["fotos_catalogo/Mujer/10/IMG_7.jpg"]},
 
   { id:36, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
-    nombre:"H&M Sport Top — Animal Print",
+    nombre:"H&M Sport Calza Deportiva — Animal Print",
     precio:"Bs. 49", tallas:["M"],
-    desc:"Top deportivo H&M Sport en print animal marrón y negro — atrevido y funcional al mismo tiempo. Tela técnica transpirable, talla M. De Primera ✦. Para entrenar sin perder la actitud.",
+    desc:"Calza deportiva H&M Sport en print animal marrón y negro — esa textura salvaje que te va a hacer mirar dos veces. Tela técnica transpirable, compresión media, talla M. De Primera ✦. Para entrenar con actitud.",
     fotos:["fotos_catalogo/Mujer/11/IMG_8.jpg"]},
 
   { id:37, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
@@ -264,7 +264,7 @@ const ITEMS = [
 
   { id:42, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
     nombre:"Under Armour Compression Shorts — Gris",
-    precio:"Bs. 39", tallas:["M"],
+    precio:"Bs. 75", tallas:["M"],
     notas:["⚠️ Logo levemente craqueado"],
     desc:"Shorts de compresión Under Armour HeatGear® en gris. Tecnología que mueve el calor lejos de la piel, talla M. De Primera ✦: nota — logo con detalle de craqueado, por eso el precio. El rendimiento Under Armour intacto.",
     fotos:["fotos_catalogo/Mujer/17/IMG_14.jpg"]},
@@ -300,21 +300,21 @@ const ITEMS = [
     fotos:["fotos_catalogo/Mujer/22/IMG_19.jpg"]},
 
   { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
-    nombre:"Shorts Compresión — Marble Print Negro",
-    precio:"Bs. 0", tallas:["M"],
-    desc:"Shorts de compresión en negro con efecto marble/stone-wash — tela técnica que se mueve con vos. Forro interior en lila, logo minimalista. De Primera ✦. Estilo que no necesita explicación.",
+    nombre:"Calza Deportiva — Marble Print Negro",
+    precio:"Bs. 79", tallas:["M"],
+    desc:"Calza de compresión en negro con efecto marble/stone-wash — tela técnica que se adapta y respira. Forro interior en lila, logo minimalista. De Primera ✦. Para el gym o para la calle, siempre a punto.",
     fotos:["fotos_catalogo/Mujer/5/IMG_2.jpg"]},
 
   { id:31, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
-    nombre:"Under Armour Sports Bra — Gris",
-    precio:"Bs. 0", tallas:["M"],
-    desc:"Sports bra Under Armour en gris jaspeado. Tela HeatGear® de compresión ligera, soporte medio, ajuste preciso. De Primera ✦. Para entrenar con la tecnología que los atletas reales eligen.",
+    nombre:"Calza Corta Under Armour — Gris",
+    precio:"Bs. 89", tallas:["M"],
+    desc:"Calza corta Under Armour en gris jaspeado. Compresión HeatGear® que se siente como segunda piel — tecnología que lleva el calor lejos del cuerpo. De Primera ✦. Para entrenar en serio sin pensar en lo que llevás puesto.",
     fotos:["fotos_catalogo/Mujer/6/IMG_3.jpg"]},
 
-  { id:33, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
-    nombre:"Nike Sports Bra — Navy Marble · Nueva",
-    precio:"Bs. 0", tallas:["M"],
-    desc:"Sports bra Nike en azul navy con banda inferior en degradé marble azul/blanco. Cross-back straps, soporte medio, tela Dri-FIT. Nueva con etiqueta original. El diseño que Nike lanzó y se agotó — ahora acá.",
+  { id:33, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"new", stock:true,
+    nombre:"Reebok Sports Bra — Navy Marble · Nueva",
+    precio:"Bs. 85", tallas:["L"],
+    desc:"Sports bra Reebok en azul navy con banda inferior en degradé marble azul/blanco. Cross-back straps, soporte medio, tela técnica transpirable. Nueva con etiqueta original. Para el gym que se toma en serio.",
     fotos:["fotos_catalogo/Mujer/8/IMG_5.jpg"]}
 
 ];

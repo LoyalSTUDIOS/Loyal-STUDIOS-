@@ -23,9 +23,9 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;touch-action:manipulation}
 body{
-  background:#000;color:#fff;
+  background:#000;color:#fff;touch-action:manipulation;
   font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
   font-feature-settings:"ss01","cv11";
   overflow-x:hidden;
@@ -1041,6 +1041,9 @@ footer{
 .prod-note strong{font-weight:700}
 .prod-note.dp-note{background:rgba(255,122,26,.08);border-color:rgba(255,122,26,.28);color:#ffb87a}
 .prod-note.new-note{background:rgba(226,255,63,.06);border-color:rgba(226,255,63,.22);color:#d8e837}
+.prod-note.d-notas-note{background:rgba(160,200,255,.05);border-color:rgba(160,200,255,.18);color:#b0ccee}
+.prod-note.d-notas-note .nota-line{display:block;margin-bottom:4px;font-size:13px}
+.prod-note.d-notas-note .nota-line:last-child{margin-bottom:0}
 
 .d-desc{
   font-size:14px;line-height:1.75;
