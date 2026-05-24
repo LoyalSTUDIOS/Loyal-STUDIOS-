@@ -44,28 +44,21 @@ function replayIntro(){
 let _homeScrollY = 0;
 
 function showPage(name) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page-" + name).classList.add("active");
+  // ── Arquitectura OVERLAY (arregla el botón "Volver" de raíz) ──
+  // El detalle se abre como una CAPA FIJA encima del home. El home NUNCA se
+  // oculta (display:none) ni se le toca el scroll. Por eso, al cerrar el
+  // detalle, el usuario queda EXACTAMENTE en el mismo punto donde estaba
+  // mirando las prendas — ya no salta arriba al hero. El scroll del propio
+  // detalle vive dentro del overlay, no en el window.
+  const detail = document.getElementById("page-detail");
   if (name === "detail") {
-    _homeScrollY = window.scrollY;
-    window.scrollTo(0, 0);
-  } else if (name === "home") {
-    // Restaurar la posición de scroll al volver. Usamos scrollTo(x,y) POSICIONAL
-    // a propósito: la forma scrollTo({behavior:"instant"}) la ignora iOS Safari,
-    // y por eso antes el botón "Volver" saltaba hasta arriba de la foto hero.
-    // Re-asertamos en sync + doble RAF + timeout porque Safari móvil difiere el
-    // layout al pasar de display:none a display:block.
-    const _sy = _homeScrollY;
-    window.scrollTo(0, _sy);
-    requestAnimationFrame(() => {
-      window.scrollTo(0, _sy);
-      requestAnimationFrame(() => window.scrollTo(0, _sy));
-    });
-    setTimeout(() => window.scrollTo(0, _sy), 80);
+    detail.classList.add("active");
+    detail.scrollTop = 0;            // el detalle siempre arranca arriba
+    document.querySelector(".nav-back").style.display = "flex";
   } else {
-    window.scrollTo(0, 0);
+    detail.classList.remove("active");   // cerrar overlay; el home sigue intacto
+    document.querySelector(".nav-back").style.display = "none";
   }
-  document.querySelector(".nav-back").style.display = name === "detail" ? "flex" : "none";
 }
 
 function goHome() {
@@ -121,12 +114,23 @@ function badge(b) {
 
 function uidOf(p) { return "NK-" + String(p.id).padStart(2, "0"); }
 
+// Porcentaje de descuento (0 si no hay precio_antes válido)
+function priceNum(s) { return parseInt(String(s).replace(/[^0-9]/g, ""), 10) || 0; }
+function discPct(p) {
+  if (!p.precio_antes) return 0;
+  const n = priceNum(p.precio), o = priceNum(p.precio_antes);
+  if (!o || o <= n) return 0;
+  return Math.round((1 - n / o) * 100);
+}
+
 function cardHTML(p, i) {
+  const pct = discPct(p);
   return `
     <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
+        ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
         <div class="card-uid">${uidOf(p)}</div>
         <div class="card-cta">Ver producto →</div>
       </div>
@@ -134,7 +138,7 @@ function cardHTML(p, i) {
         <div class="card-brand">${p.marca}</div>
         <div class="card-name">${p.nombre}</div>
         <div class="card-foot">
-          <span class="card-price">${p.precio}${p.precio_antes ? `<span class="price-was">${p.precio_antes}</span>` : ""}</span>
+          <span class="card-price${p.precio_antes ? " on-sale" : ""}">${p.precio}${p.precio_antes ? `<span class="price-was">${p.precio_antes}</span>` : ""}</span>
           <span class="card-gen">${p.genero}</span>
         </div>
       </div>
@@ -194,7 +198,25 @@ function openDetail(id) {
   const dUid = document.getElementById("d-uid");
   if (dUid) dUid.textContent = uidOf(cur);
   document.getElementById("d-name").textContent = cur.nombre;
-  document.getElementById("d-price").innerHTML = cur.precio + (cur.precio_antes ? `<span class="d-price-was">${cur.precio_antes}</span>` : "");
+  const dPrice = document.getElementById("d-price");
+  const dFomo = document.getElementById("d-fomo");
+  if (cur.precio_antes) {
+    const pct = discPct(cur);
+    const save = priceNum(cur.precio_antes) - priceNum(cur.precio);
+    dPrice.classList.add("is-sale");
+    dPrice.innerHTML =
+      `<span class="d-price-now">${cur.precio}</span>` +
+      `<span class="d-price-was">${cur.precio_antes}</span>` +
+      `<span class="d-off-pill">−${pct}% OFF</span>`;
+    if (dFomo) {
+      dFomo.innerHTML = `🔥 <strong>¡Oferta!</strong> Ahorrás Bs. ${save} — precio de remate, <strong>solo mientras dure el stock</strong>.`;
+      dFomo.classList.add("show");
+    }
+  } else {
+    dPrice.classList.remove("is-sale");
+    dPrice.textContent = cur.precio;
+    if (dFomo) dFomo.classList.remove("show");
+  }
   document.getElementById("d-desc").textContent = cur.desc;
 
   // Notes

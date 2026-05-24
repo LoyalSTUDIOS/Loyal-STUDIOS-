@@ -853,8 +853,20 @@ nav{
 .card-foot{display:flex;align-items:center;justify-content:space-between}
 .card-price{font-size:15px;font-weight:600;letter-spacing:-.01em;color:#fff;transition:color .8s}
 .catalog-wrap.lit .card-price{color:#0a0a0a}
-/* Precio anterior tachado — descuento minimalista (hereda el color del precio) */
-.price-was{margin-left:7px;font-size:.8em;font-weight:400;text-decoration:line-through;text-decoration-thickness:1px;opacity:.45}
+/* ═══ DESCUENTO / OFERTA (tarjeta) ═══ */
+.card-off{
+  position:absolute;top:42px;left:12px;z-index:3;
+  background:var(--red);color:#fff;
+  font-family:'JetBrains Mono',monospace;font-weight:800;
+  font-size:12px;letter-spacing:.5px;line-height:1;
+  padding:6px 9px;border-radius:6px;
+  box-shadow:0 6px 18px rgba(255,59,59,.5);
+  animation:offPulse 1.5s ease-in-out infinite;
+}
+@keyframes offPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.card-price.on-sale,
+.catalog-wrap.lit .card-price.on-sale{color:var(--red);font-weight:800}
+.price-was{margin-left:7px;font-size:.78em;font-weight:400;text-decoration:line-through;text-decoration-thickness:1px;opacity:.5}
 .card-gen{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:1.4px;text-transform:uppercase;
@@ -954,6 +966,14 @@ footer{
 
 /* ═══ DETAIL PAGE ═══ */
 #page-detail{margin-top:var(--nav-h);background:#0a0a0a}
+/* Detalle como OVERLAY fijo encima del home → el home conserva su scroll.
+   z-index 450 queda DEBAJO del nav (500) para que "← Volver" siga clickeable.
+   overscroll-behavior:contain evita que el scroll se encadene al home. */
+#page-detail.active{
+  position:fixed;inset:0;z-index:450;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
 .detail{
   display:grid;grid-template-columns:55% 1fr;
   min-height:calc(100vh - var(--nav-h));
@@ -1028,7 +1048,29 @@ footer{
   margin-bottom:22px;color:#fff;
 }
 .d-price{font-size:30px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px;color:#fff}
-.d-price-was{margin-left:11px;font-size:.5em;font-weight:500;text-decoration:line-through;text-decoration-thickness:1.5px;color:rgba(255,255,255,.4);vertical-align:middle}
+/* ═══ DESCUENTO / OFERTA (detalle) ═══ */
+.d-price.is-sale{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 12px}
+.d-price-now{color:var(--red)}
+.d-price-was{font-size:.46em;font-weight:500;text-decoration:line-through;text-decoration-thickness:1.5px;color:rgba(255,255,255,.42)}
+.d-off-pill{
+  align-self:center;
+  font-family:'JetBrains Mono',monospace;font-size:.4em;font-weight:800;letter-spacing:.5px;
+  color:#fff;background:var(--red);
+  padding:6px 10px;border-radius:999px;
+  box-shadow:0 6px 18px rgba(255,59,59,.45);
+  animation:offPulse 1.5s ease-in-out infinite;
+}
+.d-fomo{
+  display:none;
+  margin:0 0 22px;padding:11px 14px;
+  background:rgba(255,59,59,.10);
+  border:1px solid rgba(255,59,59,.30);
+  border-left:3px solid var(--red);
+  border-radius:11px;
+  font-size:13px;line-height:1.45;color:#ffd4d4;letter-spacing:.01em;
+}
+.d-fomo.show{display:block}
+.d-fomo strong{color:#fff;font-weight:700}
 .d-price-note{
   font-family:'JetBrains Mono',monospace;
   font-size:10px;letter-spacing:1.3px;text-transform:uppercase;

@@ -184,7 +184,7 @@ const ITEMS = [
     precio:"Bs. 899", tallas:["XXL"],
     notas:["Unisex"],
     desc:"Cuerpo negro, brazos en crema — el contraste que convierte una chaqueta técnica en pieza de estilo. Relleno de plumas certificado, construcción premium, nueva con etiqueta. Unisex talla XXL. El abrigo que funciona igual para él o ella.",
-    fotos:["fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
+    fotos:["fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
 
   { id:27, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Crema",
@@ -198,7 +198,7 @@ const ITEMS = [
     precio:"Bs. 1069", tallas:["XXL"],
     notas:["Unisex", "Capucha desmontable", "Ajustadores de precisión en capucha y cintura"],
     desc:"Verde oliva con todos los detalles que definen a TNF: capucha removible, ajustadores en capucha y cintura, relleno de plumas premium. Unisex talla XXL, nueva con etiqueta. La chaqueta que los que saben reconocen de lejos.",
-    fotos:["fotos_catalogo/Hombre/26/IMG_2969.jpg","fotos_catalogo/Hombre/26/IMG_2936.jpg","fotos_catalogo/Hombre/26/IMG_2966.jpg","fotos_catalogo/Hombre/26/IMG_2932.jpg","fotos_catalogo/Hombre/26/IMG_2952.jpg","fotos_catalogo/Hombre/26/IMG_2971.jpg","fotos_catalogo/Hombre/26/IMG_2940.jpg","fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
+    fotos:["fotos_catalogo/Hombre/26/IMG_2932.jpg","fotos_catalogo/Hombre/26/IMG_2969.jpg","fotos_catalogo/Hombre/26/IMG_2936.jpg","fotos_catalogo/Hombre/26/IMG_2966.jpg","fotos_catalogo/Hombre/26/IMG_2952.jpg","fotos_catalogo/Hombre/26/IMG_2971.jpg","fotos_catalogo/Hombre/26/IMG_2940.jpg","fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
 
   // ─── MUJER NUEVAS ─────────────────────────────────────────────────────────
 
