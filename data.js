@@ -34,7 +34,7 @@ const ITEMS = [
 
   { id:3, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
     nombre:"Adidas Originals Cargo Pants",
-    precio:"Bs. 579", tallas:["L"],
+    precio:"Bs. 479", precio_antes:"Bs. 579", tallas:["L"],
     desc:"El pantalón cargo que Adidas Originals diseñó para la calle — no para el gym. Tela técnica premium, bolsillos de tapa funcionales, corte recto que cae perfecto. Del skatepark al café: misma energía, distintas canchas.",
     fotos:["fotos_catalogo/Hombre/3/IMG_1451.jpg","fotos_catalogo/Hombre/3/IMG_1463.jpg","fotos_catalogo/Hombre/3/IMG_1470.jpg","fotos_catalogo/Hombre/3/IMG_1471.jpg"]},
 
@@ -47,7 +47,7 @@ const ITEMS = [
 
   { id:5, genero:"hombre", marca:"Nike", marca_id:"nike", badge:"new", stock:true,
     nombre:"Nike Sportswear Woven Pants",
-    precio:"Bs. 549", tallas:["L"],
+    precio:"Bs. 489", precio_antes:"Bs. 549", tallas:["L"],
     desc:"El pantalón de Nike que resolvió el dilema comfort-estilo de una vez. Tela woven ligera pero estructurada, cintura elástica con cordón, Swoosh bordado discreto en el muslo. Para salir cómodo sin que parezca que te importó poco.",
     fotos:["fotos_catalogo/Hombre/5/IMG_1405.jpg","fotos_catalogo/Hombre/5/IMG_1407.jpg","fotos_catalogo/Hombre/5/IMG_1413.jpg","fotos_catalogo/Hombre/5/IMG_1415.jpg","fotos_catalogo/Hombre/5/IMG_1418.jpg","fotos_catalogo/Hombre/5/IMG_1423.jpg"]},
 
@@ -104,7 +104,7 @@ const ITEMS = [
 
   { id:14, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
     nombre:"Adidas Originals Cargo Pant — Negro",
-    precio:"Bs. 519", precio_antes:"Bs. 579", tallas:["L"],
+    precio:"Bs. 489", precio_antes:"Bs. 579", tallas:["L"],
     desc:"Adidas Originals construyó el cargo definitivo. Tela liviana de secado rápido, bolsillos laterales funcionales, cintura con cordón, elástico en tobillo. El trébol al muslo lo firma. Entre lo técnico y el streetwear — exactamente donde querés estar.",
     fotos:["fotos_catalogo/Hombre/14/IMG_1219.jpg","fotos_catalogo/Hombre/14/IMG_1222.jpg","fotos_catalogo/Hombre/14/IMG_1224.jpg","fotos_catalogo/Hombre/14/IMG_1226.jpg"]},
 
@@ -124,7 +124,7 @@ const ITEMS = [
 
   { id:17, genero:"mujer", marca:"GUESS", marca_id:"guess", badge:"new", stock:true,
     nombre:"GUESS Triangle Logo Crewneck — Taupe",
-    precio:"Bs. 249", precio_antes:"Bs. 349", tallas:["XL"],
+    precio:"Bs. 229", precio_antes:"Bs. 349", tallas:["XL"],
     desc:"GUESS lo hace simple y lo hace con clase. Crewneck en taupe oscuro con el triángulo icónico en bordado tono sobre tono — elegancia sin esfuerzo. Tela gruesa premium, corte femenino relaxed. Del brunch al after: una sola pieza, mil ocasiones.",
     fotos:["fotos_catalogo/Mujer/1/IMG_1440.jpg","fotos_catalogo/Mujer/1/IMG_1442.jpg","fotos_catalogo/Mujer/1/IMG_1443.jpg","fotos_catalogo/Mujer/1/IMG_1444.jpg","fotos_catalogo/Mujer/1/IMG_1445.jpg"]},
 
@@ -174,28 +174,28 @@ const ITEMS = [
 
   { id:25, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
     nombre:"Columbia Down Jacket — Gris Plata",
-    precio:"Bs. 889", tallas:["L"],
+    precio:"Bs. 789", tallas:["L"],
     notas:["Unisex"],
     desc:"Calor sin compromiso. Relleno de plumas premium con tecnología Omni-Heat™ que refleja tu propio calor de vuelta. Superficie plateada que no necesita presentación. Corte unisex talla L, nueva con etiqueta. Columbia pasó décadas en la montaña para hacer esto — y se nota.",
     fotos:["fotos_catalogo/Hombre/23/IMG_3024.jpg","fotos_catalogo/Hombre/23/IMG_3043.jpg","fotos_catalogo/Hombre/23/IMG_3030.jpg","fotos_catalogo/Hombre/23/IMG_3041.jpg","fotos_catalogo/Hombre/23/IMG_3046.jpg","fotos_catalogo/Hombre/23/IMG_3051.jpg","fotos_catalogo/Hombre/23/IMG_3052.jpg","fotos_catalogo/Hombre/23/IMG_3039.jpg","fotos_catalogo/Hombre/23/IMG_3048.jpg","fotos_catalogo/Hombre/23/IMG_3053.jpg"]},
 
   { id:26, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
     nombre:"Columbia Down Jacket — Negro y Crema",
-    precio:"Bs. 899", tallas:["XXL"],
+    precio:"Bs. 799", tallas:["XXL"],
     notas:["Unisex"],
     desc:"Cuerpo negro, brazos en crema — el contraste que convierte una chaqueta técnica en pieza de estilo. Relleno de plumas certificado, construcción premium, nueva con etiqueta. Unisex talla XXL. El abrigo que funciona igual para él o ella.",
     fotos:["fotos_catalogo/Hombre/24/IMG_2453.jpg","fotos_catalogo/Hombre/24/IMG_2452.jpg","fotos_catalogo/Hombre/24/IMG_2471.jpg","fotos_catalogo/Hombre/24/IMG_2468.jpg","fotos_catalogo/Hombre/24/IMG_2467.jpg","fotos_catalogo/Hombre/24/IMG_2478.jpg","fotos_catalogo/Hombre/24/IMG_2444.jpg","fotos_catalogo/Hombre/24/IMG_2470.jpg","fotos_catalogo/Hombre/24/IMG_2481.jpg","fotos_catalogo/Hombre/24/IMG_2488.jpg","fotos_catalogo/Hombre/24/IMG_2447.jpg","fotos_catalogo/Hombre/24/IMG_2465.jpg","fotos_catalogo/Hombre/24/IMG_2466.jpg","fotos_catalogo/Hombre/24/IMG_2503.jpg"]},
 
   { id:27, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Crema",
-    precio:"Bs. 1079", tallas:["M"],
+    precio:"Bs. 979", tallas:["M"],
     notas:["Unisex", "Capucha desmontable"],
     desc:"El colorway crema que la gente busca y no encuentra. Relleno de plumas certificado, capucha desmontable para cambiar el look cuando quieras. Nueva con etiqueta, unisex talla M. Una The North Face no es una compra — es una inversión.",
     fotos:["fotos_catalogo/Hombre/25/IMG_2894.jpg","fotos_catalogo/Hombre/25/IMG_2911.jpg","fotos_catalogo/Hombre/25/IMG_2915.jpg","fotos_catalogo/Hombre/25/IMG_2923.jpg","fotos_catalogo/Hombre/25/IMG_2910.jpg","fotos_catalogo/Hombre/25/IMG_2895.jpg","fotos_catalogo/Hombre/25/IMG_2897.jpg","fotos_catalogo/Hombre/25/IMG_2926.jpg","fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
 
   { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
     nombre:"The North Face Puffer — Verde Oliva",
-    precio:"Bs. 1069", tallas:["XXL"],
+    precio:"Bs. 969", tallas:["XXL"],
     notas:["Unisex", "Capucha desmontable", "Ajustadores de precisión en capucha y cintura"],
     desc:"Verde oliva con todos los detalles que definen a TNF: capucha removible, ajustadores en capucha y cintura, relleno de plumas premium. Unisex talla XXL, nueva con etiqueta. La chaqueta que los que saben reconocen de lejos.",
     fotos:["fotos_catalogo/Hombre/26/IMG_2932.jpg","fotos_catalogo/Hombre/26/IMG_2969.jpg","fotos_catalogo/Hombre/26/IMG_2936.jpg","fotos_catalogo/Hombre/26/IMG_2966.jpg","fotos_catalogo/Hombre/26/IMG_2952.jpg","fotos_catalogo/Hombre/26/IMG_2971.jpg","fotos_catalogo/Hombre/26/IMG_2940.jpg","fotos_catalogo/Hombre/26/IMG_2967.jpg"]},
