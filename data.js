@@ -11,7 +11,7 @@ const BRANDS = [
   { id:"calvin",     name:"Calvin Klein",   wordmark:"Calvin Klein",   img:"assets/brand-calvin.jpg" },
   { id:"guess",      name:"GUESS",          wordmark:"GUESS",          img:"assets/brand-guess-v2.jpg" },
   { id:"deprimera",  name:"De Primera",     wordmark:"De Primera ✦",   img:"assets/brand-deprimera.webp" },
-  { id:"columbia",   name:"Columbia",       wordmark:"COLUMBIA",       img:"assets/brand-columbia.jpg" },
+  { id:"columbia",   name:"Columbia",       wordmark:"Columbia",       img:"assets/odp-2025-sportchek-lp-wk43-columbia-3tile-outerwearv2.avif" },
   { id:"northface",  name:"The North Face", wordmark:"THE NORTH FACE", img:"assets/brand-northface.jpg" }
 ];
 

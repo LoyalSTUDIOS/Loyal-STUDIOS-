@@ -3,41 +3,66 @@
 // State
 let fB = "all", fG = "all";
 let cur = null, curImg = 0, curSize = null;
-let savedScrollY = 0; // guarda posición al abrir detalle
 let cart = JSON.parse(localStorage.getItem("ls_cart") || "[]");
-// Migración: descarta items cuyo producto ya no exista y refresca datos
+// Migration: drop cart items whose product no longer exists OR whose stored
+// foto URL does not match the current product's first photo (catalog updates)
 cart = cart.filter(it => {
-  const p = ITEMS.find(x => x.id === it.id);
+  const p = (typeof PRODS !== "undefined") && PRODS.find(x => x.id === it.id);
   if (!p) return false;
-  it.foto  = p.fotos[0];
+  it.foto = p.fotos[0]; // refresh image to current
   it.nombre = p.nombre;
   it.precio = p.precio;
-  it.marca  = p.marca;
-  it.qty    = it.qty || 1;
+  it.marca = p.marca;
   return true;
 });
 localStorage.setItem("ls_cart", JSON.stringify(cart));
 
 // ═══ INTRO ═══
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("intro").classList.add("gone");
+// El PRIMER reveal lo maneja un <script> inline en index.html para que se
+// ejecute de inmediato (sin esperar a que descarguen/parseen estos JS en el
+// celular). Acá sólo vive la lógica de "repetir intro".
+const INTRO_DURATION = 4700;
+function replayIntro(){
+  const intro = document.getElementById("intro");
+  const html = window.__LS_INTRO_HTML;
+  if(!intro || !html) return;
+  // Reset content (restarts all CSS animations from 0)
+  window.__LS_REVEAL = null;            // permite que un nuevo reveal corra
+  intro.style.display = "";
+  intro.classList.remove("gone");
+  intro.innerHTML = html;
+  setTimeout(()=>{
+    const i = document.getElementById("intro");
+    if(!i) return;
+    i.classList.add("gone");
     document.getElementById("site").classList.add("show");
-    document.querySelector(".hero").classList.add("lit");
-    setTimeout(() => document.getElementById("intro").remove(), 400);
-  }, 2900);
-});
+    setTimeout(()=>{ i.style.display="none"; }, 500);
+  }, INTRO_DURATION);
+}
 
 // ═══ ROUTING ═══
+let _homeScrollY = 0;
+
 function showPage(name) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page-" + name).classList.add("active");
-  document.querySelector(".nav-back").style.display = name === "detail" ? "flex" : "none";
+  // ── Arquitectura OVERLAY (arregla el botón "Volver" de raíz) ──
+  // El detalle se abre como una CAPA FIJA encima del home. El home NUNCA se
+  // oculta (display:none) ni se le toca el scroll. Por eso, al cerrar el
+  // detalle, el usuario queda EXACTAMENTE en el mismo punto donde estaba
+  // mirando las prendas — ya no salta arriba al hero. El scroll del propio
+  // detalle vive dentro del overlay, no en el window.
+  const detail = document.getElementById("page-detail");
+  if (name === "detail") {
+    detail.classList.add("active");
+    detail.scrollTop = 0;            // el detalle siempre arranca arriba
+    document.querySelector(".nav-back").style.display = "flex";
+  } else {
+    detail.classList.remove("active");   // cerrar overlay; el home sigue intacto
+    document.querySelector(".nav-back").style.display = "none";
+  }
 }
 
 function goHome() {
   showPage("home");
-  window.scrollTo({ top: savedScrollY, behavior: "instant" }); // vuelve donde estabas
 }
 
 function scrollCatalog() {
@@ -58,7 +83,8 @@ function filterGender(g) {
 function filterBrand(b, btn) {
   fB = b;
   document.querySelectorAll("[data-b]").forEach(el => el.classList.remove("on"));
-  btn.classList.add("on");
+  const tab = btn || document.querySelector(`[data-b="${b}"]`);
+  if (tab) tab.classList.add("on");
   render();
   setTimeout(() => document.getElementById("catalog").scrollIntoView({ behavior: "smooth" }), 80);
 }
@@ -86,33 +112,35 @@ function badge(b) {
   return "";
 }
 
-function cardHTML(p) {
-  const uid = "NK-" + String(p.id).padStart(2, "0");
-  // FOMO en card: talla única o 2 tallas sin badge especial
-  let fomoTag = "";
-  if (p.badge !== "last" && p.badge !== "out") {
-    if (p.tallas.length === 1) {
-      fomoTag = `<div class="card-fomo">⚡ Última talla · ${p.tallas[0]}</div>`;
-    } else if (p.tallas.length === 2) {
-      fomoTag = `<div class="card-fomo">🔥 Pocas tallas</div>`;
-    }
-  }
+function uidOf(p) { return "NK-" + String(p.id).padStart(2, "0"); }
+
+// Porcentaje de descuento (0 si no hay precio_antes válido)
+function priceNum(s) { return parseInt(String(s).replace(/[^0-9]/g, ""), 10) || 0; }
+function discPct(p) {
+  if (!p.precio_antes) return 0;
+  const n = priceNum(p.precio), o = priceNum(p.precio_antes);
+  if (!o || o <= n) return 0;
+  return Math.round((1 - n / o) * 100);
+}
+
+function cardHTML(p, i) {
+  const pct = discPct(p);
   return `
-    <article class="card" onclick="openDetail(${p.id})">
+    <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
         ${badge(p.badge)}
-        <div class="card-uid">${uid}</div>
+        ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
+        <div class="card-uid">${uidOf(p)}</div>
         <div class="card-cta">Ver producto →</div>
       </div>
       <div class="card-body">
         <div class="card-brand">${p.marca}</div>
         <div class="card-name">${p.nombre}</div>
         <div class="card-foot">
-          <span class="card-price">${p.precio}</span>
+          <span class="card-price${p.precio_antes ? " on-sale" : ""}">${p.precio}${p.precio_antes ? `<span class="price-was">${p.precio_antes}</span>` : ""}</span>
           <span class="card-gen">${p.genero}</span>
         </div>
-        ${fomoTag}
       </div>
     </article>`;
 }
@@ -167,24 +195,48 @@ function openDetail(id) {
   tag.className = "d-brand-tag" + (cur.marca_id === "deprimera" ? " dp" : "");
 
   document.getElementById("d-gen").textContent = cur.genero.toUpperCase();
-  document.getElementById("d-uid").textContent = "NK-" + String(cur.id).padStart(2, "0");
+  const dUid = document.getElementById("d-uid");
+  if (dUid) dUid.textContent = uidOf(cur);
   document.getElementById("d-name").textContent = cur.nombre;
-  document.getElementById("d-price").textContent = cur.precio;
-  document.getElementById("d-desc").textContent = cur.desc;
-
-  // Notas destacadas
-  const notasEl = document.getElementById("d-notas");
-  if (cur.notas && cur.notas.length) {
-    notasEl.innerHTML = cur.notas.map(n => `<span class="d-nota-chip">✦ ${n}</span>`).join("");
-    notasEl.style.display = "flex";
+  const dPrice = document.getElementById("d-price");
+  const dFomo = document.getElementById("d-fomo");
+  if (cur.precio_antes) {
+    const pct = discPct(cur);
+    const save = priceNum(cur.precio_antes) - priceNum(cur.precio);
+    dPrice.classList.add("is-sale");
+    dPrice.innerHTML =
+      `<span class="d-price-now">${cur.precio}</span>` +
+      `<span class="d-price-was">${cur.precio_antes}</span>` +
+      `<span class="d-off-pill">−${pct}% OFF</span>`;
+    if (dFomo) {
+      dFomo.innerHTML = `🔥 <strong>¡Oferta!</strong> Ahorrás Bs. ${save} — precio de remate, <strong>solo mientras dure el stock</strong>.`;
+      dFomo.classList.add("show");
+    }
   } else {
-    notasEl.innerHTML = "";
-    notasEl.style.display = "none";
+    dPrice.classList.remove("is-sale");
+    dPrice.textContent = cur.precio;
+    if (dFomo) dFomo.classList.remove("show");
   }
+  document.getElementById("d-desc").textContent = cur.desc;
 
   // Notes
   document.getElementById("dp-note").classList.toggle("show", cur.badge === "dp");
   document.getElementById("new-note").classList.toggle("show", cur.badge === "new");
+
+  // Notas de producto (detalles técnicos)
+  const dNotas = document.getElementById("d-notas");
+  if (dNotas) {
+    const ns = (cur.notas || []).filter(n => n && !n.startsWith("⚠️"));
+    const warn = (cur.notas || []).filter(n => n && n.startsWith("⚠️"));
+    const allNotas = [...ns, ...warn];
+    if (allNotas.length) {
+      dNotas.innerHTML = allNotas.map(n => `<span class="nota-line">✦ ${n}</span>`).join("");
+      dNotas.classList.add("show");
+    } else {
+      dNotas.classList.remove("show");
+      dNotas.innerHTML = "";
+    }
+  }
 
   // Gallery
   document.getElementById("d-main").src = cur.fotos[0];
@@ -209,25 +261,7 @@ function openDetail(id) {
     buy.classList.remove("agotado");
   }
 
-  // FOMO en detalle
-  const fomoEl = document.getElementById("d-fomo");
-  if (cur.badge === "last") {
-    fomoEl.innerHTML = `<span class="d-fomo-msg d-fomo-urgent">⚠️ Últimas unidades — ¡Date prisa!</span>`;
-    fomoEl.style.display = "flex";
-  } else if (cur.tallas.length === 1) {
-    fomoEl.innerHTML = `<span class="d-fomo-msg">⚡ Solo queda talla ${cur.tallas[0]} — Última disponible</span>`;
-    fomoEl.style.display = "flex";
-  } else if (cur.tallas.length === 2) {
-    fomoEl.innerHTML = `<span class="d-fomo-msg">🔥 Pocas tallas — ${cur.tallas.join(" y ")}</span>`;
-    fomoEl.style.display = "flex";
-  } else {
-    fomoEl.innerHTML = "";
-    fomoEl.style.display = "none";
-  }
-
-  savedScrollY = window.scrollY; // guarda posición antes de abrir detalle
   showPage("detail");
-  window.scrollTo({ top: 0, behavior: "instant" });
 }
 
 function setImg(i) {
@@ -281,26 +315,9 @@ function addToCart() {
     setTimeout(() => sz.style.animation = "", 400);
     return;
   }
-  const btn = document.getElementById("d-add-cart");
-  if (btn.disabled) return; // evita spam
-
-  const existing = cart.find(it => it.id === cur.id && it.talla === curSize);
-  if (existing) {
-    // Ya está en el carrito — no agregar duplicado
-    btn.classList.add("added");
-    btn.querySelector("span").textContent = "✓ Ya está en el carrito";
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.classList.remove("added");
-      btn.querySelector("span").textContent = "Agregar al carrito";
-      btn.disabled = false;
-    }, 1800);
-    return;
-  }
-
   cart.push({
     id: cur.id, nombre: cur.nombre, precio: cur.precio,
-    talla: curSize, foto: cur.fotos[0], marca: cur.marca, qty: 1
+    talla: curSize, foto: cur.fotos[0], marca: cur.marca
   });
   localStorage.setItem("ls_cart", JSON.stringify(cart));
   updateCartUI();
@@ -316,75 +333,52 @@ function addToCart() {
     });
   }
 
+  const btn = document.getElementById("d-add-cart");
   btn.classList.add("added");
   btn.querySelector("span").textContent = "✓ Agregado";
-  btn.disabled = true;
   setTimeout(() => {
     btn.classList.remove("added");
     btn.querySelector("span").textContent = "Agregar al carrito";
-    btn.disabled = false;
   }, 1600);
 }
 
 // ═══ CART ═══
-function cartTotalQty() {
-  return cart.length;
-}
-function priceOf(it) {
-  const p = ITEMS.find(x => x.id === it.id);
-  const raw = (p && p.precio) || it.precio || "0";
-  const num = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
-  return isNaN(num) ? 0 : num;
-}
-function cartTotalPrice() {
-  return cart.reduce((sum, it) => sum + priceOf(it), 0);
-}
-
 function updateCartUI() {
-  const totalQty = cartTotalQty();
-
   const fab = document.querySelector(".cart-fab");
-  if (fab) fab.classList.toggle("has-items", totalQty > 0);
+  if (fab) fab.classList.toggle("has-items", cart.length > 0);
 
   const badge = document.getElementById("cart-badge");
-  badge.textContent = totalQty;
-  badge.classList.toggle("show", totalQty > 0);
+  badge.textContent = cart.length;
+  badge.classList.toggle("show", cart.length > 0);
 
-  const itemsEl  = document.getElementById("cart-items");
+  const itemsEl = document.getElementById("cart-items");
+  const emptyEl = document.getElementById("cart-empty");
   const footerEl = document.getElementById("cart-footer-bar");
 
-  // ⚠️ Siempre usamos innerHTML — nunca movemos nodos del DOM
-  // (mover con appendChild + sobreescribir con innerHTML destruye referencias y rompe las actualizaciones)
   if (!cart.length) {
-    itemsEl.innerHTML = `
-    <div class="cart-empty">
-      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
-      <p>Sin productos aún</p>
-    </div>`;
+    itemsEl.innerHTML = "";
+    itemsEl.appendChild(emptyEl);
+    emptyEl.style.display = "flex";
     footerEl.style.display = "none";
     return;
   }
 
+  emptyEl.style.display = "none";
   footerEl.style.display = "block";
-  itemsEl.innerHTML = cart.map((it, i) => {
-    const price = priceOf(it);
-    return `
-    <div class="cart-item" data-cart-idx="${i}">
-      <div class="cart-item-img-wrap">
-        <img class="cart-item-img" src="${it.foto}" alt="${it.nombre}" loading="lazy">
-      </div>
+  itemsEl.innerHTML = cart.map((it, i) => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${it.foto}" alt="">
       <div class="cart-item-info">
         <div class="cart-item-name">${it.nombre}</div>
-        <div class="cart-item-meta">${it.marca}${it.talla ? " · Talla " + it.talla : ""}</div>
-        <div class="cart-item-bottom">
-          <div class="cart-item-price">Bs. ${price}</div>
-        </div>
+        <div class="cart-item-meta">${it.marca}${it.talla ? " · T " + it.talla : ""}</div>
+        <div class="cart-item-price">${it.precio}</div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar producto">×</button>
-    </div>`;
-  }).join("");
+      <button class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Quitar">×</button>
+    </div>
+  `).join("");
 
-  document.getElementById("cart-total").textContent = "Bs. " + cartTotalPrice().toFixed(0);
+  const total = cart.reduce((s, it) => s + (parseInt(it.precio.replace(/[^0-9]/g, ""), 10) || 0), 0);
+  document.getElementById("cart-total").textContent = "Bs. " + total;
 }
 
 function removeFromCart(i) {
@@ -404,20 +398,19 @@ function closeCart() {
 
 function cartCheckoutWA() {
   if (!cart.length) return;
-  const lines = cart.map(it => {
-    const price = priceOf(it);
-    return `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""} — Bs. ${price}`;
-  }).join("\n");
-  const total = cartTotalPrice();
+  const lines = cart.map(it =>
+    `• ${it.nombre}${it.talla ? " (T: " + it.talla + ")" : ""} — ${it.precio}`
+  ).join("\n");
+  const total = cart.reduce((s, it) => s + (parseInt(it.precio.replace(/[^0-9]/g, ""), 10) || 0), 0);
   const msg = encodeURIComponent(
     `Hola ${TIENDA}, quiero pedir:\n\n${lines}\n\nTotal: Bs. ${total}`
   );
   if (typeof fbq === "function") {
     fbq("track", "InitiateCheckout", {
       value: total, currency: "BOB",
-      contents: cart.map(it => ({ id: String(it.id), quantity: 1 })),
+      contents: cart.map(i => ({ id: String(i.id), quantity: 1 })),
       content_type: "product",
-      num_items: cartTotalQty()
+      num_items: cart.length
     });
   }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
@@ -474,17 +467,11 @@ function onScroll() {
 }
 window.addEventListener("scroll", onScroll, { passive: true });
 
-// Lead pixel events
+// Engagement tracking (internal only — no Meta signal)
 let scrollTracked = false;
 window.addEventListener("scroll", () => {
-  if (!scrollTracked && window.scrollY > 500 && typeof fbq === "function") {
-    fbq("track", "Lead", { content_name: "Scroll 500px" });
-    scrollTracked = true;
-  }
+  if (!scrollTracked && window.scrollY > 500) scrollTracked = true;
 }, { passive: true });
-setTimeout(() => {
-  if (typeof fbq === "function") fbq("track", "Lead", { content_name: "15s en página" });
-}, 15000);
 
 // Keyboard
 document.addEventListener("keydown", e => {
@@ -495,28 +482,291 @@ document.addEventListener("keydown", e => {
   }
 });
 
-// ═══ INIT ═══
-function init() {
-  // Build brand monogram cards
-  const bg = document.getElementById("brands-grid");
-  bg.innerHTML = BRANDS.map(b => {
-    const isLogo = b.fit === "contain";
-    const style = isLogo
-      ? `background-image:url('${b.img}');background-size:contain;background-color:${b.bg || "#fff"};background-position:center;background-repeat:no-repeat;`
-      : `background-image:url('${b.img}')`;
-    return `
-    <div class="brand-card ${isLogo ? "is-logo" : ""} reveal" onclick="filterBrand('${b.id}', document.querySelector('[data-b=\\'${b.id}\\']'))">
-      <div class="brand-card-img" style="${style}"></div>
-      <div class="brand-card-overlay"></div>
-      <div class="brand-card-info">
-        ${isLogo ? "" : `<div class="brand-wordmark wm-${b.id}">${b.wordmark}</div>`}
-        <div class="brand-count">${ITEMS.filter(i => i.marca_id === b.id).length} piezas</div>
-      </div>
-    </div>`;
-  }).join("");
+// ═══ COVERFLOW 3D DE MARCAS ═══
+// Manejado por TRANSFORMS (no por scroll). Por eso anima siempre en iOS
+// Safari / Android gama baja, se auto-rota solo y responde al swipe.
+// Solo transform/opacity → fluido en cualquier celular de Bolivia.
+let _bcCards = [], _bcActive = 0;
+let _bcDir = 1, _bcAutoTimer = null, _bcIdleTimer = null, _bcVisible = false;
+const BC_INTERVAL = 2200;   // gira cada 2.2s (legible pero dinámico)
+const BC_RESUME   = 3500;   // retoma 3.5s después de que sueltes
 
+function bcLayout() {
+  if (!_bcCards.length) return;
+  const cw = _bcCards[0].offsetWidth || 280;
+  const n = _bcCards.length;
+  _bcCards.forEach((card, i) => {
+    let off = i - _bcActive;
+    const a = Math.abs(off);
+    const cl = Math.max(-3, Math.min(3, off));
+    const x  = cl * cw * 0.68;
+    const ry = -cl * 32;
+    const tz = -Math.min(a, 3) * 200;
+    const sc = Math.max(1 - a * 0.13, 0.65);
+    const op = a >= 3.2 ? 0 : Math.max(1 - a * 0.28, 0.30);
+    card.style.transform =
+      `translateX(${x.toFixed(1)}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${sc.toFixed(3)})`;
+    card.style.opacity = op.toFixed(3);
+    card.style.zIndex = String(60 - a);
+    card.style.pointerEvents = a >= 3.2 ? "none" : "auto";
+    card.classList.toggle("is-active", i === _bcActive);
+  });
+  const dots = document.querySelectorAll("#brands-dots .bc-dot");
+  dots.forEach((d, i) => d.classList.toggle("on", i === _bcActive));
+}
+
+function bcGo(i) {
+  const n = _bcCards.length;
+  if (!n) return;
+  _bcActive = Math.max(0, Math.min(n - 1, i));
+  bcLayout();
+}
+
+function bcAutoStep() {
+  if (_bcCards.length < 2) return;
+  let next = _bcActive + _bcDir;
+  if (next > _bcCards.length - 1) { _bcDir = -1; next = _bcActive - 1; }
+  else if (next < 0) { _bcDir = 1; next = _bcActive + 1; }
+  bcGo(next);
+}
+function bcAutoStart() {
+  if (_bcAutoTimer || !_bcVisible || _bcCards.length < 2) return;
+  _bcAutoTimer = setInterval(bcAutoStep, BC_INTERVAL);
+}
+function bcAutoStop() {
+  if (_bcAutoTimer) { clearInterval(_bcAutoTimer); _bcAutoTimer = null; }
+}
+// El usuario interactuó → pausa y retoma solo tras inactividad
+function bcUserTouch() {
+  bcAutoStop();
+  const h = document.getElementById("bc-hint");
+  if (h) h.classList.add("gone");
+  if (_bcIdleTimer) clearTimeout(_bcIdleTimer);
+  _bcIdleTimer = setTimeout(() => { if (_bcVisible) bcAutoStart(); }, BC_RESUME);
+}
+
+function buildBrandsCarousel() {
+  const track = document.getElementById("brands-track");
+  const dots = document.getElementById("brands-dots");
+  const stage = document.getElementById("brands-carousel");
+  if (!track || !stage) return;
+
+  track.innerHTML = BRANDS.map((b, i) => `
+    <article class="bc-card" data-bid="${b.id}" data-i="${i}">
+      <div class="bc-img" style="background-image:url('${b.img}')"></div>
+      <div class="bc-overlay"></div>
+      <div class="bc-info">
+        <span class="bc-tag">Ver colección →</span>
+        <div class="bc-wordmark wm-${b.id}">${b.wordmark}</div>
+        <div class="bc-count">${ITEMS.filter(it => it.marca_id === b.id).length} piezas</div>
+      </div>
+    </article>`).join("");
+
+  dots.innerHTML = BRANDS.map((b, i) =>
+    `<button class="bc-dot${i === 0 ? " on" : ""}" aria-label="Ir a ${b.name}" data-i="${i}"></button>`
+  ).join("");
+
+  _bcCards = Array.from(track.children);
+  _bcActive = 0;
+
+  // Snap instantly to initial positions — disable CSS transition so cards
+  // don't slowly drift in from center on first render.
+  _bcCards.forEach(c => { c.style.transition = "none"; });
+  bcLayout();
+  // Force reflow so the browser commits the "no-transition" state, then restore.
+  if (_bcCards[0]) _bcCards[0].getBoundingClientRect();
+  requestAnimationFrame(() => _bcCards.forEach(c => { c.style.transition = ""; }));
+
+  dots.querySelectorAll(".bc-dot").forEach(d => {
+    d.addEventListener("click", () => { bcUserTouch(); bcGo(parseInt(d.dataset.i, 10)); });
+  });
+
+  // Tap en card: si es la activa → abre la colección; si no → la trae al centro
+  let _sx = 0, _sy = 0, _st = 0, _moved = false;
+  stage.addEventListener("touchstart", e => {
+    bcUserTouch();
+    const t = e.touches[0]; _sx = t.clientX; _sy = t.clientY; _st = Date.now(); _moved = false;
+  }, { passive: true });
+  stage.addEventListener("touchmove", e => {
+    const t = e.touches[0];
+    if (Math.abs(t.clientX - _sx) > 8 || Math.abs(t.clientY - _sy) > 8) _moved = true;
+  }, { passive: true });
+  stage.addEventListener("touchend", e => {
+    const t = e.changedTouches[0];
+    const dx = t.clientX - _sx, dy = t.clientY - _sy;
+    if (Math.abs(dx) > 38 && Math.abs(dx) > Math.abs(dy)) {
+      bcGo(_bcActive + (dx < 0 ? 1 : -1));
+    } else if (!_moved) {
+      bcCardTap(e.target);
+    }
+  });
+  // Click (desktop / sin touch)
+  stage.addEventListener("click", e => {
+    if (_moved) return;
+    if (e.pointerType === "touch" || ("ontouchstart" in window)) return;
+    bcUserTouch(); bcCardTap(e.target);
+  });
+
+  ["pointerdown", "wheel", "keydown"].forEach(ev =>
+    stage.addEventListener(ev, bcUserTouch, { passive: true })
+  );
+  document.addEventListener("keydown", e => {
+    if (!_bcVisible) return;
+    if (e.key === "ArrowRight") { bcUserTouch(); bcGo(_bcActive + 1); }
+    if (e.key === "ArrowLeft")  { bcUserTouch(); bcGo(_bcActive - 1); }
+  });
+
+  window.addEventListener("resize", () => requestAnimationFrame(bcLayout), { passive: true });
+
+  // Arranca el autoplay YA — el usuario quiere movimiento desde el primer
+  // segundo, no esperar a que IO dispare. IO solo lo pausa cuando estás muy
+  // lejos del carrusel (ahorro de batería).
+  _bcVisible = true;
+  bcAutoStart();
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => {
+      const e = entries[0];
+      _bcVisible = e.isIntersecting;
+      if (_bcVisible) { bcLayout(); bcAutoStart(); } else bcAutoStop();
+    }, { rootMargin: "200% 0px 200% 0px", threshold: 0 }).observe(stage);
+  }
+
+  // Layout pass al ratito por si la fuente o las imágenes cambian tamaños.
+  [80, 300, 700, 1500].forEach(t => setTimeout(bcLayout, t));
+
+  // "Teaser" en el primer segundo para que se note que se puede deslizar:
+  // avanza una, vuelve, avanza otra. Suficiente para que el usuario vea el
+  // movimiento aunque todavía no haya scrolleado.
+  setTimeout(() => { if (_bcCards.length > 1) bcGo(1); }, 900);
+  setTimeout(() => { if (_bcCards.length > 1) bcGo(0); }, 2100);
+}
+
+function bcCardTap(targetEl) {
+  const card = targetEl.closest ? targetEl.closest(".bc-card") : null;
+  if (!card) return;
+  const idx = parseInt(card.dataset.i, 10);
+  if (idx === _bcActive) {
+    const bid = card.dataset.bid;
+    const tab = document.querySelector(`[data-b='${bid}']`);
+    filterBrand(bid, tab);
+  } else {
+    bcGo(idx);
+  }
+}
+
+// ═══ INIT ═══
+// El carrusel de marcas se construye lo antes posible (no espera a la intro)
+// para que la animación ya esté corriendo cuando el usuario llegue a esa
+// sección. El catálogo principal sí espera al intro reveal por performance.
+function _bootCarouselEarly() {
+  if (window.__LS_CAROUSEL_BUILT) return;
+  if (typeof BRANDS === "undefined") return;
+  if (!document.getElementById("brands-track")) return;
+  window.__LS_CAROUSEL_BUILT = true;
+  buildBrandsCarousel();
+}
+
+function init() {
+  if (!window.__LS_CAROUSEL_BUILT) buildBrandsCarousel();
   render();
   updateCartUI();
+  initDropVideos();
   onScroll();
 }
-document.addEventListener("DOMContentLoaded", init);
+
+// ═══ DROP SECTION VIDEOS (Columbia + TNF) ═══
+// Carga los videos solo cuando se acercan al viewport. Respeta Save-Data:
+// si el usuario lo tiene activo, se queda con la foto y no descarga el mp4.
+function initDropVideos() {
+  const videos = document.querySelectorAll(".drop-video[data-src]");
+  if (!videos.length) return;
+
+  // Save-Data: usuario en plan de datos limitado → no descargar videos
+  const conn = navigator.connection || navigator.webkitConnection;
+  if (conn && (conn.saveData || conn.effectiveType === "slow-2g" || conn.effectiveType === "2g")) {
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) return;
+
+  // La clase "video-playing" (que muestra el video encima de la foto) SOLO se
+  // añade cuando el video realmente está reproduciéndose. Si el autoplay falla
+  // (iOS en Modo Bajo Consumo bloquea autoplay aunque esté muted), la foto-
+  // poster se queda visible y NUNCA se ve el fondo gris.
+  videos.forEach(v => {
+    v.addEventListener("playing", () => v.parentElement.classList.add("video-playing"));
+    // Si el video se pausa, vacía o falla, volvemos a mostrar la foto.
+    ["pause", "emptied", "error", "stalled", "waiting"].forEach(ev =>
+      v.addEventListener(ev, () => {
+        if (v.paused || v.readyState < 3) v.parentElement.classList.remove("video-playing");
+      })
+    );
+  });
+
+  function tryPlay(v) {
+    if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.load(); }
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {
+      // Autoplay bloqueado → la foto queda visible (sin gris).
+      v.parentElement.classList.remove("video-playing");
+    });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        tryPlay(v);
+      } else {
+        v.pause();
+      }
+    });
+  }, { rootMargin: "150px 0px 150px 0px", threshold: 0.1 });
+
+  videos.forEach(v => io.observe(v));
+
+  // Reintento global: si el usuario toca/scrollea la página (gesto que iOS
+  // acepta para desbloquear media), reintentamos reproducir los visibles.
+  let retried = false;
+  function retryVisible() {
+    if (retried) return;
+    retried = true;
+    videos.forEach(v => {
+      const r = v.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) tryPlay(v);
+    });
+  }
+  ["touchstart", "click", "scroll"].forEach(ev =>
+    window.addEventListener(ev, () => { retried = false; retryVisible(); }, { passive: true })
+  );
+}
+
+// ═══ ARRANQUE DEL CATÁLOGO ═══
+// El catálogo NO se construye durante la intro: en el celular, armar las
+// tarjetas + decodificar imágenes mientras corre la animación pesada de la
+// intro ahoga al iPhone y la congela justo en el logo. Lo construimos recién
+// cuando la intro terminó (el hero se ve primero; el catálogo está más abajo).
+function _bootCatalog(){
+  if (window.__LS_BOOTED) return;
+  window.__LS_BOOTED = true;
+  init();
+}
+
+// Arranque temprano del carrusel: en cuanto el DOM esté listo, no esperamos
+// la intro. La sección está debajo del fold y no compite con la animación
+// inicial — solo asegura que cuando el usuario scrollee, ya está moviéndose.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", _bootCarouselEarly);
+} else {
+  _bootCarouselEarly();
+}
+if (window.__LS_REVEALED) {
+  // La intro ya terminó antes de que cargaran estos JS → armar ya mismo.
+  _bootCatalog();
+} else {
+  // Esperar al reveal de la intro (lo dispara el <script> inline del HTML).
+  window.__LS_ON_REVEAL = _bootCatalog;
+}
+// Salvaguarda: si por alguna razón el reveal no lo disparó, armar en load.
+window.addEventListener("load", () => setTimeout(_bootCatalog, 50));
