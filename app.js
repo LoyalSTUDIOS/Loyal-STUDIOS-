@@ -118,14 +118,19 @@ function cardHTML(p) {
 }
 
 function render() {
-  const list = ITEMS.filter(p =>
-    (fG === "all" || p.genero === fG) &&
-    (fB === "all" || p.marca_id === fB)
-  );
+  const isSold = fB === "sold";
+  const list = isSold
+    ? ITEMS.filter(p => p.stock === false && (fG === "all" || p.genero === fG))
+    : ITEMS.filter(p =>
+        p.stock !== false &&
+        (fG === "all" || p.genero === fG) &&
+        (fB === "all" || p.marca_id === fB)
+      );
   const grid = document.getElementById("grid");
   document.getElementById("cat-count").textContent =
     `${list.length} ${list.length === 1 ? "pieza" : "piezas"}`;
   document.getElementById("dp-banner").classList.toggle("show", fB === "deprimera");
+  document.getElementById("catalog").classList.toggle("sold-view", isSold);
 
   if (!list.length) {
     grid.innerHTML = `<div class="empty" style="grid-column:1/-1">

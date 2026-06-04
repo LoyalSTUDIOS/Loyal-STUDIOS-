@@ -1068,6 +1068,10 @@ footer{
 .cart-wa-btn:hover{background:var(--green-2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,214,107,.4)}
 .cart-wa-btn svg{width:16px;height:16px;fill:currentColor}
 
+/* ═══ SOLD VIEW — cards sin overlay oscuro ═══ */
+.catalog-wrap.sold-view .card .card-img img{filter:none}
+.catalog-wrap.sold-view .card:hover .card-img img{filter:none}
+
 /* ═══ REVEAL ON SCROLL ═══ */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
 .reveal.in{opacity:1;transform:none}
