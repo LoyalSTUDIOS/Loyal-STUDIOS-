@@ -331,13 +331,13 @@ const ITEMS = [
     precio:"Bs. 1029", tallas:["M"],
     notas:["Unisex","Capucha desmontable"],
     desc:"El blanco que no perdona — y por eso es el más deseado. Nuptse clásico en blanco total con panel y capucha negra, logo bordado al pecho. Relleno 700 Fill Down, nueva con etiqueta. Unisex talla M. La chaqueta que convierte cualquier día de frío en una declaración.",
-    fotos:["fotos_catalogo/Hombre/28/IMG_2528.jpg","fotos_catalogo/Hombre/28/IMG_2530.jpg","fotos_catalogo/Hombre/28/IMG_2539.jpg","fotos_catalogo/Hombre/28/IMG_2553.jpg","fotos_catalogo/Hombre/28/IMG_2554.jpg","fotos_catalogo/Hombre/28/IMG_2556.jpg","fotos_catalogo/Hombre/28/IMG_2558.jpg","fotos_catalogo/Hombre/28/IMG_2561.jpg","fotos_catalogo/Hombre/28/IMG_2562.jpg","fotos_catalogo/Hombre/28/IMG_2564.jpg","fotos_catalogo/Hombre/28/IMG_2576.jpg","fotos_catalogo/Hombre/28/IMG_2577.jpg"]},
+    fotos:["fotos_catalogo/Hombre/28/IMG_2539.jpg","fotos_catalogo/Hombre/28/IMG_2528.jpg","fotos_catalogo/Hombre/28/IMG_2530.jpg","fotos_catalogo/Hombre/28/IMG_2553.jpg","fotos_catalogo/Hombre/28/IMG_2554.jpg","fotos_catalogo/Hombre/28/IMG_2556.jpg","fotos_catalogo/Hombre/28/IMG_2558.jpg","fotos_catalogo/Hombre/28/IMG_2561.jpg","fotos_catalogo/Hombre/28/IMG_2562.jpg","fotos_catalogo/Hombre/28/IMG_2564.jpg","fotos_catalogo/Hombre/28/IMG_2576.jpg","fotos_catalogo/Hombre/28/IMG_2577.jpg"]},
 
   { id:50, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
     nombre:"Columbia Puffer — Rojo Intenso",
     precio:"Bs. 819", tallas:["M"],
     notas:["Unisex"],
-    desc:"El rojo que no pasa desapercibido en ningún invierno. Puffer Columbia en rojo intenso con capucha integrada y panel negro — contraste que habla solo. Relleno de plumas premium, nueva con etiqueta, talla M. Columbia lleva décadas conquistando montañas. Ahora conquista las calles.",
+    desc:"Calor sin compromiso. Relleno de plumas premium con tecnología Omni-Heat™ que refleja tu propio calor de vuelta. Rojo intenso que no necesita presentación. Corte unisex talla M, nueva con etiqueta. Columbia pasó décadas en la montaña para hacer esto — y se nota.",
     fotos:["fotos_catalogo/Hombre/29/IMG_2997.jpg","fotos_catalogo/Hombre/29/IMG_3002.jpg","fotos_catalogo/Hombre/29/IMG_3008.jpg","fotos_catalogo/Hombre/29/IMG_3009.jpg","fotos_catalogo/Hombre/29/IMG_3010.jpg","fotos_catalogo/Hombre/29/IMG_3013.jpg","fotos_catalogo/Hombre/29/IMG_3014.jpg","fotos_catalogo/Hombre/29/IMG_3022.jpg"]}
 
 ];
