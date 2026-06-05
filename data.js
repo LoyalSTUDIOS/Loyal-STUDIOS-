@@ -172,7 +172,7 @@ const ITEMS = [
 
   // ─── PUFFERS / ABRIGOS ───────────────────────────────────
 
-  { id:25, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"new", stock:true,
+  { id:25, genero:"hombre", marca:"Columbia", marca_id:"columbia", badge:"out", stock:false,
     nombre:"Columbia Down Jacket — Gris Plata",
     precio:"Bs. 789", tallas:["L"],
     notas:["Unisex"],
