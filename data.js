@@ -193,7 +193,7 @@ const ITEMS = [
     desc:"El colorway crema que la gente busca y no encuentra. Relleno de plumas certificado, capucha desmontable para cambiar el look cuando quieras. Nueva con etiqueta, unisex talla M. Una The North Face no es una compra — es una inversión.",
     fotos:["fotos_catalogo/Hombre/25/IMG_2894.jpg","fotos_catalogo/Hombre/25/IMG_2911.jpg","fotos_catalogo/Hombre/25/IMG_2915.jpg","fotos_catalogo/Hombre/25/IMG_2923.jpg","fotos_catalogo/Hombre/25/IMG_2910.jpg","fotos_catalogo/Hombre/25/IMG_2895.jpg","fotos_catalogo/Hombre/25/IMG_2897.jpg","fotos_catalogo/Hombre/25/IMG_2926.jpg","fotos_catalogo/Hombre/25/IMG_2931.jpg"]},
 
-  { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"new", stock:true,
+  { id:28, genero:"hombre", marca:"The North Face", marca_id:"northface", badge:"out", stock:false,
     nombre:"The North Face Puffer — Verde Oliva",
     precio:"Bs. 969", tallas:["XXL"],
     notas:["Unisex","Capucha desmontable","Ajustadores de precisión en capucha y cintura"],
@@ -208,7 +208,7 @@ const ITEMS = [
     desc:"Remera Nike Running Dri-FIT en azul cobalto, con el gráfico NIKE RUNNING al frente. Tela técnica que lleva el sudor lejos de la piel — liviana, transpirable, hecha para moverse. De Primera ✦: excelente condición. Del run de la mañana a la calle sin cambiarte.",
     fotos:["fotos_catalogo/Mujer/4/IMG_2581.jpg","fotos_catalogo/Mujer/4/IMG_2584.jpg","fotos_catalogo/Mujer/4/IMG_2582.jpg","fotos_catalogo/Mujer/4/IMG_2583.jpg","fotos_catalogo/Mujer/4/IMG_2585.jpg"]},
 
-  { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+  { id:30, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"out", stock:false,
     nombre:"Calza Deportiva — Marble Print Negro",
     precio:"Bs. 79", tallas:["M"],
     desc:"Calza de compresión en negro con efecto marble/stone-wash — tela técnica que se adapta y respira. Forro interior en lila, logo minimalista. De Primera ✦. Para el gym o para la calle, siempre a punto.",
