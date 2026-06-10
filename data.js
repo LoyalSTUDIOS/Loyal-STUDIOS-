@@ -338,6 +338,69 @@ const ITEMS = [
     precio:"Bs. 819", tallas:["M"],
     notas:["Unisex"],
     desc:"Calor sin compromiso. Relleno de plumas premium con tecnología Omni-Heat™ que refleja tu propio calor de vuelta. Rojo intenso que no necesita presentación. Corte unisex talla M, nueva con etiqueta. Columbia pasó décadas en la montaña para hacer esto — y se nota.",
-    fotos:["fotos_catalogo/Hombre/29/IMG_2997.jpg","fotos_catalogo/Hombre/29/IMG_3002.jpg","fotos_catalogo/Hombre/29/IMG_3008.jpg","fotos_catalogo/Hombre/29/IMG_3009.jpg","fotos_catalogo/Hombre/29/IMG_3010.jpg","fotos_catalogo/Hombre/29/IMG_3013.jpg","fotos_catalogo/Hombre/29/IMG_3014.jpg","fotos_catalogo/Hombre/29/IMG_3022.jpg"]}
+    fotos:["fotos_catalogo/Hombre/29/IMG_2997.jpg","fotos_catalogo/Hombre/29/IMG_3002.jpg","fotos_catalogo/Hombre/29/IMG_3008.jpg","fotos_catalogo/Hombre/29/IMG_3009.jpg","fotos_catalogo/Hombre/29/IMG_3010.jpg","fotos_catalogo/Hombre/29/IMG_3013.jpg","fotos_catalogo/Hombre/29/IMG_3014.jpg","fotos_catalogo/Hombre/29/IMG_3022.jpg"]},
+
+  // ─── NUEVO DROP — Junio 2026 (Adidas / Jordan hombre · deportivo mujer) ───
+
+  { id:51, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
+    nombre:"Adidas Originals Tee Niño — Fast Food Negro",
+    precio:"Bs. 189", tallas:["10/12 años"],
+    notas:["Talla niño (10/12 años)"],
+    desc:"Para el más chico con estilo de grande. Remera Adidas Originals negra con gráfica fast-food: papas al frente, hamburguesa 'Originals' en amarillo en la espalda. Algodón premium, trébol en el cuello. Talla niño 10/12, nueva con etiqueta.",
+    fotos:["fotos_catalogo/Hombre/30/IMG_2239.jpg","fotos_catalogo/Hombre/30/IMG_2246.jpg","fotos_catalogo/Hombre/30/IMG_2242.jpg","fotos_catalogo/Hombre/30/IMG_2244.jpg","fotos_catalogo/Hombre/30/IMG_2245.jpg"]},
+
+  { id:52, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
+    nombre:"Adidas Originals Trefoil Tee — Rojo",
+    precio:"Bs. 179", tallas:["S"],
+    desc:"El trébol que nunca pasa de moda. Remera Adidas Originals en rojo intenso con el logo Trefoil grande al frente y el wordmark adidas debajo. Algodón premium, corte clásico. Nueva con etiqueta. Un básico que no es básico.",
+    fotos:["fotos_catalogo/Hombre/31/IMG_2250.jpg","fotos_catalogo/Hombre/31/IMG_2254.jpg","fotos_catalogo/Hombre/31/IMG_2253.jpg","fotos_catalogo/Hombre/31/IMG_2252.jpg","fotos_catalogo/Hombre/31/IMG_2255.jpg"]},
+
+  { id:53, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
+    nombre:"Adidas Originals 3-Stripes Tee — Negro",
+    precio:"Bs. 249", tallas:["L"],
+    desc:"Las tres rayas que definieron generaciones. Remera Adidas Originals negra con las 3-Stripes en los hombros, cuello ringer blanco contrastante y trébol bordado al pecho. Algodón premium, fit clásico. Nueva con etiqueta. Energía atemporal.",
+    fotos:["fotos_catalogo/Hombre/32/IMG_1996.jpg","fotos_catalogo/Hombre/32/IMG_1999.jpg","fotos_catalogo/Hombre/32/IMG_1998.jpg","fotos_catalogo/Hombre/32/IMG_2003.jpg"]},
+
+  { id:54, genero:"hombre", marca:"Adidas", marca_id:"adidas", badge:"new", stock:true,
+    nombre:"Adidas Originals 3-Stripes Tee — Gris",
+    precio:"Bs. 249", tallas:["M","XXL"],
+    desc:"El gris que combina con todo, las rayas que se reconocen de lejos. Remera Adidas Originals en gris jaspeado con 3-Stripes en los hombros, cuello ringer blanco y trébol al pecho. Algodón premium. Nueva con etiqueta. El clásico que tu clóset estaba pidiendo.",
+    fotos:["fotos_catalogo/Hombre/33/IMG_1987.jpg","fotos_catalogo/Hombre/33/IMG_1992.jpg","fotos_catalogo/Hombre/33/IMG_1991.jpg","fotos_catalogo/Hombre/33/IMG_1993.jpg"]},
+
+  { id:55, genero:"hombre", marca:"Air Jordan", marca_id:"jordan", badge:"new", stock:true,
+    nombre:"Jordan MJ '23 Graphic Hoodie — Crema",
+    precio:"Bs. 379", tallas:["S","M"],
+    desc:"Michael Jordan, el 23, los Bulls — leyenda en un hoodie. Color crema con Jumpman al frente y la gráfica icónica de MJ en acción en toda la espalda. Fleece premium de peso real, capucha forrada. Nuevo con etiqueta. Para los que saben de dónde viene el legado.",
+    fotos:["fotos_catalogo/Hombre/34/IMG_0081.jpg","fotos_catalogo/Hombre/34/IMG_0084.jpg","fotos_catalogo/Hombre/34/IMG_0082.jpg","fotos_catalogo/Hombre/34/IMG_0085.jpg","fotos_catalogo/Hombre/34/IMG_0087.jpg"]},
+
+  { id:56, genero:"mujer", marca:"Adidas", marca_id:"adidas", badge:"dp", stock:true,
+    nombre:"Adidas ClimaLite Musculosa — Verde Neón",
+    precio:"Bs. 69", tallas:["L"],
+    desc:"Verde neón que se ve desde la otra punta del gym. Musculosa Adidas ClimaLite sin mangas, paneles de malla a los costados para respirar, trébol al pecho. Tela técnica de secado rápido, talla L. De Primera ✦: excelente condición. Para entrenar fuerte y que se note.",
+    fotos:["fotos_catalogo/Mujer/23/IMG_2801.jpg","fotos_catalogo/Mujer/23/IMG_2802.jpg","fotos_catalogo/Mujer/23/IMG_2806.jpg","fotos_catalogo/Mujer/23/IMG_2803.jpg","fotos_catalogo/Mujer/23/IMG_2804.jpg","fotos_catalogo/Mujer/23/IMG_2805.jpg"]},
+
+  { id:57, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+    nombre:"Under Armour Sports Bra Cruzado — Negro",
+    precio:"Bs. 69", tallas:["S"],
+    desc:"Under Armour donde más se nota. Top deportivo negro con espalda cruzada y bandas elásticas con el logo UNDER ARMOUR repetido — soporte y actitud en una sola pieza. Talla S. De Primera ✦: excelente condición. Del entrenamiento pesado al athleisure sin escalas.",
+    fotos:["fotos_catalogo/Mujer/24/IMG_2769.jpg","fotos_catalogo/Mujer/24/IMG_2771.jpg","fotos_catalogo/Mujer/24/IMG_2772.jpg","fotos_catalogo/Mujer/24/IMG_2770.jpg"]},
+
+  { id:58, genero:"mujer", marca:"Nike", marca_id:"nike", badge:"dp", stock:true,
+    nombre:"Nike Dri-FIT Swoosh Musculosa — Coral",
+    precio:"Bs. 59", tallas:["S"],
+    desc:"Coral que levanta cualquier outfit de gym. Musculosa Nike Dri-FIT racerback con el Swoosh negro grande al frente y espalda de malla. Tela técnica que lleva el sudor lejos de la piel, talla S. De Primera ✦: excelente condición. Liviana, fresca, lista para moverse.",
+    fotos:["fotos_catalogo/Mujer/25/IMG_2830.jpg","fotos_catalogo/Mujer/25/IMG_2835.jpg","fotos_catalogo/Mujer/25/IMG_2832.jpg","fotos_catalogo/Mujer/25/IMG_2834.jpg","fotos_catalogo/Mujer/25/IMG_2836.jpg","fotos_catalogo/Mujer/25/IMG_2831.jpg"]},
+
+  { id:59, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+    nombre:"Victoria's Secret VSX Sports Bra — Gris Jaspeado",
+    precio:"Bs. 69", tallas:["M"],
+    desc:"El deportivo de Victoria's Secret Sport (VSX) que combina soporte y diseño. Gris jaspeado con espalda strappy cruzada y broche ajustable, banda inferior con el logo VSX. Talla M. De Primera ✦: excelente condición. Para entrenar sintiéndote bien puesta.",
+    fotos:["fotos_catalogo/Mujer/26/IMG_2773.jpg","fotos_catalogo/Mujer/26/IMG_2776.jpg","fotos_catalogo/Mujer/26/IMG_2778.jpg","fotos_catalogo/Mujer/26/IMG_2777.jpg"]},
+
+  { id:60, genero:"mujer", marca:"De Primera", marca_id:"deprimera", badge:"dp", stock:true,
+    nombre:"Under Armour HeatGear Short de Compresión — Gris",
+    precio:"Bs. 49", tallas:["M"],
+    desc:"Compresión que se siente como segunda piel. Short Under Armour HeatGear en gris con cintura ancha 'ARMOUR' y logo UA. Tecnología que lleva el calor lejos del cuerpo, talla M. De Primera ✦: excelente condición. Para entrenar en serio o para la calle.",
+    fotos:["fotos_catalogo/Mujer/27/IMG_2789.jpg","fotos_catalogo/Mujer/27/IMG_2786.jpg","fotos_catalogo/Mujer/27/IMG_2791.jpg","fotos_catalogo/Mujer/27/IMG_2790.jpg"]}
 
 ];
