@@ -154,6 +154,9 @@ function render() {
         (fG === "all" || p.genero === fG) &&
         (fB === "all" || p.marca_id === fB)
       );
+  // Más nuevo primero: el NK más alto encabeza la grilla. Las prendas recién
+  // subidas tienen id más grande, así suben solas al tope sin reordenar a mano.
+  list.sort((a, b) => b.id - a.id);
   const grid = document.getElementById("grid");
   document.getElementById("cat-count").textContent =
     `${list.length} ${list.length === 1 ? "pieza" : "piezas"}`;
