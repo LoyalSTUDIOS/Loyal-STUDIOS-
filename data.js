@@ -401,6 +401,33 @@ const ITEMS = [
     nombre:"Under Armour HeatGear Short de Compresión — Gris",
     precio:"Bs. 49", tallas:["M"],
     desc:"Compresión que se siente como segunda piel. Short Under Armour HeatGear en gris con cintura ancha 'ARMOUR' y logo UA. Tecnología que lleva el calor lejos del cuerpo, talla M. De Primera ✦: excelente condición. Para entrenar en serio o para la calle.",
-    fotos:["fotos_catalogo/Mujer/27/IMG_2789.jpg","fotos_catalogo/Mujer/27/IMG_2786.jpg","fotos_catalogo/Mujer/27/IMG_2791.jpg","fotos_catalogo/Mujer/27/IMG_2790.jpg"]}
+    fotos:["fotos_catalogo/Mujer/27/IMG_2789.jpg","fotos_catalogo/Mujer/27/IMG_2786.jpg","fotos_catalogo/Mujer/27/IMG_2791.jpg","fotos_catalogo/Mujer/27/IMG_2790.jpg"]},
+
+  // ─── DROP HOMBRE — Junio 2026 (Jordan / Tommy / New Balance) ───
+
+  { id:61, genero:"hombre", marca:"Air Jordan", marca_id:"jordan", badge:"new", stock:true,
+    nombre:"Jordan Diamond Shorts — Rojo",
+    precio:"Bs. 389", tallas:["S"],
+    desc:"Los shorts que Jordan hizo legendarios en la cancha. Rojo intenso con el panel diamante en zigzag negro a los costados y el Jumpman bordado. Tela de malla liviana que respira, cintura elástica con cordón. Nuevos con etiqueta. Para jugar, entrenar o llevar con actitud.",
+    fotos:["fotos_catalogo/Hombre/35/IMG_2280.jpg","fotos_catalogo/Hombre/35/IMG_2278.jpg","fotos_catalogo/Hombre/35/IMG_2276.jpg","fotos_catalogo/Hombre/35/IMG_2281.jpg","fotos_catalogo/Hombre/35/IMG_2285.jpg","fotos_catalogo/Hombre/35/IMG_2269.jpg"]},
+
+  { id:62, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
+    nombre:"Tommy Jeans NYC Jogger — Azul Navy",
+    precio:"Bs. 249", tallas:["L"],
+    desc:"Tommy Jeans New York City en un jogger azul navy de peso real. Logo bordado en la pierna, fleece premium por dentro, puños y cintura elásticos, corte tapered que cae perfecto. Nuevo con etiqueta. Comodidad con apellido.",
+    fotos:["fotos_catalogo/Hombre/36/IMG_2333.jpg","fotos_catalogo/Hombre/36/IMG_2332.jpg","fotos_catalogo/Hombre/36/IMG_2321.jpg","fotos_catalogo/Hombre/36/IMG_2329.jpg","fotos_catalogo/Hombre/36/IMG_2338.jpg","fotos_catalogo/Hombre/36/IMG_2341.jpg"]},
+
+  { id:63, genero:"hombre", marca:"New Balance", marca_id:"newbalance", badge:"new", stock:true,
+    nombre:"New Balance Woven Short — Negro",
+    precio:"Bs. 229", tallas:["S"],
+    notas:["Tela rompeviento"],
+    desc:"Short New Balance en tela woven tipo rompeviento — liviana, resistente al viento y de secado rápido. Negro total con el logo NB bordado en la pierna, cintura elástica con cordón, forro de malla interno. Nuevo con etiqueta. Del entrenamiento a la calle sin fricción.",
+    fotos:["fotos_catalogo/Hombre/37/IMG_2071.jpg","fotos_catalogo/Hombre/37/IMG_2068.jpg","fotos_catalogo/Hombre/37/IMG_2066.jpg","fotos_catalogo/Hombre/37/IMG_2070.jpg","fotos_catalogo/Hombre/37/IMG_2072.jpg"]},
+
+  { id:64, genero:"hombre", marca:"Tommy Hilfiger", marca_id:"tommy", badge:"new", stock:true,
+    nombre:"Tommy Jeans Hoodie — Verde Oliva",
+    precio:"Bs. 269", tallas:["L"],
+    desc:"Hoodie Tommy Jeans en verde oliva lavado con el logo bordado al pecho y la banderita en el puño. Fleece grueso premium, capucha forrada, fit relajado con esa vibra washed de los 90s. Nuevo con etiqueta. El abrigo casual que combina con todo.",
+    fotos:["fotos_catalogo/Hombre/38/IMG_2204.jpg","fotos_catalogo/Hombre/38/IMG_2211.jpg","fotos_catalogo/Hombre/38/IMG_2210.jpg","fotos_catalogo/Hombre/38/IMG_2213.jpg","fotos_catalogo/Hombre/38/IMG_2215.jpg","fotos_catalogo/Hombre/38/IMG_2216.jpg"]}
 
 ];
