@@ -122,11 +122,10 @@ fbq('track', 'PageView');
       </h1>
       <div class="hero-btns">
         <button class="hero-btn hero-btn-primary" onclick="scrollCatalog()">
-          Ver colección
+          Ver los fardos
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </button>
-        <button class="hero-btn hero-btn-ghost" onclick="filterGender('hombre')">Hombre →</button>
-        <button class="hero-btn hero-btn-ghost" onclick="filterGender('mujer')">Mujer →</button>
+        <a class="hero-btn hero-btn-ghost" href="#anotate-adidas">Adidas mayorista →</a>
       </div>
     </div>
   </section>
@@ -144,7 +143,7 @@ fbq('track', 'PageView');
     <div class="section-head reveal">
       <div>
         <div class="section-eyebrow">01 · MARCAS</div>
-        <h2 class="section-title">Las marcas <em>que</em><br>nos definen</h2>
+        <h2 class="section-title">Las marcas <em>que</em><br>tocan en tus fardos</h2>
       </div>
     </div>
     <div class="bc-stage" id="brands-carousel">
@@ -214,16 +213,16 @@ fbq('track', 'PageView');
     <div class="drop-head reveal">
       <div class="drop-eyebrow">
         <span class="drop-pulse"></span>
-        RECIÉN LLEGADO
+        PRÓXIMAMENTE
       </div>
-      <h2 class="drop-title">Para el frío <em>de verdad</em> 🇧🇴</h2>
+      <h2 class="drop-title">Más marcas, <em>más stock</em> en camino</h2>
       <div class="drop-fact">
-        <span class="drop-fact-label">Clima Bolivia</span>
-        <p>Los días suelen ser soleados y templados, pero las noches y madrugadas son extremadamente frías, especialmente en las zonas de mayor altitud como el Altiplano.</p>
+        <span class="drop-fact-label">Lo que se viene</span>
+        <p>Estamos sumando más volumen y nuevas marcas a los fardos al por mayor. Estos abrigos premium son solo el comienzo — pronto, mucho más stock disponible para tu negocio.</p>
       </div>
     </div>
     <div class="drop-grid">
-      <a class="drop-card" data-brand="columbia" onclick="filterBrand('columbia');return false;">
+      <a class="drop-card" data-brand="columbia" onclick="return false;">
         <div class="drop-media">
           <img class="drop-poster" src="assets/odp-2025-sportchek-lp-wk43-columbia-3tile-outerwearv2.avif" alt="Columbia">
           <video class="drop-video" data-src="assets/columbia-omniheat.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
@@ -234,7 +233,7 @@ fbq('track', 'PageView');
           <div class="drop-brand wm-columbia">Columbia</div>
         </div>
       </a>
-      <a class="drop-card" data-brand="northface" onclick="filterBrand('northface');return false;">
+      <a class="drop-card" data-brand="northface" onclick="return false;">
         <div class="drop-media">
           <img class="drop-poster" src="assets/brand-northface.jpg" alt="The North Face">
           <video class="drop-video" data-src="assets/northface-brand.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
@@ -249,7 +248,7 @@ fbq('track', 'PageView');
   </section>
 
   <!-- FILTER BAR -->
-  <div class="filter-bar" id="filter-bar">
+  <div class="filter-bar" id="filter-bar" style="display:none">
     <div class="filter-scroll">
       <button class="ftab on" data-g="all" onclick="setG('all',this)">Todo</button>
       <button class="ftab" data-g="hombre" onclick="setG('hombre',this)">Hombre</button>
@@ -273,7 +272,7 @@ fbq('track', 'PageView');
   <!-- CATALOG -->
   <section class="catalog-wrap" id="catalog">
     <div class="cat-head">
-      <h2 class="cat-h">Colección</h2>
+      <h2 class="cat-h">Fardos disponibles</h2>
       <div class="cat-count" id="cat-count">— piezas</div>
     </div>
     <div class="dp-banner" id="dp-banner">
@@ -285,6 +284,108 @@ fbq('track', 'PageView');
     </div>
     <div class="grid" id="grid"></div>
   </section>
+
+  <!-- ═══ NIVELES + ADIDAS (FARDOS) ═══ -->
+  <style>
+  .fx-sec{padding:64px 22px;max-width:1180px;margin:0 auto}
+  .fx-eyebrow{font:600 12px/1 'Inter',sans-serif;letter-spacing:.3em;color:#b0894f;text-transform:uppercase;margin-bottom:14px}
+  .fx-title{font:400 clamp(28px,5vw,44px)/1.05 'DM Serif Display','Marcellus',serif;color:#fff;margin-bottom:36px;letter-spacing:-.01em}
+  .fx-title em{font-style:italic;color:#c9a96a}
+  .fx-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .fx-tier{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px 26px;background:rgba(255,255,255,.03);display:flex;flex-direction:column}
+  .fx-tier.on{border-color:#b0894f;background:rgba(176,137,79,.08)}
+  .fx-badge{align-self:flex-start;font:700 10.5px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:6px 11px;border-radius:100px;margin-bottom:16px}
+  .fx-badge.now{background:#b0894f;color:#161007}
+  .fx-badge.soon{background:rgba(255,255,255,.1);color:#aaa}
+  .fx-lvl{font:600 11px/1 'Inter';letter-spacing:.22em;text-transform:uppercase;color:#c9a96a}
+  .fx-tier h3{font:400 30px/1 'DM Serif Display',serif;color:#fff;margin:7px 0 3px}
+  .fx-tier .fx-st{font:400 13px/1.3 'Inter';color:#9a958c;margin-bottom:16px}
+  .fx-pz{font:400 38px/1 'DM Serif Display',serif;color:#fff}
+  .fx-pz small{font:400 13px 'Inter';color:#9a958c}
+  .fx-tier ul{list-style:none;padding:0;margin:16px 0;flex:1}
+  .fx-tier li{font:400 13.5px/1.4 'Inter';color:#cfc8bb;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .fx-cta{display:block;text-align:center;padding:13px;border-radius:100px;font:600 14px 'Inter';margin-top:8px;transition:.2s;text-decoration:none}
+  .fx-cta.solid{background:#1f7a3d;color:#fff}
+  .fx-cta.solid:hover{filter:brightness(1.1)}
+  .fx-cta.line{border:1px solid rgba(255,255,255,.25);color:#cfc8bb}
+  .fx-cta.line:hover{border-color:#b0894f;color:#fff}
+  .fx-lead{border:1px solid rgba(176,137,79,.4);border-radius:22px;padding:44px 32px;background:linear-gradient(160deg,rgba(176,137,79,.12),rgba(255,255,255,.02));text-align:center}
+  .fx-lead p.fx-sub{font:400 16px/1.55 'Inter';color:#bdb7ac;max-width:52ch;margin:0 auto 26px}
+  .fx-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px;margin:0 auto;text-align:left}
+  .fx-form label{font:600 11px 'Inter';letter-spacing:.05em;text-transform:uppercase;color:#9a958c;display:block;margin-bottom:6px}
+  .fx-form input,.fx-form select{width:100%;padding:13px 15px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.3);color:#fff;font:400 15px 'Inter';box-sizing:border-box}
+  .fx-form input:focus,.fx-form select:focus{outline:none;border-color:#b0894f}
+  .fx-form button{grid-column:1/-1;background:#b0894f;color:#161007;font:700 15px 'Inter';padding:15px;border:none;border-radius:100px;cursor:pointer;transition:.2s}
+  .fx-form button:hover{filter:brightness(1.08)}
+  .fx-ok{display:none;margin-top:16px;color:#7fe0a0;font:500 14px 'Inter'}
+  @media(max-width:760px){.fx-tiers{grid-template-columns:1fr}.fx-form{grid-template-columns:1fr}}
+  </style>
+
+  <section class="fx-sec">
+    <div class="fx-eyebrow">03 · Niveles</div>
+    <h2 class="fx-title">Empezá con Starter, <em>escalá</em> a mayorista</h2>
+    <div class="fx-tiers">
+      <div class="fx-tier on">
+        <span class="fx-badge now">Disponible ahora</span>
+        <div class="fx-lvl">Nivel 1</div>
+        <h3>Starter</h3>
+        <div class="fx-st">Para arrancar tu reventa</div>
+        <div class="fx-pz">20 <small>prendas</small></div>
+        <ul><li>Marcas originales surtidas</li><li>Mezcla hombre y mujer</li><li>Foto real de cada lote</li><li>Bs. 1.350 el fardo</li></ul>
+        <a class="fx-cta solid" href="https://wa.me/59175485831?text=Hola!%20Quiero%20un%20Fardo%20Loyal%20Starter%20(Bs%201.350)." target="_blank" onclick="if(typeof fbq==='function')fbq('track','Lead')">Pedir por WhatsApp</a>
+      </div>
+      <div class="fx-tier">
+        <span class="fx-badge soon">Próximamente</span>
+        <div class="fx-lvl">Nivel 2</div>
+        <h3>Pro</h3>
+        <div class="fx-st">Para el que ya vende</div>
+        <div class="fx-pz">+50 <small>prendas</small></div>
+        <ul><li>Más proporción de marca</li><li>Mejor costo por prenda</li><li>Para revendedores activos</li></ul>
+        <a class="fx-cta line" href="#anotate-adidas">Quiero saber más</a>
+      </div>
+      <div class="fx-tier">
+        <span class="fx-badge soon">Próximamente</span>
+        <div class="fx-lvl">Nivel 3</div>
+        <h3>Elite</h3>
+        <div class="fx-st">Volumen mayorista</div>
+        <div class="fx-pz">100+ <small>prendas</small></div>
+        <ul><li>Importación por volumen</li><li>El mejor precio por prenda</li><li>Incluye Adidas al por mayor</li></ul>
+        <a class="fx-cta line" href="#anotate-adidas">Anotarme</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="fx-sec" id="anotate-adidas">
+    <div class="fx-lead">
+      <div class="fx-eyebrow">04 · Lista de espera</div>
+      <h2 class="fx-title" style="margin-bottom:14px">Estamos trayendo <em>Adidas</em> al por mayor</h2>
+      <p class="fx-sub">Desde 100 prendas. Anotate y te avisamos primero, con el precio mayorista, antes que a nadie.</p>
+      <form class="fx-form" id="adidas-form" onsubmit="return adidasLead(event)">
+        <div><label>Nombre</label><input name="nombre" required placeholder="Tu nombre"></div>
+        <div><label>Ciudad</label><input name="ciudad" required placeholder="Cochabamba, La Paz…"></div>
+        <div><label>WhatsApp</label><input name="wpp" required inputmode="tel" placeholder="Tu número"></div>
+        <div><label>¿Cuántas prendas?</label><select name="cantidad"><option>100 a 200</option><option>200 a 500</option><option>500+</option><option>Todavía estoy viendo</option></select></div>
+        <button type="submit">Anotarme en la lista</button>
+      </form>
+      <div class="fx-ok" id="adidas-ok">✓ ¡Listo! Te abrimos WhatsApp para confirmar tu lugar. Te avisamos apenas llegue.</div>
+    </div>
+  </section>
+
+  <script>
+  function adidasLead(e){
+    e.preventDefault();
+    var f=e.target;
+    var n=f.nombre.value.trim(), c=f.ciudad.value.trim(), w=f.wpp.value.trim(), q=f.cantidad.value;
+    if(!n||!c){return false;}
+    if(typeof fbq==='function'){try{fbq('track','Lead',{content_name:'Adidas Mayorista'});}catch(_){}}
+    var msg='Hola! Me anoto para ADIDAS al por mayor\n\nNombre: '+n+'\nCiudad: '+c+'\nWhatsApp: '+w+'\nCantidad: '+q;
+    var num=(typeof WA_NUM!=='undefined'?WA_NUM:'59175485831');
+    window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
+    document.getElementById('adidas-ok').style.display='block';
+    f.reset();
+    return false;
+  }
+  </script>
 
   <!-- FOOTER HOME -->
   <footer class="footer-home">
@@ -350,7 +451,7 @@ fbq('track', 'PageView');
 
       <p id="d-desc" class="d-desc"></p>
 
-      <div class="d-section-divider"><span>Talla</span></div>
+      <div class="d-section-divider" id="d-talla-div"><span>Talla</span></div>
       <div id="d-sizes" class="d-sizes"></div>
 
       <button id="d-buy" class="d-buy" onclick="buyWA()">

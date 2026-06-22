@@ -112,7 +112,7 @@ function badge(b) {
   return "";
 }
 
-function uidOf(p) { return "NK-" + String(p.id).padStart(2, "0"); }
+function uidOf(p) { return (p.marca_id === "loyal" ? "Nº " : "NK-") + String(p.id).padStart(2, "0"); }
 
 // Porcentaje de descuento (0 si no hay precio_antes válido)
 function priceNum(s) { return parseInt(String(s).replace(/[^0-9]/g, ""), 10) || 0; }
@@ -156,10 +156,10 @@ function render() {
       );
   // Más nuevo primero: el NK más alto encabeza la grilla. Las prendas recién
   // subidas tienen id más grande, así suben solas al tope sin reordenar a mano.
-  list.sort((a, b) => b.id - a.id);
+  list.sort((a, b) => a.id - b.id);
   const grid = document.getElementById("grid");
   document.getElementById("cat-count").textContent =
-    `${list.length} ${list.length === 1 ? "pieza" : "piezas"}`;
+    `${list.length} ${list.length === 1 ? "fardo" : "fardos"}`;
   document.getElementById("dp-banner").classList.toggle("show", fB === "deprimera");
   document.getElementById("catalog").classList.toggle("sold-view", isSold);
 
@@ -248,11 +248,15 @@ function openDetail(id) {
     `<img class="d-thumb${i === 0 ? " on" : ""}" src="${f}" onclick="setImg(${i})" alt="">`
   ).join("");
 
-  // Sizes
+  // Sizes — los fardos no tienen talla: ocultamos la sección si no hay tallas.
   const sz = document.getElementById("d-sizes");
   sz.innerHTML = cur.tallas.map(t =>
     `<button class="d-sz" onclick="pickSize('${t}',this)">${t}</button>`
   ).join("");
+  const hasTallas = !!(cur.tallas && cur.tallas.length);
+  const tallaDiv = document.getElementById("d-talla-div");
+  if (tallaDiv) tallaDiv.style.display = hasTallas ? "" : "none";
+  sz.style.display = hasTallas ? "" : "none";
 
   // Buy button
   const buy = document.getElementById("d-buy");
@@ -561,7 +565,7 @@ function buildBrandsCarousel() {
       <div class="bc-info">
         <span class="bc-tag">Ver colección →</span>
         <div class="bc-wordmark wm-${b.id}">${b.wordmark}</div>
-        <div class="bc-count">${ITEMS.filter(it => it.marca_id === b.id).length} piezas</div>
+        <div class="bc-count">En los fardos</div>
       </div>
     </article>`).join("");
 
@@ -646,16 +650,11 @@ function buildBrandsCarousel() {
 }
 
 function bcCardTap(targetEl) {
+  // Showcase visual de marcas (las que tocan en los fardos): tocar una solo la
+  // centra, ya no filtra el catálogo (los fardos no se filtran por marca).
   const card = targetEl.closest ? targetEl.closest(".bc-card") : null;
   if (!card) return;
-  const idx = parseInt(card.dataset.i, 10);
-  if (idx === _bcActive) {
-    const bid = card.dataset.bid;
-    const tab = document.querySelector(`[data-b='${bid}']`);
-    filterBrand(bid, tab);
-  } else {
-    bcGo(idx);
-  }
+  bcGo(parseInt(card.dataset.i, 10));
 }
 
 // ═══ INIT ═══
