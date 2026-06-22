@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loyal Studios™ — Streetwear Bolivia</title>
+<meta name="description" content="Streetwear original directo de marca. Nike, Air Jordan, Adidas, New Balance, Tommy, Calvin Klein, Guess. Cochabamba, Bolivia.">
+
+<!-- Open Graph / Facebook Ads -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://loyalstudios.github.io/Loyal-STUDIOS-/">
+<meta property="og:title"       content="Loyal Studios™ — Streetwear Bolivia">
+<meta property="og:description" content="Prendas originales de Nike, Jordan, Adidas, New Balance, Tommy y más. Envíos en Cochabamba. Catálogo 100% real.">
+<meta property="og:image"       content="https://loyalstudios.github.io/Loyal-STUDIOS-/assets/og-cover.jpg">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name"   content="Loyal Studios™">
+<meta property="og:locale"      content="es_BO">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1506761844496918');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1506761844496918&ev=PageView&noscript=1" /></noscript>
+
+<link rel="preload" as="image" href="assets/logo-intro-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;700&family=Anton&family=Archivo+Black&family=Barlow+Condensed:wght@700;800;900&family=Archivo:wght@700;800;900&family=Marcellus&family=Instrument+Serif:ital@0;1&family=Archivo+Narrow:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=28">
+</head>
+<body>
+
+<!-- ═══ INTRO ═══ -->
+<div id="intro">
+  <div class="i-aura"></div>
+  <img class="i-logo" src="assets/logo-intro-transparent.png" alt="Loyal Studios" onerror="this.onerror=null;this.src='assets/logo-intro.png'">
+  <div class="i-tagline">
+    <span class="i-tag-word i-w1">STREETWEAR</span>
+    <span class="i-tag-word i-w2">Bolivia</span>
+  </div>
+</div>
+
+<!-- INTRO REVEAL — inline para ejecutar inmediatamente, sin esperar JS externos -->
+<script>
+(function(){
+  var TARGET = 3800; // duración de la intro (ágil como la anterior; animación asienta ~2.2s)
+  var revealed = false;
+  window.__LS_REVEALED = false;
+
+  // Guardamos el contenido de la intro para que el botón "repetir" funcione
+  var introEl = document.getElementById('intro');
+  if (introEl) window.__LS_INTRO_HTML = introEl.innerHTML;
+
+  function reveal(){
+    if (revealed) return;
+    revealed = true;
+    window.__LS_REVEALED = true;
+    var intro = document.getElementById('intro');
+    var site  = document.getElementById('site');
+    var hero  = document.querySelector('.hero');
+    if (intro) intro.classList.add('gone');
+    if (site)  site.classList.add('show');
+    if (hero)  hero.classList.add('lit');
+    setTimeout(function(){ if (intro) intro.style.display = 'none'; }, 500);
+    // La intro terminó: recién ahora se construye el catálogo (app.js).
+    if (typeof window.__LS_ON_REVEAL === 'function') {
+      try { window.__LS_ON_REVEAL(); } catch (e) {}
+    }
+  }
+  window.__LS_REVEAL = reveal;
+
+  // Reveal a tiempo fijo de reloj desde el inicio de carga,
+  // independiente de cuánto tarden los JS externos en el celular.
+  var elapsed = (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0;
+  setTimeout(reveal, Math.max(200, TARGET - elapsed));
+
+  // Fallback: si el timer fallara, window.load también dispara el reveal.
+  window.addEventListener('load', function(){
+    var now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : 0;
+    setTimeout(reveal, Math.max(200, TARGET - now));
+  });
+})();
+</script>
+
+<!-- ═══ SITE ═══ -->
+<div id="site">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="goHome()">
+    <img src="assets/logo-nav.jpg" alt="Loyal Studios">
+  </div>
+  <div class="nav-r">
+    <button class="nav-back" onclick="goHome()">← Volver</button>
+    <a class="nav-wa" href="https://wa.me/59175485831" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<main class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Cochabamba · Bolivia 🇧🇴
+      </div>
+      <h1 class="hero-h">
+        <span class="hl a1">DESDE</span>
+        <span class="hl a2"><em>Bolivia,</em></span>
+        <span class="hl a3">SIN PERMISO</span>
+      </h1>
+      <div class="hero-btns">
+        <button class="hero-btn hero-btn-primary" onclick="scrollCatalog()">
+          Ver colección
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <button class="hero-btn hero-btn-ghost" onclick="filterGender('hombre')">Hombre →</button>
+        <button class="hero-btn hero-btn-ghost" onclick="filterGender('mujer')">Mujer →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span class="marquee-item">NIKE <span class="star">✦</span> AIR JORDAN <span class="star">✦</span> adidas <span class="star">✦</span> New Balance <span class="star">✦</span> TOMMY HILFIGER <span class="star">✦</span> Calvin Klein <span class="star">✦</span> GUESS <span class="star">✦</span> DE PRIMERA <span class="star">✦</span></span>
+      <span class="marquee-item">NIKE <span class="star">✦</span> AIR JORDAN <span class="star">✦</span> adidas <span class="star">✦</span> New Balance <span class="star">✦</span> TOMMY HILFIGER <span class="star">✦</span> Calvin Klein <span class="star">✦</span> GUESS <span class="star">✦</span> DE PRIMERA <span class="star">✦</span></span>
+    </div>
+  </div>
+
+  <!-- BRANDS SHOWCASE — carrusel 3D swipeable -->
+  <section class="brands-section">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-eyebrow">01 · MARCAS</div>
+        <h2 class="section-title">Las marcas <em>que</em><br>nos definen</h2>
+      </div>
+    </div>
+    <div class="bc-stage" id="brands-carousel">
+      <div class="bc-track" id="brands-track"></div>
+    </div>
+    <div class="bc-hint" id="bc-hint" aria-hidden="true"><i>‹</i><span>DESLIZÁ PARA VER MÁS MARCAS</span><i>›</i></div>
+    <div class="bc-dots" id="brands-dots"></div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="social-section">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-eyebrow">02 · COMUNIDAD</div>
+        <h2 class="section-title">Mantenete <em>cerca</em></h2>
+      </div>
+    </div>
+    <div class="social-grid">
+      <a class="social-card featured reveal" href="https://chat.whatsapp.com/HuDJPMntDMSIHkvVyd66pC?mode=gi_t" target="_blank">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="#00d66b"/></svg>
+        </div>
+        <div class="sc-text">
+          <div class="sc-label">
+            Grupo de WhatsApp
+            <span class="sc-live-badge"><span class="sc-live-dot"></span><strong id="wa-live-count">441</strong> en vivo</span>
+          </div>
+          <div class="sc-hint">Drops cada jueves · Acceso primero</div>
+        </div>
+        <div class="sc-arrow">→</div>
+      </a>
+      <a class="social-card sc-card-ig reveal" href="https://www.instagram.com/loyal_studios.bo?igsh=MWR5ZjMxcHFxaDRvNQ%3D%3D&utm_source=qr" target="_blank">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="sc-text">
+          <div class="sc-label">Instagram</div>
+          <div class="sc-hint">@loyal_studios.bo</div>
+        </div>
+        <div class="sc-arrow">→</div>
+      </a>
+      <a class="social-card sc-card-tt reveal" href="https://www.tiktok.com/@loyal_studiostm.bo?_r=1&_t=ZS-95Vgjibqkza" target="_blank">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z" fill="#fff"/></svg>
+        </div>
+        <div class="sc-text">
+          <div class="sc-label">TikTok</div>
+          <div class="sc-hint">@loyal_studiostm.bo</div>
+        </div>
+        <div class="sc-arrow">→</div>
+      </a>
+      <a class="social-card sc-card-fb reveal" href="https://facebook.com/loyalstudios" target="_blank">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
+        </div>
+        <div class="sc-text">
+          <div class="sc-label">Facebook</div>
+          <div class="sc-hint">Loyal Studios Bolivia</div>
+        </div>
+        <div class="sc-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DROP — Columbia + The North Face (recién llegado) -->
+  <section class="drop-section">
+    <div class="drop-head reveal">
+      <div class="drop-eyebrow">
+        <span class="drop-pulse"></span>
+        RECIÉN LLEGADO
+      </div>
+      <h2 class="drop-title">Para el frío <em>de verdad</em> 🇧🇴</h2>
+      <div class="drop-fact">
+        <span class="drop-fact-label">Clima Bolivia</span>
+        <p>Los días suelen ser soleados y templados, pero las noches y madrugadas son extremadamente frías, especialmente en las zonas de mayor altitud como el Altiplano.</p>
+      </div>
+    </div>
+    <div class="drop-grid">
+      <a class="drop-card" data-brand="columbia" onclick="filterBrand('columbia');return false;">
+        <div class="drop-media">
+          <img class="drop-poster" src="assets/odp-2025-sportchek-lp-wk43-columbia-3tile-outerwearv2.avif" alt="Columbia">
+          <video class="drop-video" data-src="assets/columbia-omniheat.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="drop-overlay"></div>
+        </div>
+        <div class="drop-info">
+          <div class="drop-tech">Omni-Heat™ Infinity</div>
+          <div class="drop-brand wm-columbia">Columbia</div>
+        </div>
+      </a>
+      <a class="drop-card" data-brand="northface" onclick="filterBrand('northface');return false;">
+        <div class="drop-media">
+          <img class="drop-poster" src="assets/brand-northface.jpg" alt="The North Face">
+          <video class="drop-video" data-src="assets/northface-brand.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="drop-overlay"></div>
+        </div>
+        <div class="drop-info">
+          <div class="drop-tech">700 Fill Down</div>
+          <div class="drop-brand wm-northface">THE NORTH FACE</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="filter-bar">
+    <div class="filter-scroll">
+      <button class="ftab on" data-g="all" onclick="setG('all',this)">Todo</button>
+      <button class="ftab" data-g="hombre" onclick="setG('hombre',this)">Hombre</button>
+      <button class="ftab" data-g="mujer" onclick="setG('mujer',this)">Mujer</button>
+      <button class="ftab ftab-sold" data-b="sold" onclick="setB('sold',this)">SOLD OUT 🔴</button>
+      <span class="fsep"></span>
+      <button class="ftab on" data-b="all" onclick="setB('all',this)">Todas</button>
+      <button class="ftab" data-b="nike" onclick="setB('nike',this)">Nike</button>
+      <button class="ftab" data-b="jordan" onclick="setB('jordan',this)">Air Jordan</button>
+      <button class="ftab" data-b="adidas" onclick="setB('adidas',this)">Adidas</button>
+      <button class="ftab" data-b="newbalance" onclick="setB('newbalance',this)">New Balance</button>
+      <button class="ftab" data-b="tommy" onclick="setB('tommy',this)">Tommy Hilfiger</button>
+      <button class="ftab" data-b="calvin" onclick="setB('calvin',this)">Calvin Klein</button>
+      <button class="ftab" data-b="guess" onclick="setB('guess',this)">GUESS</button>
+      <button class="ftab" data-b="columbia" onclick="setB('columbia',this)">Columbia</button>
+      <button class="ftab" data-b="northface" onclick="setB('northface',this)">The North Face</button>
+      <button class="ftab" data-b="deprimera" onclick="setB('deprimera',this)">De Primera</button>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <section class="catalog-wrap" id="catalog">
+    <div class="cat-head">
+      <h2 class="cat-h">Colección</h2>
+      <div class="cat-count" id="cat-count">— piezas</div>
+    </div>
+    <div class="dp-banner" id="dp-banner">
+      <span class="dp-banner-icon">✦</span>
+      <div>
+        <div class="dp-banner-title">De Primera</div>
+        <div class="dp-banner-text">Prendas en excelente estado, muy poco uso o casi nuevo, piezas elegidas una por una.</div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- FOOTER HOME -->
+  <footer class="footer-home">
+    <div class="footer-logo-wrap">
+      <img class="footer-logo" src="assets/logo-big.jpeg" alt="Loyal Studios">
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-socials">
+      <a class="footer-social" href="https://chat.whatsapp.com/HuDJPMntDMSIHkvVyd66pC?mode=gi_t" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      </a>
+      <a class="footer-social" href="https://www.instagram.com/loyal_studios.bo" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a class="footer-social" href="https://www.tiktok.com/@loyal_studiostm.bo" target="_blank" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+      </a>
+      <a class="footer-social" href="https://facebook.com/loyalstudios" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 LOYAL STUDIOS™</span>
+      <span class="footer-meta-dot"></span>
+      <span>DESDE BOLIVIA, SIN PERMISO 🇧🇴</span>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ═══ PAGE: DETAIL ═══ -->
+<main class="page" id="page-detail">
+  <div class="detail">
+    <div class="d-gallery">
+      <div class="d-main-wrap">
+        <img id="d-main" class="d-main-img" alt="" onclick="openLightbox()">
+        <button class="d-nav d-prev" onclick="navImg(-1)" aria-label="Anterior">‹</button>
+        <button class="d-nav d-next" onclick="navImg(1)" aria-label="Siguiente">›</button>
+      </div>
+      <div class="d-thumbs-row" id="d-thumbs"></div>
+    </div>
+
+    <div class="d-info">
+      <div class="d-tag-row">
+        <span id="d-brand" class="d-brand-tag"></span>
+        <span class="d-dot"></span>
+        <span id="d-gen" class="d-gen-tag"></span>
+        <span class="d-dot"></span>
+        <span id="d-uid" class="d-uid-tag"></span>
+      </div>
+      <h1 id="d-name" class="d-name"></h1>
+      <div id="d-price" class="d-price"></div>
+      <div class="d-fomo" id="d-fomo"></div>
+      <div class="d-price-note">Precio final · Sin costos ocultos</div>
+
+      <div class="prod-note new-note" id="new-note">
+        <strong>★ Nuevo con etiqueta</strong> — A estrenar, nuevo con etiqueta. Prenda 100% original directa de marca.
+      </div>
+      <div class="prod-note dp-note" id="dp-note">
+        <strong>De Primera ✦</strong> — Prendas en excelente estado, muy poco uso o casi nuevo, piezas elegidas una por una.
+      </div>
+      <div class="prod-note d-notas-note" id="d-notas"></div>
+
+      <p id="d-desc" class="d-desc"></p>
+
+      <div class="d-section-divider"><span>Talla</span></div>
+      <div id="d-sizes" class="d-sizes"></div>
+
+      <button id="d-buy" class="d-buy" onclick="buyWA()">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Comprar por WhatsApp
+      </button>
+      <button id="d-add-cart" class="d-add-cart" onclick="addToCart()">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <span>Agregar al carrito</span>
+      </button>
+
+      <div class="d-feats">
+        <div class="d-feat">
+          <div class="d-feat-icon">🇧🇴</div>
+          <div>
+            <div class="d-feat-t">Envíos a toda Bolivia</div>
+            <div class="d-feat-s">Envíos los martes y viernes. Coordinamos directo por WhatsApp.</div>
+          </div>
+        </div>
+        <div class="d-feat">
+          <div class="d-feat-icon">📲</div>
+          <div>
+            <div class="d-feat-t">Drops exclusivos cada jueves</div>
+            <div class="d-feat-s">Entrá al grupo de WhatsApp y sé el primero en ver los nuevos ingresos.</div>
+          </div>
+        </div>
+        <div class="d-feat">
+          <div class="d-feat-icon">💳</div>
+          <div>
+            <div class="d-feat-t">Pagá como quieras</div>
+            <div class="d-feat-s">Efectivo, QR o transferencia bancaria.</div>
+          </div>
+        </div>
+        <div class="d-feat">
+          <div class="d-feat-icon">🔒</div>
+          <div>
+            <div class="d-feat-t">Reservá tu prenda con solo Bs. 40</div>
+            <div class="d-feat-s">Separala con un anticipo y la apartamos exclusivamente para vos.</div>
+          </div>
+        </div>
+      </div>
+
+      <a class="drops-cta" href="https://chat.whatsapp.com/HuDJPMntDMSIHkvVyd66pC?mode=gi_t" target="_blank">
+        <span class="dc-bg"></span>
+        <span class="dc-shine"></span>
+        <span class="dc-icon">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span class="dc-pulse"></span>
+        </span>
+        <span class="dc-text">
+          <span class="dc-eye"><span class="dc-live"></span>EN VIVO · WHATSAPP</span>
+          <span class="dc-title">Sumate al grupo de drops</span>
+        </span>
+        <span class="dc-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="detail-footer-wrap">
+    <footer>
+      <div class="footer-mark">LOYAL <em>STUDIOS</em>™</div>
+      <div class="footer-sub">EST · 2026 · COCHABAMBA · BOLIVIA 🇧🇴</div>
+      <div class="footer-divider"></div>
+      <div class="footer-socials">
+        <a class="footer-social" href="https://chat.whatsapp.com/HuDJPMntDMSIHkvVyd66pC?mode=gi_t" target="_blank" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a class="footer-social" href="https://www.instagram.com/loyal_studios.bo" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a class="footer-social" href="https://www.tiktok.com/@loyal_studiostm.bo" target="_blank" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg>
+        </a>
+        <a class="footer-social" href="https://facebook.com/loyalstudios" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026 LOYAL STUDIOS™</span>
+        <span class="footer-meta-dot"></span>
+        <span>BOLIVIA</span>
+      </div>
+    </footer>
+  </div>
+</main>
+
+<!-- LIGHTBOX -->
+<div id="gallery-lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img id="lightbox-img" class="lightbox-img" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+  <div id="lightbox-counter" class="lightbox-counter">1 / 1</div>
+</div>
+
+<!-- CART FAB -->
+<button class="cart-fab" onclick="openCart()" aria-label="Carrito">
+  <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  <span class="cart-count-badge" id="cart-badge">0</span>
+</button>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<aside id="cart-drawer">
+  <div class="cart-head">
+    <div class="cart-head-title">Tu carrito</div>
+    <button class="cart-close" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" id="cart-empty">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L20.88 4.5c.08-.14.12-.31.12-.5 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      <p>Sin productos aún</p>
+    </div>
+  </div>
+  <div class="cart-footer-bar" id="cart-footer-bar" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cart-total">Bs. 0</span>
+    </div>
+    <button class="cart-wa-btn" onclick="cartCheckoutWA()">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Cerrar pedido por WhatsApp
+    </button>
+  </div>
+</aside>
+
+</div><!-- /#site -->
+
+<script src="data.js?v=10" defer></script>
+<script src="app.js?v=21" defer></script>
+</body>
+</html>
