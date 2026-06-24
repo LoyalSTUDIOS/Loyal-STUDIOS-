@@ -15,14 +15,13 @@ const BRANDS = [
   { id:"deprimera",  name:"De Primera",     wordmark:"De Primera ✦",   img:"assets/brand-deprimera.webp" }
 ];
 
-// Copy del fardo: MARKETING honesto (vende la oportunidad, sin recitar el
-// desglose exacto). La composición real la conoce el equipo; acá se vende bien.
+// Copy del fardo: texto APROBADO por Rodrigo (marketing honesto, sin desglose).
 const FARDO_DESC =
-  "Tu arranque como revendedor: 20 prendas de marca elegidas para que las vuelvas a vender y te quede margen. " +
-  "Adentro llevás piezas de hombre nuevas de marcas como Tommy, Adidas, Calvin Klein y New Balance —el gancho que entra por los ojos— " +
-  "junto a una fuerte selección de ropa deportiva de mujer, entre prendas nuevas y otras de muy poco uso, todas en excelente estado y sin defectos. " +
-  "Cada fardo es un lote único: te mostramos su foto real antes de comprar, así sabés exactamente qué llevás. " +
-  "Comprás por lote a precio mayorista y tu ganancia está en revender cada prenda. Lo que ves es lo que llega — sin vueltas, sin humo.";
+  "El fardo ideal para dar tus primeras ventas. Una selección cuidadosamente armada de prendas deportivas y casuales, " +
+  "con presencia de marcas reconocidas y piezas elegidas por su potencial de reventa. Encontrarás una combinación de prendas nuevas, " +
+  "ropa de retorno con mínimos detalles de fábrica y artículos deportivos en excelente estado o de muy poco uso, " +
+  "ofreciendo variedad y valor dentro de un mismo lote. Cada fardo es único. Las fotografías muestran exactamente el contenido que recibirás, " +
+  "sin reemplazos ni sorpresas. \"Tu próxima venta empieza acá.\"";
 
 // 11 fardos Loyal Starter disponibles, cada uno con la foto REAL de su lote.
 const FARDO_FOTOS = { 1:4, 2:6, 3:8, 4:7, 5:7, 6:7, 7:8, 8:7, 9:7, 10:6, 11:8 };
