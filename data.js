@@ -15,15 +15,14 @@ const BRANDS = [
   { id:"deprimera",  name:"De Primera",     wordmark:"De Primera ✦",   img:"assets/brand-deprimera.webp" }
 ];
 
-// Copy del fardo: composición EXACTA y honesta (lo que de verdad viene), sólido
-// y vendedor. Los saltos de línea se respetan en la web (.d-desc white-space).
+// Copy del fardo: MARKETING honesto (vende la oportunidad, sin recitar el
+// desglose exacto). La composición real la conoce el equipo; acá se vende bien.
 const FARDO_DESC =
-  "20 prendas pensadas para revender, mayormente ropa deportiva de mujer con piezas de hombre nuevas que levantan el lote:\n\n" +
-  "★ 4 de hombre NUEVAS y de marca (Tommy, Adidas, Calvin Klein, New Balance), entre casual y deportivo — el gancho del fardo.\n" +
-  "★ 1 de mujer NUEVA de marca.\n" +
-  "★ 7 de mujer de marca, de muy poco uso y sin ningún detalle, deportivas.\n" +
-  "★ 8 de mujer de marca americana, de muy poco uso, deportivas.\n\n" +
-  "Lo nuevo es nuevo; el resto es de muy poco uso, sin defectos. Te mostramos la foto real de cada lote antes de comprar — lo que ves es lo que llega.";
+  "Tu arranque como revendedor: 20 prendas de marca elegidas para que las vuelvas a vender y te quede margen. " +
+  "Adentro llevás piezas de hombre nuevas de marcas como Tommy, Adidas, Calvin Klein y New Balance —el gancho que entra por los ojos— " +
+  "junto a una fuerte selección de ropa deportiva de mujer, entre prendas nuevas y otras de muy poco uso, todas en excelente estado y sin defectos. " +
+  "Cada fardo es un lote único: te mostramos su foto real antes de comprar, así sabés exactamente qué llevás. " +
+  "Comprás por lote a precio mayorista y tu ganancia está en revender cada prenda. Lo que ves es lo que llega — sin vueltas, sin humo.";
 
 // 11 fardos Loyal Starter disponibles, cada uno con la foto REAL de su lote.
 const FARDO_FOTOS = { 1:4, 2:6, 3:8, 4:7, 5:7, 6:7, 7:8, 8:7, 9:7, 10:6, 11:8 };
