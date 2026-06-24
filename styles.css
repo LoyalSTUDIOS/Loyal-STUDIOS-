@@ -1094,6 +1094,7 @@ footer{
   font-size:14px;line-height:1.75;
   color:rgba(255,255,255,.62);
   margin-bottom:32px;max-width:480px;
+  white-space:pre-line; /* respeta los saltos de línea del desglose del fardo */
 }
 
 .d-section-divider{
