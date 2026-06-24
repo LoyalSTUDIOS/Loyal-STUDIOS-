@@ -208,45 +208,6 @@ fbq('track', 'PageView');
     </div>
   </section>
 
-  <!-- DROP — Columbia + The North Face (recién llegado) -->
-  <section class="drop-section">
-    <div class="drop-head reveal">
-      <div class="drop-eyebrow">
-        <span class="drop-pulse"></span>
-        PRÓXIMAMENTE
-      </div>
-      <h2 class="drop-title">Más marcas, <em>más stock</em> en camino</h2>
-      <div class="drop-fact">
-        <span class="drop-fact-label">Lo que se viene</span>
-        <p>Estamos sumando más volumen y nuevas marcas a los fardos al por mayor. Estos abrigos premium son solo el comienzo — pronto, mucho más stock disponible para tu negocio.</p>
-      </div>
-    </div>
-    <div class="drop-grid">
-      <a class="drop-card" data-brand="columbia" onclick="return false;">
-        <div class="drop-media">
-          <img class="drop-poster" src="assets/odp-2025-sportchek-lp-wk43-columbia-3tile-outerwearv2.avif" alt="Columbia">
-          <video class="drop-video" data-src="assets/columbia-omniheat.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-          <div class="drop-overlay"></div>
-        </div>
-        <div class="drop-info">
-          <div class="drop-tech">Omni-Heat™ Infinity</div>
-          <div class="drop-brand wm-columbia">Columbia</div>
-        </div>
-      </a>
-      <a class="drop-card" data-brand="northface" onclick="return false;">
-        <div class="drop-media">
-          <img class="drop-poster" src="assets/brand-northface.jpg" alt="The North Face">
-          <video class="drop-video" data-src="assets/northface-brand.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-          <div class="drop-overlay"></div>
-        </div>
-        <div class="drop-info">
-          <div class="drop-tech">700 Fill Down</div>
-          <div class="drop-brand wm-northface">THE NORTH FACE</div>
-        </div>
-      </a>
-    </div>
-  </section>
-
   <!-- FILTER BAR -->
   <div class="filter-bar" id="filter-bar" style="display:none">
     <div class="filter-scroll">
@@ -285,6 +246,47 @@ fbq('track', 'PageView');
     <div class="grid" id="grid"></div>
   </section>
 
+  <!-- AL DETALLE — Columbia + The North Face (venta por unidad, NO fardo) -->
+  <section class="drop-section">
+    <div class="drop-head reveal">
+      <div class="drop-eyebrow">
+        <span class="drop-pulse"></span>
+        VENTA AL DETALLE
+      </div>
+      <h2 class="drop-title">Abrigos premium, <em>por unidad</em></h2>
+      <div class="drop-fact">
+        <span class="drop-fact-label">Fuera del fardo</span>
+        <p>Estos no van adentro del fardo. Columbia y The North Face con plumón de verdad para el invierno boliviano — los traemos en cantidad limitada y se venden por unidad. El último lote se agotó completo; ya estamos trayendo más stock.</p>
+      </div>
+    </div>
+    <div class="drop-grid">
+      <a class="drop-card" data-brand="columbia" onclick="return false;">
+        <div class="drop-media">
+          <img class="drop-poster" src="assets/odp-2025-sportchek-lp-wk43-columbia-3tile-outerwearv2.avif" alt="Columbia">
+          <video class="drop-video" data-src="assets/columbia-omniheat.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="drop-overlay"></div>
+          <span class="drop-soldout">Agotado · más stock pronto</span>
+        </div>
+        <div class="drop-info">
+          <div class="drop-tech">Omni-Heat™ Infinity</div>
+          <div class="drop-brand wm-columbia">Columbia</div>
+        </div>
+      </a>
+      <a class="drop-card" data-brand="northface" onclick="return false;">
+        <div class="drop-media">
+          <img class="drop-poster" src="assets/brand-northface.jpg" alt="The North Face">
+          <video class="drop-video" data-src="assets/northface-brand.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="drop-overlay"></div>
+          <span class="drop-soldout">Agotado · más stock pronto</span>
+        </div>
+        <div class="drop-info">
+          <div class="drop-tech">700 Fill Down</div>
+          <div class="drop-brand wm-northface">THE NORTH FACE</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- ═══ NIVELES + ADIDAS (FARDOS) ═══ -->
   <style>
   .fx-sec{padding:64px 22px;max-width:1180px;margin:0 auto}
@@ -318,7 +320,16 @@ fbq('track', 'PageView');
   .fx-form button{grid-column:1/-1;background:#b0894f;color:#161007;font:700 15px 'Inter';padding:15px;border:none;border-radius:100px;cursor:pointer;transition:.2s}
   .fx-form button:hover{filter:brightness(1.08)}
   .fx-ok{display:none;margin-top:16px;color:#7fe0a0;font:500 14px 'Inter'}
-  @media(max-width:760px){.fx-tiers{grid-template-columns:1fr}.fx-form{grid-template-columns:1fr}}
+  /* Badge "agotado" sobre los abrigos al detalle */
+  .drop-soldout{position:absolute;top:14px;left:14px;z-index:3;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;font:600 10.5px/1 'Inter',sans-serif;letter-spacing:.07em;text-transform:uppercase;padding:8px 12px;border-radius:100px}
+  /* Beneficios premium de Adidas mayorista */
+  .fx-perks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:680px;margin:0 auto 20px;text-align:left}
+  .fx-perk{display:flex;gap:11px;align-items:flex-start;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(0,0,0,.25)}
+  .fx-perk-ic{flex:none;width:22px;height:22px;border-radius:50%;background:#b0894f;color:#161007;font:700 12px/22px 'Inter';text-align:center}
+  .fx-perk strong{display:block;font:600 14px 'Inter';color:#fff;margin-bottom:2px}
+  .fx-perk small{font:400 12px/1.35 'Inter';color:#9a958c}
+  .fx-waitline{font:500 13px 'Inter';color:#c9a96a;margin:0 auto 22px;letter-spacing:.01em}
+  @media(max-width:760px){.fx-tiers{grid-template-columns:1fr}.fx-form{grid-template-columns:1fr}.fx-perks{grid-template-columns:1fr}}
   </style>
 
   <section class="fx-sec">
@@ -357,15 +368,21 @@ fbq('track', 'PageView');
 
   <section class="fx-sec" id="anotate-adidas">
     <div class="fx-lead">
-      <div class="fx-eyebrow">04 · Lista de espera</div>
-      <h2 class="fx-title" style="margin-bottom:14px">Estamos trayendo <em>Adidas</em> al por mayor</h2>
-      <p class="fx-sub">Desde 100 prendas. Anotate y te avisamos primero, con el precio mayorista, antes que a nadie.</p>
+      <div class="fx-eyebrow">04 · Mayorista</div>
+      <h2 class="fx-title" style="margin-bottom:14px">Adidas original, <em>por volumen</em></h2>
+      <p class="fx-sub">Estamos cerrando la próxima importación de Adidas al por mayor, desde 100 prendas. Surtido de hombre y mujer, 100% original, al precio mayorista real — pensado para que tu negocio gane margen desde la primera caja.</p>
+      <div class="fx-perks">
+        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Desde 100 prendas</strong><small>Armamos el volumen a tu medida</small></div></div>
+        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Precio mayorista real</strong><small>El costo por prenda más bajo</small></div></div>
+        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Original e importado</strong><small>Directo, sin intermediarios</small></div></div>
+      </div>
+      <p class="fx-waitline">◆ Cupos limitados por importación · Te avisamos primero, antes que a nadie</p>
       <form class="fx-form" id="adidas-form" onsubmit="return adidasLead(event)">
         <div><label>Nombre</label><input name="nombre" required placeholder="Tu nombre"></div>
         <div><label>Ciudad</label><input name="ciudad" required placeholder="Cochabamba, La Paz…"></div>
         <div><label>WhatsApp</label><input name="wpp" required inputmode="tel" placeholder="Tu número"></div>
         <div><label>¿Cuántas prendas?</label><select name="cantidad"><option>100 a 200</option><option>200 a 500</option><option>500+</option><option>Todavía estoy viendo</option></select></div>
-        <button type="submit">Anotarme en la lista</button>
+        <button type="submit">Asegurar mi lugar</button>
       </form>
       <div class="fx-ok" id="adidas-ok">✓ ¡Listo! Te abrimos WhatsApp para confirmar tu lugar. Te avisamos apenas llegue.</div>
     </div>
@@ -580,7 +597,7 @@ fbq('track', 'PageView');
 
 </div><!-- /#site -->
 
-<script src="data.js?v=10" defer></script>
+<script src="data.js?v=11" defer></script>
 <script src="app.js?v=21" defer></script>
 </body>
 </html>
