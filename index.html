@@ -25,6 +25,18 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1506761844496918&ev=PageView&noscript=1" /></noscript>
 
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+  ttq.load('D922I43C77U79CKELH10');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
 <link rel="preload" as="image" href="assets/logo-intro-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -343,7 +355,7 @@ fbq('track', 'PageView');
         <div class="fx-st">Para arrancar tu reventa</div>
         <div class="fx-pz">20 <small>prendas</small></div>
         <ul><li>20 prendas de marca para revender</li><li>Incluye piezas de hombre nuevas de marca</li><li>Foto real de cada lote</li><li>Bs. 1.350 el fardo</li></ul>
-        <a class="fx-cta solid" href="https://wa.me/59175613517?text=Hola!%20Quiero%20un%20Fardo%20Loyal%20Starter%20(Bs%201.350)." target="_blank" onclick="if(typeof fbq==='function')fbq('track','Lead')">Pedir por WhatsApp</a>
+        <a class="fx-cta solid" href="https://wa.me/59175613517?text=Hola!%20Quiero%20un%20Fardo%20Loyal%20Starter%20(Bs%201.350)." target="_blank" onclick="if(typeof fbq==='function')fbq('track','Lead');if(typeof ttq!=='undefined')ttq.track('Contact',{content_name:'Fardo Loyal Starter'});">Pedir por WhatsApp</a>
       </div>
       <div class="fx-tier">
         <span class="fx-badge soon">Próximamente</span>
@@ -395,6 +407,7 @@ fbq('track', 'PageView');
     var n=f.nombre.value.trim(), c=f.ciudad.value.trim(), w=f.wpp.value.trim(), q=f.cantidad.value;
     if(!n||!c){return false;}
     if(typeof fbq==='function'){try{fbq('track','Lead',{content_name:'Adidas Mayorista'});}catch(_){}}
+    if(typeof ttq!=='undefined'){try{ttq.track('SubmitForm',{content_name:'Adidas Mayorista'});}catch(_){}}
     var msg='Hola! Me anoto para ADIDAS al por mayor\n\nNombre: '+n+'\nCiudad: '+c+'\nWhatsApp: '+w+'\nCantidad: '+q;
     var num=(typeof WA_NUM!=='undefined'?WA_NUM:'59175613517');
     window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
