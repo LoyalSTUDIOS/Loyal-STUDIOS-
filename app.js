@@ -311,6 +311,7 @@ function buyWA() {
   const msg = encodeURIComponent(
     `Hola ${TIENDA}, quiero el ${cur.nombre}${curSize ? " (Talla " + curSize + ")" : ""} — ${cur.precio}`
   );
+  if (typeof ttq !== "undefined") { try { ttq.track("Contact", { contents:[{ content_id:String(cur.id), content_type:"product", content_name:cur.nombre }], value: parseInt((cur.precio||"").replace(/[^0-9]/g,""),10)||1350, currency:"BOB" }); } catch(_){} }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
 }
 
@@ -420,6 +421,7 @@ function cartCheckoutWA() {
       num_items: cart.length
     });
   }
+  if (typeof ttq !== "undefined") { try { ttq.track("Contact", { value: total||1350, currency:"BOB", contents: cart.map(i=>({ content_id:String(i.id), content_type:"product" })) }); } catch(_){} }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
 }
 

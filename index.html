@@ -38,6 +38,17 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 </script>
 <!-- TikTok Pixel Code End -->
 
+<!-- Dispara Contact (TikTok) en CUALQUIER clic a un enlace de WhatsApp -->
+<script>
+document.addEventListener('click', function(e){
+  var a = (e.target && e.target.closest) ? e.target.closest('a[href*="wa.me"]') : null;
+  if (a && typeof ttq !== 'undefined') {
+    try { ttq.track('Contact', { contents:[{ content_id:'fardo-starter', content_type:'product', content_name:'Fardo Loyal Starter' }], value:1350, currency:'BOB' }); } catch(_){}
+    if (typeof fbq === 'function') { try { fbq('track','Lead'); } catch(_){} }
+  }
+}, true);
+</script>
+
 <link rel="preload" as="image" href="assets/logo-intro-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
