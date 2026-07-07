@@ -795,6 +795,54 @@ nav{
 }
 .card:hover .card-img img{transform:scale(1.06)}
 
+/* ═══ SELLO "VENDIDO" — el fardo sigue visible, marcado en color (no B&N) ═══ */
+.card.is-sold{cursor:default}
+.card.is-sold .card-img img{
+  /* Nada de escala de grises: solo un leve oscurecido para que el sello resalte */
+  filter:brightness(.62) saturate(1.05);
+  transition:filter .5s;
+}
+.card.is-sold:hover .card-img img{transform:none;filter:brightness(.68) saturate(1.1)}
+.card.is-sold:hover{transform:translateY(-2px)}
+.card-sold{
+  position:absolute;inset:0;z-index:4;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;pointer-events:none;overflow:hidden;
+  background:radial-gradient(circle at 50% 42%,rgba(224,48,48,.18),rgba(0,0,0,.42) 72%);
+}
+.card-sold-tag{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(30px,7.5vw,46px);letter-spacing:2px;line-height:.92;
+  text-transform:uppercase;color:#fff;
+  padding:10px 22px;border-radius:10px;
+  transform:rotate(-11deg);
+  background:linear-gradient(135deg,#e11d1d,#ff5a3c 55%,#b0894f);
+  border:2.5px solid rgba(255,255,255,.9);
+  box-shadow:0 10px 30px rgba(224,48,48,.5),0 2px 0 rgba(0,0,0,.25) inset;
+  animation:soldStamp .55s cubic-bezier(.16,1.3,.5,1) both,soldPulse 1.8s ease-in-out 1s infinite;
+}
+.card-sold-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;
+  color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  padding:5px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.28);
+  transform:rotate(-11deg);
+  animation:soldFade .5s ease .35s both;
+}
+@keyframes soldStamp{
+  0%{opacity:0;transform:rotate(-11deg) scale(1.9)}
+  60%{opacity:1;transform:rotate(-11deg) scale(.9)}
+  100%{opacity:1;transform:rotate(-11deg) scale(1)}
+}
+@keyframes soldPulse{
+  0%,100%{transform:rotate(-11deg) scale(1);box-shadow:0 10px 30px rgba(224,48,48,.5),0 2px 0 rgba(0,0,0,.25) inset}
+  50%{transform:rotate(-11deg) scale(1.06);box-shadow:0 14px 40px rgba(255,90,60,.7),0 2px 0 rgba(0,0,0,.25) inset}
+}
+@keyframes soldFade{from{opacity:0;transform:rotate(-11deg) translateY(8px)}to{opacity:1;transform:rotate(-11deg) translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+  .card-sold-tag{animation:soldStamp .4s ease both}
+}
+
 .card-badge{
   position:absolute;top:12px;left:12px;z-index:2;
   font-family:'JetBrains Mono',monospace;

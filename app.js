@@ -125,14 +125,21 @@ function discPct(p) {
 
 function cardHTML(p, i) {
   const pct = discPct(p);
+  const vendido = p.stock === false;
+  const soldOverlay = vendido ? `
+        <div class="card-sold">
+          <span class="card-sold-tag">Vendido</span>
+          <span class="card-sold-sub">Ya no disponible</span>
+        </div>` : "";
   return `
-    <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
+    <article class="card${vendido ? " is-sold" : ""}" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
+        ${soldOverlay}
         ${badge(p.badge)}
         ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
         <div class="card-uid">${uidOf(p)}</div>
-        <div class="card-cta">Ver producto →</div>
+        <div class="card-cta">${vendido ? "Vendido ✓" : "Ver producto →"}</div>
       </div>
       <div class="card-body">
         <div class="card-brand">${p.marca}</div>
@@ -150,7 +157,7 @@ function render() {
   const list = isSold
     ? ITEMS.filter(p => p.stock === false && (fG === "all" || p.genero === fG))
     : ITEMS.filter(p =>
-        p.stock !== false &&
+        // Los vendidos NO se ocultan: siguen en su lugar con el sello "Vendido".
         (fG === "all" || p.genero === fG) &&
         (fB === "all" || p.marca_id === fB)
       );
