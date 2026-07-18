@@ -26,7 +26,7 @@ const FARDO_DESC =
 // 11 fardos Loyal Starter disponibles, cada uno con la foto REAL de su lote.
 const FARDO_FOTOS = { 1:4, 2:6, 3:8, 4:7, 5:7, 6:7, 7:8, 8:7, 9:7, 10:6, 11:8 };
 // Fardos ya VENDIDOS: siguen mostrándose en su lugar, marcados como vendidos.
-const FARDOS_VENDIDOS = [3, 6, 9];
+const FARDOS_VENDIDOS = [3, 4, 6, 9];
 const ITEMS = [];
 for (let _i = 1; _i <= 11; _i++) {
   const fotos = [];

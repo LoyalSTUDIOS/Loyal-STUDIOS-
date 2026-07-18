@@ -394,8 +394,6 @@ document.addEventListener('click', function(e){
   /* ═══ MAYORISTA — Vitrina de marcas + lista de espera ═══ */
   .mw-head{text-align:center;max-width:640px;margin:0 auto 30px}
   .mw-banner{display:inline-block;font:600 12px/1.3 'Inter',sans-serif;letter-spacing:.02em;color:#161007;background:linear-gradient(90deg,#c9a96a,#b0894f);padding:9px 16px;border-radius:100px;margin-bottom:18px}
-  .mw-deposit{font:500 14.5px/1.6 'Inter',sans-serif;color:#cfc8bb;max-width:46ch;margin:16px auto 0}
-  .mw-deposit strong{color:#f0c46a;font-weight:700}
   /* Fondo tenue IDÉNTICO en todas las tarjetas (simetría total) */
   .mw-card{
     position:relative;border:1px solid rgba(255,255,255,.1);border-radius:16px;
@@ -447,7 +445,8 @@ document.addEventListener('click', function(e){
   .mw-card{overflow:hidden}
   .mw-card::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.10) 50%,transparent 65%);transform:translateX(-120%);transition:transform .7s ease;pointer-events:none;z-index:2}
   .mw-card:hover::after{transform:translateX(120%)}
-  .mw-card .mw-pub,.mw-card .mw-cta,.mw-card .mw-wm,.mw-card .mw-nikekid{position:relative;z-index:3}
+  .mw-card .mw-wm,.mw-card .mw-nikekid{position:relative;z-index:3}
+  .mw-card .mw-pub,.mw-card .mw-cta{z-index:3}
   .mw-card:hover{transform:perspective(700px) rotateX(5deg) translateY(-7px) scale(1.02);border-color:rgba(201,169,106,.75);box-shadow:0 24px 52px rgba(0,0,0,.55),0 10px 28px rgba(176,137,79,.3)}
   .mw-banner{position:relative;animation:mwGlow 2.6s ease-in-out infinite}
   @keyframes mwGlow{0%,100%{box-shadow:0 6px 18px rgba(176,137,79,.3)}50%{box-shadow:0 10px 34px rgba(240,196,106,.65)}}
@@ -474,7 +473,6 @@ document.addEventListener('click', function(e){
       <div class="fx-eyebrow" style="margin-bottom:12px">04 · Reservas</div>
       <h2 class="fx-title" style="margin-bottom:16px">La próxima importación. <em>Ya comenzó a llenarse.</em></h2>
       <span class="mw-banner"><span class="mw-flame">🔥</span> Reservá antes de que se agote · hasta agotar stock</span>
-      <p class="mw-deposit"><strong>Reservá tu fardo con solo Bs. 40.</strong> Separalo con un anticipo y te lo apartamos exclusivamente para vos.</p>
     </div>
 
     <!-- Pallets por marca -->
@@ -482,32 +480,32 @@ document.addEventListener('click', function(e){
       <div class="mw-card" data-brand="Adidas" data-pub="Hombre,Mujer" onclick="mwPick(this)">
         <span class="mw-pub">Hombre · Mujer</span>
         <span class="mw-wm mw-adidas">adidas</span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
       <div class="mw-card" data-brand="Nike Niño" data-pub="" onclick="mwPick(this)">
         <span class="mw-pub">Niño</span>
         <span class="mw-nikekid"><span class="mw-wm mw-nike">Nike</span><small>NIÑO</small></span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
       <div class="mw-card" data-brand="Vans" data-pub="Hombre,Mujer" onclick="mwPick(this)">
         <span class="mw-pub">Hombre · Mujer</span>
         <span class="mw-wm mw-vans">Vans</span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
       <div class="mw-card" data-brand="Zara" data-pub="Hombre,Mujer" onclick="mwPick(this)">
         <span class="mw-pub">Hombre · Mujer</span>
         <span class="mw-wm mw-zara">Zara</span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
       <div class="mw-card" data-brand="Bershka" data-pub="Hombre,Mujer" onclick="mwPick(this)">
         <span class="mw-pub">Hombre · Mujer</span>
         <span class="mw-wm mw-bershka">Bershka</span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
       <div class="mw-card" data-brand="Lefties" data-pub="Hombre,Mujer" onclick="mwPick(this)">
         <span class="mw-pub">Hombre · Mujer</span>
         <span class="mw-wm mw-lefties">Lefties</span>
-        <span class="mw-cta">Reservar</span>
+        <span class="mw-cta">Lista de espera</span>
       </div>
     </div>
 
@@ -726,8 +724,8 @@ document.addEventListener('click', function(e){
         <div class="d-feat">
           <div class="d-feat-icon">🔒</div>
           <div>
-            <div class="d-feat-t">Reservá tu prenda con solo Bs. 40</div>
-            <div class="d-feat-s">Separala con un anticipo y la apartamos exclusivamente para vos.</div>
+            <div class="d-feat-t">Reservá tu fardo con solo Bs. 40</div>
+            <div class="d-feat-s">Separalo con un anticipo y lo apartamos exclusivamente para vos.</div>
           </div>
         </div>
       </div>
