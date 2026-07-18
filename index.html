@@ -390,43 +390,239 @@ document.addEventListener('click', function(e){
     </div>
   </section>
 
+  <style>
+  /* ═══ MAYORISTA — Vitrina de marcas + lista de espera ═══ */
+  .mw-head{text-align:center;max-width:640px;margin:0 auto 30px}
+  .mw-banner{display:inline-block;font:600 12px/1.3 'Inter',sans-serif;letter-spacing:.02em;color:#161007;background:linear-gradient(90deg,#c9a96a,#b0894f);padding:9px 16px;border-radius:100px;margin-bottom:18px}
+  .mw-deposit{font:500 14.5px/1.6 'Inter',sans-serif;color:#cfc8bb;max-width:46ch;margin:16px auto 0}
+  .mw-deposit strong{color:#f0c46a;font-weight:700}
+  /* Fondo tenue IDÉNTICO en todas las tarjetas (simetría total) */
+  .mw-card{
+    position:relative;border:1px solid rgba(255,255,255,.1);border-radius:16px;
+    background:
+      radial-gradient(circle at 50% 22%, rgba(176,137,79,.18), transparent 60%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,.028) 0 1px, transparent 1px 10px),
+      #141210;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .mw-card.on{border-color:#c9a96a;box-shadow:0 0 0 2px rgba(201,169,106,.55),0 12px 34px rgba(0,0,0,.4)}
+  .mw-card{cursor:pointer;min-height:158px;display:flex;align-items:center;justify-content:center;padding:20px 14px}
+  .mw-card:hover{transform:translateY(-3px);border-color:rgba(201,169,106,.6)}
+  .mw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1180px;margin:0 auto}
+  /* Etiqueta de público */
+  .mw-pub{position:absolute;top:11px;left:11px;font:700 9px/1 'JetBrains Mono',monospace;letter-spacing:.9px;text-transform:uppercase;color:#161007;background:#c9a96a;padding:5px 8px;border-radius:100px}
+  .mw-cta{position:absolute;bottom:11px;left:0;right:0;text-align:center;font:600 10.5px/1 'Inter',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:rgba(201,169,106,.85)}
+  .mw-card:hover .mw-cta,.mw-card.on .mw-cta{color:#fff}
+  .mw-card.on .mw-cta::before{content:"✓ "}
+  /* Wordmarks — mismo tratamiento, distinto logo */
+  .mw-wm{display:inline-block;line-height:1;color:#fff}
+  .mw-nike{font-family:'Anton',sans-serif;font-style:italic;font-size:30px;text-transform:uppercase;letter-spacing:-.02em}
+  .mw-adidas{font-family:'Archivo',sans-serif;font-weight:900;font-size:30px;text-transform:lowercase;letter-spacing:-.04em}
+  .mw-vans{font-family:'Anton',sans-serif;font-style:italic;font-size:30px;text-transform:uppercase;letter-spacing:.02em}
+  .mw-zara{font-family:'DM Serif Display',serif;font-size:34px;text-transform:uppercase;letter-spacing:-.05em}
+  .mw-bershka{font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+  .mw-lefties{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.06em}
+  .mw-nikekid{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .mw-nikekid small{font:700 9px 'JetBrains Mono',monospace;letter-spacing:2px;color:#c9a96a}
+  /* Formulario lista de espera */
+  .mw-formwrap{border:1px solid rgba(176,137,79,.4);border-radius:22px;padding:38px 30px;background:linear-gradient(160deg,rgba(176,137,79,.12),rgba(255,255,255,.02));max-width:640px;margin:40px auto 0}
+  .mw-formwrap h3{font:400 clamp(24px,4vw,32px)/1.1 'DM Serif Display',serif;color:#fff;text-align:center;margin-bottom:6px}
+  .mw-formwrap h3 em{font-style:italic;color:#c9a96a}
+  .mw-fieldlabel{font:600 11px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:#c9a96a;margin:22px 0 10px}
+  .mw-chips{display:flex;flex-wrap:wrap;gap:9px}
+  .mw-chip{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);color:#cfc8bb;padding:9px 15px;border-radius:100px;font:600 13px 'Inter';cursor:pointer;transition:.15s}
+  .mw-chip:hover{border-color:rgba(201,169,106,.6)}
+  .mw-chip.on{background:#c9a96a;color:#161007;border-color:#c9a96a}
+  .mw-shake{animation:mwShake .45s}
+  @keyframes mwShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  .mw-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+  .mw-grid2 label{font:600 11px 'Inter';letter-spacing:.05em;text-transform:uppercase;color:#9a958c;display:block;margin-bottom:6px}
+  .mw-grid2 input,.mw-grid2 select{width:100%;padding:13px 15px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.3);color:#fff;font:400 15px 'Inter';box-sizing:border-box}
+  .mw-grid2 input:focus,.mw-grid2 select:focus{outline:none;border-color:#b0894f}
+  .mw-submit{width:100%;margin-top:20px;background:#c9a96a;color:#161007;font:700 15px 'Inter';padding:16px;border:none;border-radius:100px;cursor:pointer;transition:.2s}
+  .mw-submit:hover{filter:brightness(1.08)}
+  .mw-micro{text-align:center;font:500 12px 'Inter';color:#9a958c;margin-top:12px}
+  .mw-ok{display:none;margin-top:16px;text-align:center;color:#7fe0a0;font:500 14px 'Inter'}
+  /* ── Vida · 3D · animaciones ── */
+  .mw-card{overflow:hidden}
+  .mw-card::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.10) 50%,transparent 65%);transform:translateX(-120%);transition:transform .7s ease;pointer-events:none;z-index:2}
+  .mw-card:hover::after{transform:translateX(120%)}
+  .mw-card .mw-pub,.mw-card .mw-cta,.mw-card .mw-wm,.mw-card .mw-nikekid{position:relative;z-index:3}
+  .mw-card:hover{transform:perspective(700px) rotateX(5deg) translateY(-7px) scale(1.02);border-color:rgba(201,169,106,.75);box-shadow:0 24px 52px rgba(0,0,0,.55),0 10px 28px rgba(176,137,79,.3)}
+  .mw-banner{position:relative;animation:mwGlow 2.6s ease-in-out infinite}
+  @keyframes mwGlow{0%,100%{box-shadow:0 6px 18px rgba(176,137,79,.3)}50%{box-shadow:0 10px 34px rgba(240,196,106,.65)}}
+  .mw-flame{display:inline-block;animation:mwFlick 1s ease-in-out infinite}
+  @keyframes mwFlick{0%,100%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.18) rotate(4deg)}}
+  .mw-submit{animation:mwBtn 2.2s ease-in-out infinite}
+  @keyframes mwBtn{0%,100%{box-shadow:0 0 0 0 rgba(201,169,106,.5)}50%{box-shadow:0 0 24px 3px rgba(201,169,106,.55)}}
+  /* Aparición al hacer scroll (fail-safe: sólo oculta si el JS marcó la sección) */
+  .mw-js .mw-card,.mw-js .mw-formwrap{opacity:0;transition:opacity .6s ease,transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .mw-js .mw-in{opacity:1}
+  @media(prefers-reduced-motion:reduce){
+    .mw-flame,.mw-submit,.mw-banner{animation:none}
+    .mw-js .mw-card,.mw-js .mw-formwrap{opacity:1}
+  }
+  @media(max-width:760px){
+    .mw-grid{grid-template-columns:repeat(2,1fr)}
+    .mw-grid2{grid-template-columns:1fr}
+    .mw-card{min-height:132px}
+  }
+  </style>
+
   <section class="fx-sec" id="anotate-adidas">
-    <div class="fx-lead">
-      <div class="fx-eyebrow">04 · Mayorista</div>
-      <h2 class="fx-title" style="margin-bottom:14px">Adidas original, <em>por volumen</em></h2>
-      <p class="fx-sub">Estamos cerrando la próxima importación de Adidas al por mayor, desde 100 prendas. Surtido de hombre y mujer, 100% original, al precio mayorista real — pensado para que tu negocio gane margen desde la primera caja.</p>
-      <div class="fx-perks">
-        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Desde 100 prendas</strong><small>Armamos el volumen a tu medida</small></div></div>
-        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Precio mayorista real</strong><small>El costo por prenda más bajo</small></div></div>
-        <div class="fx-perk"><span class="fx-perk-ic">✓</span><div><strong>Original e importado</strong><small>Directo, sin intermediarios</small></div></div>
-      </div>
-      <p class="fx-waitline">◆ Cupos limitados por importación · Te avisamos primero, antes que a nadie</p>
-      <form class="fx-form" id="adidas-form" onsubmit="return adidasLead(event)">
-        <div><label>Nombre</label><input name="nombre" required placeholder="Tu nombre"></div>
-        <div><label>Ciudad</label><input name="ciudad" required placeholder="Cochabamba, La Paz…"></div>
-        <div><label>WhatsApp</label><input name="wpp" required inputmode="tel" placeholder="Tu número"></div>
-        <div><label>¿Cuántas prendas?</label><select name="cantidad"><option>100 a 200</option><option>200 a 500</option><option>500+</option><option>Todavía estoy viendo</option></select></div>
-        <button type="submit">Asegurar mi lugar</button>
-      </form>
-      <div class="fx-ok" id="adidas-ok">✓ ¡Listo! Te abrimos WhatsApp para confirmar tu lugar. Te avisamos apenas llegue.</div>
+    <div class="mw-head">
+      <div class="fx-eyebrow" style="margin-bottom:12px">04 · Reservas</div>
+      <h2 class="fx-title" style="margin-bottom:16px">La próxima importación. <em>Ya comenzó a llenarse.</em></h2>
+      <span class="mw-banner"><span class="mw-flame">🔥</span> Reservá antes de que se agote · hasta agotar stock</span>
+      <p class="mw-deposit"><strong>Reservá tu fardo con solo Bs. 40.</strong> Separalo con un anticipo y te lo apartamos exclusivamente para vos.</p>
     </div>
+
+    <!-- Pallets por marca -->
+    <div class="mw-grid">
+      <div class="mw-card" data-brand="Adidas" data-pub="Hombre,Mujer" onclick="mwPick(this)">
+        <span class="mw-pub">Hombre · Mujer</span>
+        <span class="mw-wm mw-adidas">adidas</span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+      <div class="mw-card" data-brand="Nike Niño" data-pub="" onclick="mwPick(this)">
+        <span class="mw-pub">Niño</span>
+        <span class="mw-nikekid"><span class="mw-wm mw-nike">Nike</span><small>NIÑO</small></span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+      <div class="mw-card" data-brand="Vans" data-pub="Hombre,Mujer" onclick="mwPick(this)">
+        <span class="mw-pub">Hombre · Mujer</span>
+        <span class="mw-wm mw-vans">Vans</span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+      <div class="mw-card" data-brand="Zara" data-pub="Hombre,Mujer" onclick="mwPick(this)">
+        <span class="mw-pub">Hombre · Mujer</span>
+        <span class="mw-wm mw-zara">Zara</span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+      <div class="mw-card" data-brand="Bershka" data-pub="Hombre,Mujer" onclick="mwPick(this)">
+        <span class="mw-pub">Hombre · Mujer</span>
+        <span class="mw-wm mw-bershka">Bershka</span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+      <div class="mw-card" data-brand="Lefties" data-pub="Hombre,Mujer" onclick="mwPick(this)">
+        <span class="mw-pub">Hombre · Mujer</span>
+        <span class="mw-wm mw-lefties">Lefties</span>
+        <span class="mw-cta">Reservar</span>
+      </div>
+    </div>
+
+    <!-- FORMULARIO: lista de espera -->
+    <form class="mw-formwrap" id="mw-form-anchor" onsubmit="return mwSubmit(event)">
+      <h3>Reservá tu <em>caja</em></h3>
+
+      <div class="mw-fieldlabel">¿Qué querés reservar? (elegí las que quieras)</div>
+      <div class="mw-chips" id="mw-brands">
+        <button type="button" class="mw-chip" data-mwbrand="Adidas" onclick="mwToggle(this)">Adidas</button>
+        <button type="button" class="mw-chip" data-mwbrand="Nike Niño" onclick="mwToggle(this)">Nike Niño</button>
+        <button type="button" class="mw-chip" data-mwbrand="Vans" onclick="mwToggle(this)">Vans</button>
+        <button type="button" class="mw-chip" data-mwbrand="Zara" onclick="mwToggle(this)">Zara</button>
+        <button type="button" class="mw-chip" data-mwbrand="Bershka" onclick="mwToggle(this)">Bershka</button>
+        <button type="button" class="mw-chip" data-mwbrand="Lefties" onclick="mwToggle(this)">Lefties</button>
+      </div>
+
+      <div class="mw-fieldlabel">¿Para qué público?</div>
+      <div class="mw-chips">
+        <button type="button" class="mw-chip" data-mwpub="Hombre" onclick="mwToggle(this)">Hombre</button>
+        <button type="button" class="mw-chip" data-mwpub="Mujer" onclick="mwToggle(this)">Mujer</button>
+        <button type="button" class="mw-chip" data-mwpub="Mixto" onclick="mwToggle(this)">Mixto</button>
+      </div>
+
+      <div class="mw-grid2">
+        <div><label>¿Cuántas prendas?</label><select name="volumen"><option>20 prendas (Starter)</option><option>50 prendas (Pro)</option><option>100 prendas (Elite)</option></select></div>
+        <div><label>Ciudad</label><input name="ciudad" required placeholder="Cochabamba, La Paz…"></div>
+        <div><label>Nombre</label><input name="nombre" required placeholder="Tu nombre"></div>
+        <div style="grid-column:1/-1"><label>WhatsApp</label><input name="wpp" required inputmode="tel" placeholder="Tu número"></div>
+      </div>
+
+      <button type="submit" class="mw-submit">RESERVAR AHORA</button>
+      <div class="mw-micro">Stock limitado — se cierra al agotar la tanda</div>
+      <div class="mw-ok" id="mw-ok">✓ ¡Listo! Tu reserva quedó anotada. Te escribimos por WhatsApp para cerrarla.</div>
+    </form>
   </section>
 
   <script>
-  function adidasLead(e){
+  // Pega acá la URL de tu Google Apps Script cuando esté lista (guarda en Sheet).
+  // Mientras esté vacío, el formulario igual funciona y abre WhatsApp.
+  var MW_ENDPOINT = "https://script.google.com/macros/s/AKfycbwhUWFdkWLMPI3JIrxGWukqFSWbsA7ANm7a0T5BlET2JnrO5COKzhYHKTahhdIPi3Y2vA/exec";
+
+  function mwToggle(el){
+    el.classList.toggle('on');
+    var b=el.getAttribute('data-mwbrand');
+    if(b){
+      var card=document.querySelector('.mw-card[data-brand="'+b+'"]');
+      if(card) card.classList.toggle('on', el.classList.contains('on'));
+    }
+  }
+  function mwPick(el){
+    var b=el.getAttribute('data-brand');
+    var chip=document.querySelector('[data-mwbrand="'+b+'"]');
+    if(!chip) return;
+    var on=!chip.classList.contains('on');
+    chip.classList.toggle('on', on);
+    el.classList.toggle('on', on);
+    if(on){
+      (el.getAttribute('data-pub')||'').split(',').forEach(function(p){
+        p=p.trim(); if(!p) return;
+        var pc=document.querySelector('[data-mwpub="'+p+'"]');
+        if(pc) pc.classList.add('on');
+      });
+      document.getElementById('mw-form-anchor').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }
+  function mwSubmit(e){
     e.preventDefault();
     var f=e.target;
-    var n=f.nombre.value.trim(), c=f.ciudad.value.trim(), w=f.wpp.value.trim(), q=f.cantidad.value;
-    if(!n||!c){return false;}
-    if(typeof fbq==='function'){try{fbq('track','Lead',{content_name:'Adidas Mayorista'});}catch(_){}}
-    if(typeof ttq!=='undefined'){try{ttq.track('SubmitForm',{content_name:'Adidas Mayorista'});}catch(_){}}
-    var msg='Hola! Me anoto para ADIDAS al por mayor\n\nNombre: '+n+'\nCiudad: '+c+'\nWhatsApp: '+w+'\nCantidad: '+q;
+    var brands=Array.prototype.map.call(document.querySelectorAll('#mw-brands .mw-chip.on'), function(x){return x.getAttribute('data-mwbrand');});
+    var pubs=Array.prototype.map.call(document.querySelectorAll('.mw-chip.on[data-mwpub]'), function(x){return x.getAttribute('data-mwpub');});
+    var nombre=f.nombre.value.trim(), ciudad=f.ciudad.value.trim(), wpp=f.wpp.value.trim();
+    var vol=f.volumen.value;
+    if(!brands.length){
+      var box=document.getElementById('mw-brands');
+      box.classList.add('mw-shake'); setTimeout(function(){box.classList.remove('mw-shake');},450);
+      return false;
+    }
+    if(!nombre||!ciudad||!wpp) return false;
+    var payload={ fecha:new Date().toLocaleString('es-BO'), nombre:nombre, whatsapp:wpp, ciudad:ciudad, marcas:brands.join(', '), publico:pubs.join(', '), volumen:vol };
+    if(MW_ENDPOINT){
+      try{ fetch(MW_ENDPOINT,{method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)}); }catch(_){}
+    }
+    var msg='Hola Loyal Studios! Quiero RESERVAR de la próxima importación 📦\n\n'+
+            'Marcas: '+brands.join(', ')+'\n'+
+            'Público: '+(pubs.join(', ')||'-')+'\n'+
+            'Cantidad: '+vol+'\n'+
+            'Ciudad: '+ciudad+'\n'+
+            'Nombre: '+nombre+'\n'+
+            'WhatsApp: '+wpp;
     var num=(typeof WA_NUM!=='undefined'?WA_NUM:'59175613517');
     window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
-    document.getElementById('adidas-ok').style.display='block';
-    f.reset();
+    document.getElementById('mw-ok').style.display='block';
     return false;
   }
+  // Aparición suave al hacer scroll
+  (function(){
+    var sec=document.getElementById('anotate-adidas');
+    if(sec) sec.classList.add('mw-js');
+    var els=Array.prototype.slice.call(document.querySelectorAll('.mw-card,.mw-formwrap'));
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(en){
+        en.forEach(function(x){
+          if(x.isIntersecting){
+            var i=els.indexOf(x.target);
+            setTimeout(function(){ x.target.classList.add('mw-in'); }, (i<0?0:i)*55);
+            io.unobserve(x.target);
+          }
+        });
+      },{threshold:.12});
+      els.forEach(function(el){ io.observe(el); });
+    } else {
+      els.forEach(function(el){ el.classList.add('mw-in'); });
+    }
+  })();
   </script>
 
   <!-- FOOTER HOME -->
