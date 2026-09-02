@@ -1,5 +1,5 @@
 /* ═══ LOYAL STUDIOS — DATA (FARDOS / MAYORISTA) ═══ */
-const WA_NUM = "59175613517"; // WhatsApp del bot de Loyal Studios
+const WA_NUM = "59174267395"; // WhatsApp del bot de Loyal Studios
 const TIENDA = "Loyal Studios™";
 
 // Marcas que TOCAN dentro de los fardos (showcase, no filtro).
