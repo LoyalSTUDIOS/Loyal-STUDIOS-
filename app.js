@@ -112,7 +112,7 @@ function badge(b) {
   return "";
 }
 
-function uidOf(p) { return (p.marca_id === "loyal" ? "Nº " : "NK-") + String(p.id).padStart(2, "0"); }
+function uidOf(p) { return "NK-" + String(p.id).padStart(2, "0"); }
 
 // Porcentaje de descuento (0 si no hay precio_antes válido)
 function priceNum(s) { return parseInt(String(s).replace(/[^0-9]/g, ""), 10) || 0; }
@@ -125,21 +125,14 @@ function discPct(p) {
 
 function cardHTML(p, i) {
   const pct = discPct(p);
-  const vendido = p.stock === false;
-  const soldOverlay = vendido ? `
-        <div class="card-sold">
-          <span class="card-sold-tag">Vendido</span>
-          <span class="card-sold-sub">Ya no disponible</span>
-        </div>` : "";
   return `
-    <article class="card${vendido ? " is-sold" : ""}" style="--i:${i || 0}" onclick="openDetail(${p.id})">
+    <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
         <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
-        ${soldOverlay}
         ${badge(p.badge)}
         ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
         <div class="card-uid">${uidOf(p)}</div>
-        <div class="card-cta">${vendido ? "Vendido ✓" : "Ver producto →"}</div>
+        <div class="card-cta">Ver producto →</div>
       </div>
       <div class="card-body">
         <div class="card-brand">${p.marca}</div>
@@ -157,16 +150,16 @@ function render() {
   const list = isSold
     ? ITEMS.filter(p => p.stock === false && (fG === "all" || p.genero === fG))
     : ITEMS.filter(p =>
-        // Los vendidos NO se ocultan: siguen en su lugar con el sello "Vendido".
+        p.stock !== false &&
         (fG === "all" || p.genero === fG) &&
         (fB === "all" || p.marca_id === fB)
       );
   // Más nuevo primero: el NK más alto encabeza la grilla. Las prendas recién
   // subidas tienen id más grande, así suben solas al tope sin reordenar a mano.
-  list.sort((a, b) => a.id - b.id);
+  list.sort((a, b) => b.id - a.id);
   const grid = document.getElementById("grid");
   document.getElementById("cat-count").textContent =
-    `${list.length} ${list.length === 1 ? "fardo" : "fardos"}`;
+    `${list.length} ${list.length === 1 ? "pieza" : "piezas"}`;
   document.getElementById("dp-banner").classList.toggle("show", fB === "deprimera");
   document.getElementById("catalog").classList.toggle("sold-view", isSold);
 
@@ -255,15 +248,11 @@ function openDetail(id) {
     `<img class="d-thumb${i === 0 ? " on" : ""}" src="${f}" onclick="setImg(${i})" alt="">`
   ).join("");
 
-  // Sizes — los fardos no tienen talla: ocultamos la sección si no hay tallas.
+  // Sizes
   const sz = document.getElementById("d-sizes");
   sz.innerHTML = cur.tallas.map(t =>
     `<button class="d-sz" onclick="pickSize('${t}',this)">${t}</button>`
   ).join("");
-  const hasTallas = !!(cur.tallas && cur.tallas.length);
-  const tallaDiv = document.getElementById("d-talla-div");
-  if (tallaDiv) tallaDiv.style.display = hasTallas ? "" : "none";
-  sz.style.display = hasTallas ? "" : "none";
 
   // Buy button
   const buy = document.getElementById("d-buy");
@@ -318,7 +307,12 @@ function buyWA() {
   const msg = encodeURIComponent(
     `Hola ${TIENDA}, quiero el ${cur.nombre}${curSize ? " (Talla " + curSize + ")" : ""} — ${cur.precio}`
   );
-  if (typeof ttq !== "undefined") { try { ttq.track("Contact", { contents:[{ content_id:String(cur.id), content_type:"product", content_name:cur.nombre }], value: parseInt((cur.precio||"").replace(/[^0-9]/g,""),10)||1350, currency:"BOB" }); } catch(_){} }
+  if (typeof ttq !== "undefined") {
+    try {
+      const price = parseInt(cur.precio.replace(/[^0-9]/g, ""), 10) || 0;
+      ttq.track("Contact", { contents: [{ content_id: String(cur.id), content_type: "product", content_name: cur.nombre }], value: price, currency: "BOB" });
+    } catch (_) {}
+  }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
 }
 
@@ -428,7 +422,11 @@ function cartCheckoutWA() {
       num_items: cart.length
     });
   }
-  if (typeof ttq !== "undefined") { try { ttq.track("Contact", { value: total||1350, currency:"BOB", contents: cart.map(i=>({ content_id:String(i.id), content_type:"product" })) }); } catch(_){} }
+  if (typeof ttq !== "undefined") {
+    try {
+      ttq.track("Contact", { value: total, currency: "BOB", contents: cart.map(i => ({ content_id: String(i.id), content_type: "product" })) });
+    } catch (_) {}
+  }
   window.open(`https://wa.me/${WA_NUM}?text=${msg}`, "_blank");
 }
 
@@ -574,7 +572,7 @@ function buildBrandsCarousel() {
       <div class="bc-info">
         <span class="bc-tag">Ver colección →</span>
         <div class="bc-wordmark wm-${b.id}">${b.wordmark}</div>
-        <div class="bc-count">En los fardos</div>
+        <div class="bc-count">${ITEMS.filter(it => it.marca_id === b.id).length} piezas</div>
       </div>
     </article>`).join("");
 
@@ -659,11 +657,16 @@ function buildBrandsCarousel() {
 }
 
 function bcCardTap(targetEl) {
-  // Showcase visual de marcas (las que tocan en los fardos): tocar una solo la
-  // centra, ya no filtra el catálogo (los fardos no se filtran por marca).
   const card = targetEl.closest ? targetEl.closest(".bc-card") : null;
   if (!card) return;
-  bcGo(parseInt(card.dataset.i, 10));
+  const idx = parseInt(card.dataset.i, 10);
+  if (idx === _bcActive) {
+    const bid = card.dataset.bid;
+    const tab = document.querySelector(`[data-b='${bid}']`);
+    filterBrand(bid, tab);
+  } else {
+    bcGo(idx);
+  }
 }
 
 // ═══ INIT ═══
