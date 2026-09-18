@@ -123,12 +123,22 @@ function discPct(p) {
   return Math.round((1 - n / o) * 100);
 }
 
+// En redes móviles bolivianas una petición se cae de vez en cuando y la foto
+// queda en blanco para siempre. Reintentamos hasta 3 veces antes de rendirnos.
+function retryImg(img) {
+  const n = (parseInt(img.dataset.try, 10) || 0) + 1;
+  if (n > 3) return;
+  img.dataset.try = n;
+  const base = img.src.split("?")[0];
+  setTimeout(() => { img.src = base + "?r=" + n; }, 400 * n);
+}
+
 function cardHTML(p, i) {
   const pct = discPct(p);
   return `
     <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
-        <img src="${p.fotos[0]}" alt="${p.nombre}" loading="lazy" decoding="async">
+        <img src="${p.fotos[0]}" alt="${p.nombre}" decoding="async" onerror="retryImg(this)">
         ${badge(p.badge)}
         ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
         <div class="card-uid">${uidOf(p)}</div>
@@ -245,7 +255,7 @@ function openDetail(id) {
   document.getElementById("d-main").src = cur.fotos[0];
   const thumbs = document.getElementById("d-thumbs");
   thumbs.innerHTML = cur.fotos.map((f, i) =>
-    `<img class="d-thumb${i === 0 ? " on" : ""}" src="${f}" onclick="setImg(${i})" alt="">`
+    `<img class="d-thumb${i === 0 ? " on" : ""}" src="${f}" onclick="setImg(${i})" onerror="retryImg(this)" alt="">`
   ).join("");
 
   // Sizes
