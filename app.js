@@ -7,7 +7,7 @@ let cart = JSON.parse(localStorage.getItem("ls_cart") || "[]");
 // Migration: drop cart items whose product no longer exists OR whose stored
 // foto URL does not match the current product's first photo (catalog updates)
 cart = cart.filter(it => {
-  const p = (typeof PRODS !== "undefined") && PRODS.find(x => x.id === it.id);
+  const p = (typeof ITEMS !== "undefined") && ITEMS.find(x => x.id === it.id);
   if (!p) return false;
   it.foto = p.fotos[0]; // refresh image to current
   it.nombre = p.nombre;
@@ -133,12 +133,21 @@ function retryImg(img) {
   setTimeout(() => { img.src = base + "?r=" + n; }, 400 * n);
 }
 
+// La grilla usa una miniatura liviana (-thumb) para que cargue rápido en
+// datos móviles. Si esa miniatura no existe (prenda cargada sin generarla),
+// caemos a la foto completa antes de entrar al reintento genérico.
+function thumbOf(src) { return src.replace(/\.webp$/i, "-thumb.webp"); }
+function cardImgFallback(img, fullSrc) {
+  if (img.src.split("?")[0] !== fullSrc) { img.src = fullSrc; return; }
+  retryImg(img);
+}
+
 function cardHTML(p, i) {
   const pct = discPct(p);
   return `
     <article class="card" style="--i:${i || 0}" onclick="openDetail(${p.id})">
       <div class="card-img">
-        <img src="${p.fotos[0]}" alt="${p.nombre}" decoding="async" onerror="retryImg(this)">
+        <img src="${thumbOf(p.fotos[0])}" alt="${p.nombre}" decoding="async" onerror="cardImgFallback(this,'${p.fotos[0]}')">
         ${badge(p.badge)}
         ${pct ? `<div class="card-off">−${pct}%</div>` : ""}
         <div class="card-uid">${uidOf(p)}</div>
